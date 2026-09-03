@@ -50,7 +50,7 @@ namespace $.$$ {
 				left: rem( 1 ),
 				right: rem( 1 ),
 			},
-			gap: rem( .75 ),
+			gap: rem( 1.25 ),
 			maxWidth: rem( 46 ),
 			width: per( 100 ),
 		},

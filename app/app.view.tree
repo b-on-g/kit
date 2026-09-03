@@ -10,14 +10,11 @@ $bog_kit_app $mol_book2_catalog
 		body /
 			<= Intro_text $mol_text
 				text \
-					\# Catalog of stock $mol components
+					\# Catalogue of stock $mol components
 					\
-					\The root is a `$mol_book2_catalog`. Every section in the menu is
-					\a nested `$mol_book2_catalog` of its own, and every page inside
-					\a section is a `$mol_page`.
+					\The root is a catalogue of pages. Every section in the menu is a nested catalogue of its own, and every page inside a section holds one family of components.
 					\
-					\Nothing here has custom styles: everything you see is drawn by
-					\the stock components and the default theme.
+					\Nothing here has custom styles: everything you see is drawn by the stock components and the default theme.
 	spreads *
 		controls <= Controls $bog_kit_controls
 			menu_tools /

@@ -10,12 +10,12 @@
 	sheet next door.
 */
 
-[mol_check][bog_kit_check]:not([disabled]) > [bog_kit_check_icon] {
+[mol_check][bog_kit_check_box]:not([disabled]) > [bog_kit_check_box_icon] {
 	background: var(--bog_kit_sheet);
 	color: transparent;
 }
 
-[mol_check][bog_kit_check][mol_check_checked]:not([disabled]) > [bog_kit_check_icon] {
+[mol_check][bog_kit_check_box][mol_check_checked]:not([disabled]) > [bog_kit_check_box_icon] {
 	background: var(--bog_kit_pen);
 	color: var(--bog_kit_sheet);
 }

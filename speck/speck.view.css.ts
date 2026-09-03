@@ -10,6 +10,14 @@ namespace $.$$ {
 	*/
 	$mol_style_define( $bog_kit_speck, {
 
+		// Stock leaves the badge at its static position, which in $mol_button is
+		// before the label — so it lands on top of the first word. Pin it to the
+		// corner the reader expects instead.
+		position: 'absolute',
+		top: rem( -.3125 ),
+		right: rem( -.3125 ),
+		left: 'auto',
+		margin: 0,
 		minHeight: rem( 1.0625 ),
 		minWidth: rem( 1.0625 ),
 		padding: {

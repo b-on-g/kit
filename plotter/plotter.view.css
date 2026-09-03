@@ -6,6 +6,10 @@
 	known weight in a known ink. Hang $bog_kit_plotter on a view as a plugin and
 	the whole subtree switches to this palette.
 
+	Three grounds, not one: the desk everything lies on, the paper of a page, and
+	the brighter sheet of anything you can write in or pick up. That is what
+	makes a column of pages read as pages.
+
 	Values only. The names live in $bog_kit_tokens.
 */
 
@@ -16,8 +20,9 @@
 
 /* Paper: dark inks on a pale sage stock. */
 [bog_kit_plotter] {
-	--bog_kit_paper: #e3e7e0;
-	--bog_kit_sheet: #f4f6f1;
+	--bog_kit_desk: #d3d9d0;
+	--bog_kit_paper: #ecefe9;
+	--bog_kit_sheet: #f9faf7;
 	--bog_kit_ink: #141d1a;
 	--bog_kit_ink_soft: #5a6863;
 	--bog_kit_line: #5a686359;
@@ -42,8 +47,9 @@
 
 /* Carbon film: the same pens, opened up, on a dark stock. */
 [bog_kit_plotter][mol_theme="$mol_theme_dark"] {
-	--bog_kit_paper: #101715;
-	--bog_kit_sheet: #19211e;
+	--bog_kit_desk: #090d0c;
+	--bog_kit_paper: #141b19;
+	--bog_kit_sheet: #1e2724;
 	--bog_kit_ink: #dce3de;
 	--bog_kit_ink_soft: #8c9a95;
 	--bog_kit_line: #8c9a9552;
@@ -61,7 +67,7 @@
 	--mol_theme_hue: 285deg;
 	--mol_theme_hue_spread: 120deg;
 
-	--mol_theme_back: var(--bog_kit_paper);
+	--mol_theme_back: var(--bog_kit_desk);
 	--mol_theme_card: var(--bog_kit_sheet);
 	--mol_theme_field: var(--bog_kit_sheet);
 	--mol_theme_hover: #7f8f8a24;
@@ -77,18 +83,16 @@
 [bog_kit_plotter][mol_theme="$mol_theme_light"] {
 	--mol_theme_luma: 1;
 	--mol_theme_image: none;
-	--mol_theme_spirit: #f4f6f1bf;
+	--mol_theme_spirit: #f9faf7bf;
 }
 
 [bog_kit_plotter][mol_theme="$mol_theme_dark"] {
 	--mol_theme_luma: -1;
 	--mol_theme_image: invert(1) hue-rotate(180deg);
-	--mol_theme_spirit: #19211ebf;
+	--mol_theme_spirit: #1e2724bf;
 }
 
-/*
-	Tinted islands derive from the hue wheel by default. Give them the pens.
-*/
+/* Tinted islands derive from the hue wheel by default. Give them the pens. */
 [bog_kit_plotter] [mol_theme="$mol_theme_accent"] {
 	--mol_theme_back: var(--bog_kit_signal);
 	--mol_theme_card: var(--bog_kit_signal);
@@ -126,11 +130,49 @@
 }
 
 /*
-	$mol_book2 separates its columns with a pale inset frame around each page.
-	One vertical rule between them says the same thing with a single stroke.
+	A minor button inside a bubble is a row of a menu, not a button — the choice
+	is the list, and outlining each line would make it unreadable. The rule beats
+	$bog_kit_button on specificity rather than on load order, so it holds however
+	the bundle is sorted.
 */
+[bog_kit_plotter] [mol_pop_bubble] [bog_kit_button] {
+	box-shadow: none;
+	background: transparent;
+	color: var(--bog_kit_ink);
+}
+
+[bog_kit_plotter] [mol_pop_bubble] [bog_kit_button]:hover {
+	box-shadow: none;
+	background: var(--bog_kit_paper);
+	color: var(--bog_kit_ink);
+}
+
+/*
+	A heading in $mol_text is an anchor, so swapping $mol_link paints it in the
+	pen and gives it the menu rail. It is a heading; it reads as one.
+*/
+[bog_kit_plotter] [mol_text_header_link] {
+	color: inherit;
+	border-left: none;
+	padding-left: 0;
+	min-height: 0;
+}
+
+/*
+	$mol_book2 frames every page with a pale inset and marks the seams between
+	them with dashes. One vertical rule says the same thing with one stroke.
+*/
+[bog_kit_plotter][mol_book2] > [mol_page],
 [bog_kit_plotter] [mol_book2] > [mol_page] {
 	box-shadow: inset -1px 0 0 0 var(--bog_kit_line);
+}
+
+[bog_kit_plotter][mol_book2] > [mol_view]::before,
+[bog_kit_plotter][mol_book2] > [mol_view]::after,
+[bog_kit_plotter] [mol_book2] > [mol_view]::before,
+[bog_kit_plotter] [mol_book2] > [mol_view]::after {
+	display: none;
+	content: none;
 }
 
 [bog_kit_plotter] [mol_view]::selection {

@@ -1,4 +1,4 @@
-$bog_kit_lights_pick $mol_switch
+$bog_kit_lights_pick $bog_kit_switch
 	value? <=> lights? \auto
 	options *
 		auto \Auto

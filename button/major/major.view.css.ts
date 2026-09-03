@@ -11,6 +11,7 @@ namespace $.$$ {
 	$mol_style_define( $bog_kit_button_major, {
 
 		minHeight: rem( 2.125 ),
+		alignSelf: 'flex-start',
 		gap: rem( .375 ),
 		padding: {
 			top: rem( .3125 ),

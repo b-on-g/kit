@@ -11,7 +11,9 @@ namespace $ {
 	export const $bog_kit_tokens = $mol_style_prop(
 		'bog_kit',
 		[
-			/** Paper stock: the page ground. */
+			/** The desk the sheets lie on: whatever is not a page. */
+			'desk',
+			/** Paper stock: the ground of a page. */
 			'paper',
 			/** Brighter sheet: fields, cards, bubbles. */
 			'sheet',

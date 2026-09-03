@@ -3,18 +3,16 @@ namespace $.$$ {
 	const { rem } = $mol_style_unit
 
 	/*
-		The default button. Drawn with one stroke, filled with nothing.
-
-		State is the stroke: it stays fine and pale at rest, darkens to the main
-		pen under the pointer, and doubles in the blue-violet pen when the button
-		holds focus or is being pressed. Nothing moves and nothing lifts, because
-		a plotter cannot lift anything.
+		$mol_button_copy inherits $mol_button_minor as a class, and swapping a
+		class in the context only reaches the places that build one by name — so
+		a descendant of the button does not become a descendant of the Kit button
+		and has to be dressed on its own. The same goes for _download, _open and
+		_share when a page starts using them.
 	*/
-	$mol_style_define( $bog_kit_button, {
+	$mol_style_define( $bog_kit_button_copy, {
 
 		minHeight: rem( 2.125 ),
 		alignSelf: 'flex-start',
-		minWidth: rem( 2.125 ),
 		gap: rem( .375 ),
 		padding: {
 			top: rem( .3125 ),
@@ -22,37 +20,29 @@ namespace $.$$ {
 			left: rem( .625 ),
 			right: rem( .625 ),
 		},
-		border: { radius: '2px' },
+		borderRadius: '2px',
 		background: { color: 'transparent' },
 		color: $bog_kit_tokens.ink,
 		font: { weight: 500 },
 		transition: 'box-shadow .1s linear, color .1s linear',
 		box: { shadow: [ [ 'inset', 0, 0, 0, '1px', $bog_kit_tokens.line ] ] },
 
+		Icon: {
+			color: $bog_kit_tokens.ink_soft,
+		},
+
 		':hover': {
 			color: $bog_kit_tokens.pen,
 			box: { shadow: [ [ 'inset', 0, 0, 0, '1px', $bog_kit_tokens.ink ] ] },
+			Icon: {
+				color: $bog_kit_tokens.pen,
+			},
 		},
 
 		':focus-visible': {
 			outline: 'none',
 			color: $bog_kit_tokens.pen,
 			box: { shadow: [ [ 'inset', 0, 0, 0, '2px', $bog_kit_tokens.pen ] ] },
-		},
-
-		':active': {
-			color: $bog_kit_tokens.pen,
-			box: { shadow: [ [ 'inset', 0, 0, 0, '2px', $bog_kit_tokens.pen ] ] },
-		},
-
-		'@': {
-			disabled: {
-				'true': {
-					color: $bog_kit_tokens.ink_soft,
-					opacity: .5,
-					box: { shadow: [ [ 'inset', 0, 0, 0, '1px', $bog_kit_tokens.line ] ] },
-				},
-			},
 		},
 
 	} )

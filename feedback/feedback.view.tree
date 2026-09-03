@@ -25,18 +25,18 @@ $bog_kit_feedback $mol_book2_catalog
 				<= Specks $mol_list
 					rows /
 						<= Speck_label $mol_labeler
-							title \A badge pinned to the corner
+							title \A count pinned to the corner of what it counts
 							Content <= Speck_row $mol_row
 								sub /
-									<= Speck_count $mol_speck
-										value \12
-									<= Speck_more $mol_speck
-										value \99+
-						<= Speck_button_label $mol_labeler
-							title \Buttons carry it in the error slot
-							Content <= Speck_button $mol_button_minor
-								title \Inbox
-								error \3
+									<= Speck_inbox $mol_button_minor
+										title \Inbox
+										error \3
+									<= Speck_drafts $mol_button_minor
+										title \Drafts
+										error \12
+									<= Speck_spam $mol_button_minor
+										title \Spam
+										error \99+
 		pop <= Pop_page $mol_page
 			title \$mol_pop
 			tools /

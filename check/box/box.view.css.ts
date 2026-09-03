@@ -8,7 +8,7 @@ namespace $.$$ {
 		figure-ground flip the major button uses, so "on" reads the same way
 		everywhere in the Kit.
 	*/
-	$mol_style_define( $bog_kit_check, {
+	$mol_style_define( $bog_kit_check_box, {
 
 		minHeight: rem( 1.875 ),
 		gap: rem( .5 ),
@@ -22,7 +22,7 @@ namespace $.$$ {
 		background: { color: 'transparent' },
 		box: { shadow: 'none' },
 
-		// The fill of the box lives in check.view.css — see the note there.
+		// The fill of the box lives in box.view.css — see the note there.
 		Icon: {
 			width: rem( 1.125 ),
 			height: rem( 1.125 ),
