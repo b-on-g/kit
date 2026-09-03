@@ -1,0 +1,32 @@
+$bog_kit_app $mol_book2_catalog
+	param \section
+	menu_title \$mol Kit
+	Spread_default <= Intro $mol_page
+		title \$mol Kit
+		body /
+			<= Intro_text $mol_text
+				text \
+					\# Catalog of stock $mol components
+					\
+					\The root is a `$mol_book2_catalog`. Every section in the menu is
+					\a nested `$mol_book2_catalog` of its own, and every page inside
+					\a section is a `$mol_page`.
+					\
+					\Nothing here has custom styles: everything you see is drawn by
+					\the stock components and the default theme.
+	spreads *
+		controls <= Controls $bog_kit_controls
+			menu_tools /
+				<= Spread_close
+		fields <= Fields $bog_kit_fields
+			menu_tools /
+				<= Spread_close
+		layout <= Layout $bog_kit_layout
+			menu_tools /
+				<= Spread_close
+		data <= Data $bog_kit_data
+			menu_tools /
+				<= Spread_close
+		feedback <= Feedback $bog_kit_feedback
+			menu_tools /
+				<= Spread_close

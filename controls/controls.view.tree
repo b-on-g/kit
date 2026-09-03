@@ -1,0 +1,102 @@
+$bog_kit_controls $mol_book2_catalog
+	param \control
+	menu_title \Controls
+	spreads *
+		button <= Button_page $mol_page
+			title \$mol_button
+			tools /
+				<= Spread_close
+			body /
+				<= Buttons $mol_list
+					rows /
+						<= Button_minor $mol_button_minor
+							title \Minor
+						<= Button_major $mol_button_major
+							title \Major
+						<= Button_disabled $mol_button_minor
+							title \Disabled
+							enabled false
+						<= Button_hinted $mol_button_minor
+							title \With hint
+							hint \Shown on hover
+						<= Button_specked $mol_button_minor
+							title \With speck
+							error \7
+						<= Button_iconed $mol_button_minor
+							sub /
+								<= Button_iconed_icon $mol_icon_star
+								\ Iconed
+						<= Button_copy $mol_button_copy
+							title \Copy to clipboard
+							text \Hello from $mol Kit
+		check <= Check_page $mol_page
+			title \$mol_check
+			tools /
+				<= Spread_close
+			body /
+				<= Checks $mol_list
+					rows /
+						<= Check_base $mol_check_box
+							title \Checkbox
+							checked? <=> check_base? false
+						<= Check_checked $mol_check_box
+							title \Checked by default
+							checked? <=> check_checked? true
+						<= Check_disabled $mol_check_box
+							title \Disabled
+							checked true
+							enabled false
+						<= Check_icon $mol_check_icon
+							hint \Icon toggle
+							checked? <=> check_star? false
+							Icon <= Check_icon_star $mol_icon_star
+						<= Check_expand $mol_check_expand
+							title \Expandable
+							expandable true
+							expanded? <=> check_expanded? false
+		switch <= Switch_page $mol_page
+			title \$mol_switch
+			tools /
+				<= Spread_close
+			body /
+				<= Switches $mol_list
+					rows /
+						<= Tone_label $mol_labeler
+							title \Radio group
+							Content <= Tone $mol_switch
+								value? <=> tone? \calm
+								options *
+									calm \Calm
+									accent \Accent
+									special \Special
+						<= Rights_label $mol_labeler
+							title \Check list
+							Content <= Rights $mol_check_list
+								option_checked*? <=> right*? false
+								options *
+									read \Read
+									write \Write
+									admin \Change rights
+		link <= Link_page $mol_page
+			title \$mol_link
+			tools /
+				<= Spread_close
+			body /
+				<= Links $mol_list
+					rows /
+						<= Link_inner $mol_link
+							title \Internal link, toggles an arg
+							arg *
+								demo \link
+						<= Link_outer $mol_link
+							title \mol.hyoo.ru
+							uri \https://mol.hyoo.ru/
+							target \_blank
+						<= Link_iconed $mol_link
+							uri \https://github.com/hyoo-ru/mam_mol
+							target \_blank
+							sub /
+								<= Link_iconed_icon $mol_icon_github
+								\ Source on GitHub
+						<= Link_disabled $mol_link
+							title \Without uri

@@ -1,0 +1,110 @@
+$bog_kit_data $mol_book2_catalog
+	param \view
+	menu_title \Data
+	spreads *
+		card <= Card_page $mol_page
+			title \$mol_card
+			tools /
+				<= Spread_close
+			body /
+				<= Cards $mol_list
+					rows /
+						<= Card_plain $mol_card
+							title \Plain card
+							content /
+								\Just a titled island of content.
+						<= Card_status $mol_card
+							title \Card with status
+							status \pending
+							content /
+								\The status goes to a footer and to an attribute.
+						<= Card_rich $mol_card
+							title \Card with a control inside
+							Content <= Card_rich_content $mol_row
+								sub /
+									<= Card_rich_ok $mol_button_major
+										title \Accept
+									<= Card_rich_no $mol_button_minor
+										title \Decline
+		labeler <= Labeler_page $mol_page
+			title \$mol_labeler
+			tools /
+				<= Spread_close
+			body /
+				<= Labelers $mol_list
+					rows /
+						<= Labeler_text $mol_labeler
+							title \Provider
+							content /
+								\ACME Provider Inc.
+						<= Labeler_control $mol_labeler
+							title \User name
+							Content <= Labeler_control_field $mol_string
+								hint \Jack Sparrow
+								value? <=> user_name? \
+		grid <= Grid_page $mol_page
+			title \$mol_grid
+			tools /
+				<= Spread_close
+			body /
+				<= Grid $mol_grid
+					records *
+						ada *
+							name \Ada Lovelace
+							role \Analyst
+							score +99
+						alan *
+							name \Alan Turing
+							role \Cryptographer
+							score +97
+						grace *
+							name \Grace Hopper
+							role \Compiler
+							score +95
+		text <= Text_page $mol_page
+			title \$mol_text
+			tools /
+				<= Spread_close
+			body /
+				<= Text $mol_text
+					text \
+						\# Markdown right in the view
+						\
+						\`$mol_text` renders a subset of Markdown without any parser
+						\dependency, and every block is a regular component.
+						\
+						\- lists
+						\- **bold** and *italic*
+						\- [links](https://mol.hyoo.ru/)
+						\
+						\> A quote is a nested `$mol_text`.
+						\
+						\```
+						\const answer = 42
+						\```
+		avatar <= Avatar_page $mol_page
+			title \$mol_avatar
+			tools /
+				<= Spread_close
+			body /
+				<= Avatars $mol_list
+					rows /
+						<= Avatar_id_label $mol_labeler
+							title \Id
+							Content <= Avatar_id $mol_string
+								value? <=> avatar_id? \$bog_kit
+						<= Avatar_label $mol_labeler
+							title \Generated from the id
+							Content <= Avatar $mol_avatar
+								id <= avatar_id
+						<= Chips_label $mol_labeler
+							title \$mol_chip
+							Content <= Chips $mol_row
+								sub /
+									<= Chip_one $mol_chip
+										title \draft
+									<= Chip_two $mol_chip
+										title \review
+										hint \Waiting for a reviewer
+									<= Chip_three $mol_chip
+										title \done

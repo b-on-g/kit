@@ -1,0 +1,127 @@
+$bog_kit_fields $mol_book2_catalog
+	param \field
+	menu_title \Fields
+	spreads *
+		string <= String_page $mol_page
+			title \$mol_string
+			tools /
+				<= Spread_close
+			body /
+				<= Strings $mol_list
+					rows /
+						<= String_label $mol_labeler
+							title \Text
+							Content <= String $mol_string
+								hint \Type here
+								value? <=> text? \
+						<= Email_label $mol_labeler
+							title \E-mail
+							Content <= Email $mol_email
+								value? <=> email? \
+						<= Password_label $mol_labeler
+							title \Password
+							Content <= Password $mol_password
+								hint \Secret
+								value? <=> password? \
+						<= Search_label $mol_labeler
+							title \Search with suggests
+							Content <= Search $mol_search
+								query? <=> query? \
+								suggests /
+									\Alpha
+									\Beta
+									\Gamma
+						<= String_disabled_label $mol_labeler
+							title \Disabled
+							Content <= String_disabled $mol_string
+								value \Read only
+								enabled false
+		number <= Number_page $mol_page
+			title \$mol_number
+			tools /
+				<= Spread_close
+			body /
+				<= Numbers $mol_list
+					rows /
+						<= Number_label $mol_labeler
+							title \Bounded 0 … 100
+							Content <= Number $mol_number
+								value? <=> amount? +1
+								value_min +0
+								value_max +100
+						<= Number_boost_label $mol_labeler
+							title \PageUp / PageDown step 10
+							Content <= Number_boost $mol_number
+								value? <=> count? +0
+								boost +10
+		textarea <= Textarea_page $mol_page
+			title \$mol_textarea
+			tools /
+				<= Spread_close
+			body /
+				<= Textarea $mol_textarea
+					hint \Code editor with highlight
+					value? <=> code? \
+						\namespace $.$$ {
+						\	export class $bog_kit_app extends $.$bog_kit_app {}
+						\}
+		select <= Select_page $mol_page
+			title \$mol_select
+			tools /
+				<= Spread_close
+			body /
+				<= Selects $mol_list
+					rows /
+						<= Select_label $mol_labeler
+							title \Single choice
+							Content <= Select $mol_select
+								value? <=> lang? \ru
+								dictionary *
+									ru \Русский
+									en \English
+									de \Deutsch
+									fr \Français
+						<= Select_disabled_label $mol_labeler
+							title \Disabled
+							Content <= Select_disabled $mol_select
+								enabled false
+								value \en
+								dictionary *
+									en \English
+		date <= Date_page $mol_page
+			title \$mol_date
+			tools /
+				<= Spread_close
+			body /
+				<= Dates $mol_list
+					rows /
+						<= Date_label $mol_labeler
+							title \Day
+							Content <= Date $mol_date
+								value_moment? <=> day? null
+						<= Date_empty_label $mol_labeler
+							title \Empty
+							Content <= Date_empty $mol_date
+								value_moment? <=> day_empty? null
+		form <= Form_page $mol_page
+			title \$mol_form
+			tools /
+				<= Spread_close
+			body /
+				<= Form $mol_form
+					form_fields /
+						<= Field_name $mol_form_field
+							name \Name
+							control <= Field_name_control $mol_string
+								hint \Jack Sparrow
+								value? <=> name? \
+						<= Field_mail $mol_form_field
+							name \E-mail
+							bid \required
+							control <= Field_mail_control $mol_email
+								value? <=> form_email? \
+						<= Field_about $mol_form_field
+							name \About
+							control <= Field_about_control $mol_string
+								hint \A line about yourself
+								value? <=> about? \

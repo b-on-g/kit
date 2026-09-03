@@ -1,0 +1,68 @@
+$bog_kit_feedback $mol_book2_catalog
+	param \signal
+	menu_title \Feedback
+	spreads *
+		status <= Status_page $mol_page
+			title \$mol_status
+			tools /
+				<= Spread_close
+			body /
+				<= Statuses $mol_list
+					rows /
+						<= Status_done $mol_labeler
+							title \Message
+							Content <= Status_done_view $mol_status
+								title \Saved
+						<= Status_empty $mol_labeler
+							title \Empty status collapses itself
+							Content <= Status_empty_view $mol_status
+								title \
+		speck <= Speck_page $mol_page
+			title \$mol_speck
+			tools /
+				<= Spread_close
+			body /
+				<= Specks $mol_list
+					rows /
+						<= Speck_label $mol_labeler
+							title \A badge pinned to the corner
+							Content <= Speck_row $mol_row
+								sub /
+									<= Speck_count $mol_speck
+										value \12
+									<= Speck_more $mol_speck
+										value \99+
+						<= Speck_button_label $mol_labeler
+							title \Buttons carry it in the error slot
+							Content <= Speck_button $mol_button_minor
+								title \Inbox
+								error \3
+		pop <= Pop_page $mol_page
+			title \$mol_pop
+			tools /
+				<= Spread_close
+			body /
+				<= Pops $mol_list
+					rows /
+						<= Pop_over_label $mol_labeler
+							title \$mol_pop_over opens on hover
+							Content <= Pop_over $mol_pop_over
+								Anchor <= Pop_over_anchor $mol_button_minor
+									title \Hover me
+								bubble_content /
+									<= Pop_over_body $mol_paragraph
+										sub /
+											\A bubble follows its anchor and flips when it hits an edge.
+						<= Pick_label $mol_labeler
+							title \$mol_pick opens on click
+							Content <= Pick $mol_pick
+								title \Pick an action
+								bubble_content /
+									<= Pick_menu $mol_list
+										rows /
+											<= Pick_rename $mol_button_minor
+												title \Rename
+											<= Pick_move $mol_button_minor
+												title \Move
+											<= Pick_remove $mol_button_minor
+												title \Remove

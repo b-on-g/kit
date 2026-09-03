@@ -1,0 +1,120 @@
+$bog_kit_layout $mol_book2_catalog
+	param \block
+	menu_title \Layout
+	spreads *
+		row <= Row_page $mol_page
+			title \$mol_row
+			tools /
+				<= Spread_close
+			body /
+				<= Rows $mol_list
+					rows /
+						<= Row_label $mol_labeler
+							title \Row wraps its content
+							Content <= Row $mol_row
+								sub /
+									<= Row_one $mol_button_minor
+										title \One
+									<= Row_two $mol_button_minor
+										title \Two
+									<= Row_three $mol_button_minor
+										title \Three
+						<= Bar_label $mol_labeler
+							title \Bar glues controls into one
+							Content <= Bar $mol_bar
+								sub /
+									<= Bar_query $mol_string
+										hint \Query
+										value? <=> bar_query? \
+									<= Bar_submit $mol_button_minor
+										title \Go
+		list <= List_page $mol_page
+			title \$mol_list
+			tools /
+				<= Spread_close
+			body /
+				<= List $mol_list
+					rows /
+						<= List_first $mol_card
+							title \First
+							content /
+								\Rows are rendered only while visible.
+						<= List_second $mol_card
+							title \Second
+							content /
+								\Height of an unseen row is guessed, not measured.
+						<= List_third $mol_card
+							title \Third
+							content /
+								\That is why a million rows still scroll smoothly.
+		deck <= Deck_page $mol_page
+			title \$mol_deck
+			tools /
+				<= Spread_close
+			body /
+				<= Deck $mol_deck
+					items /
+						<= Deck_greeting $mol_card
+							title \Greeting
+							content /
+								\Hello, world!
+						<= Deck_question $mol_card
+							title \Question
+							content /
+								\How are you?
+						<= Deck_answer $mol_card
+							title \Answer
+							content /
+								\42
+		expander <= Expander_page $mol_page
+			title \$mol_expander
+			tools /
+				<= Spread_close
+			body /
+				<= Expanders $mol_list
+					rows /
+						<= Expander_first $mol_expander
+							title \Collapsed by default
+							content /
+								<= Expander_first_body $mol_paragraph
+									sub /
+										\Content is not even instantiated until you open it.
+						<= Expander_second $mol_expander
+							title \Nested one
+							content /
+								<= Expander_inner $mol_expander
+									title \One level deeper
+									content /
+										<= Expander_inner_body $mol_paragraph
+											sub /
+												\Expanders nest as deep as you need.
+		section <= Section_page $mol_page
+			title \$mol_section
+			tools /
+				<= Spread_close
+			body /
+				<= Section $mol_section
+					title \Section with tools
+					tools /
+						<= Section_tool $mol_button_minor
+							title \Action
+					content /
+						<= Section_body $mol_paragraph
+							sub /
+								\A heading, a row of tools and a body.
+						<= Section_inner $mol_section
+							level +2
+							title_dom_name \h2
+							title \Nested section
+							content /
+								<= Section_inner_body $mol_paragraph
+									sub /
+										\Level is passed by hand, the tag too.
+		scroll <= Scroll_page $mol_page
+			title \$mol_scroll
+			tools /
+				<= Spread_close
+			body /
+				<= Scroll $mol_scroll
+					sub /
+						<= Scroll_filler $mol_filler
