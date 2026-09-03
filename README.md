@@ -41,12 +41,20 @@
 | `lights/pick` | `$bog_kit_lights_pick` | `$mol_switch` — переключатель темы |
 | `button` | `$bog_kit_button` | `$mol_button_minor` |
 | `button/major` | `$bog_kit_button_major` | `$mol_button_major` |
-| `check` | `$bog_kit_check` | `$mol_check_box` |
+| `button/copy` | `$bog_kit_button_copy` | `$mol_button_copy` |
+| `check/box` | `$bog_kit_check_box` | `$mol_check_box` |
+| `check/icon` | `$bog_kit_check_icon` | `$mol_check_icon` |
+| `check/expand` | `$bog_kit_check_expand` | `$mol_check_expand` |
+| `check/list` | `$bog_kit_check_list` | `$mol_check_list` |
+| `switch` | `$bog_kit_switch` | `$mol_switch` |
+| `select` | `$bog_kit_select` | `$mol_select` |
 | `input` | `$bog_kit_input` | `$mol_string` |
 | `card` | `$bog_kit_card` | `$mol_card` |
 | `page` | `$bog_kit_page` | `$mol_page` |
 | `label` | `$bog_kit_label` | `$mol_labeler` |
 | `link` | `$bog_kit_link` | `$mol_link` |
+| `list` | `$bog_kit_list` | `$mol_list` |
+| `text` | `$bog_kit_text` | `$mol_text` |
 | `chip` | `$bog_kit_chip` | `$mol_chip` |
 | `speck` | `$bog_kit_speck` | `$mol_speck` |
 | `status` | `$bog_kit_status` | `$mol_status` |
@@ -74,6 +82,11 @@ static override Root( id: number ) {
 
 Компоненты, которые не подменены, всё равно попадают в палитру: `plotter.view.css`
 перекладывает токены Kit на `--mol_theme_*` и `--mol_gap_*`.
+
+**Граница подмены.** Контекст ловит только `new this.$.X()`, но не наследование
+класса: `$mol_button_copy extends $mol_button_minor`, поэтому стили
+`$bog_kit_button` до него не доходят и ему нужен свой подкласс. То же будет с
+`$mol_button_download`, `_open`, `_share`, когда они появятся на странице.
 
 ## Запуск
 
