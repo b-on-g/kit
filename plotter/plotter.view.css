@@ -1,0 +1,139 @@
+/*
+	Plotter — the Kit theme.
+
+	A pen plotter has a paper stock and a carousel of pens. It cannot cast a
+	shadow or blend a gradient: depth here is never light, it is a stroke of a
+	known weight in a known ink. Hang $bog_kit_plotter on a view as a plugin and
+	the whole subtree switches to this palette.
+
+	Values only. The names live in $bog_kit_tokens.
+*/
+
+:root {
+	--bog_kit_font_text: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+	--bog_kit_font_code: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+}
+
+/* Paper: dark inks on a pale sage stock. */
+[bog_kit_plotter] {
+	--bog_kit_paper: #e3e7e0;
+	--bog_kit_sheet: #f4f6f1;
+	--bog_kit_ink: #141d1a;
+	--bog_kit_ink_soft: #5a6863;
+	--bog_kit_line: #5a686359;
+	--bog_kit_pen: #3a33c2;
+	--bog_kit_note: #0e7256;
+	--bog_kit_signal: #a31173;
+
+	--bog_kit_font_text: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+	--bog_kit_font_code: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+	font-family: var(--bog_kit_font_text);
+	font-size: 0.9375rem;
+	line-height: 1.45rem;
+
+	--mol_gap_page: 2rem;
+	--mol_gap_block: 0.75rem;
+	--mol_gap_text: 0.375rem 0.625rem;
+	--mol_gap_round: 2px;
+	--mol_gap_space: 0.25rem;
+	--mol_gap_blur: 0rem;
+}
+
+/* Carbon film: the same pens, opened up, on a dark stock. */
+[bog_kit_plotter][mol_theme="$mol_theme_dark"] {
+	--bog_kit_paper: #101715;
+	--bog_kit_sheet: #19211e;
+	--bog_kit_ink: #dce3de;
+	--bog_kit_ink_soft: #8c9a95;
+	--bog_kit_line: #8c9a9552;
+	--bog_kit_pen: #8e88ff;
+	--bog_kit_note: #3ecf9e;
+	--bog_kit_signal: #f274c4;
+}
+
+/*
+	Stock components we did not subclass read --mol_theme_*, so the palette is
+	mapped onto it and they follow along. Two attributes, so this always
+	outweighs the theme.css rule sitting on the very same node.
+*/
+[bog_kit_plotter][mol_theme] {
+	--mol_theme_hue: 285deg;
+	--mol_theme_hue_spread: 120deg;
+
+	--mol_theme_back: var(--bog_kit_paper);
+	--mol_theme_card: var(--bog_kit_sheet);
+	--mol_theme_field: var(--bog_kit_sheet);
+	--mol_theme_hover: #7f8f8a24;
+	--mol_theme_text: var(--bog_kit_ink);
+	--mol_theme_shade: var(--bog_kit_ink_soft);
+	--mol_theme_line: var(--bog_kit_line);
+	--mol_theme_focus: var(--bog_kit_pen);
+	--mol_theme_control: var(--bog_kit_pen);
+	--mol_theme_current: var(--bog_kit_note);
+	--mol_theme_special: var(--bog_kit_signal);
+}
+
+[bog_kit_plotter][mol_theme="$mol_theme_light"] {
+	--mol_theme_luma: 1;
+	--mol_theme_image: none;
+	--mol_theme_spirit: #f4f6f1bf;
+}
+
+[bog_kit_plotter][mol_theme="$mol_theme_dark"] {
+	--mol_theme_luma: -1;
+	--mol_theme_image: invert(1) hue-rotate(180deg);
+	--mol_theme_spirit: #19211ebf;
+}
+
+/*
+	Tinted islands derive from the hue wheel by default. Give them the pens.
+*/
+[bog_kit_plotter] [mol_theme="$mol_theme_accent"] {
+	--mol_theme_back: var(--bog_kit_signal);
+	--mol_theme_card: var(--bog_kit_signal);
+	--mol_theme_text: var(--bog_kit_sheet);
+	--mol_theme_control: var(--bog_kit_sheet);
+}
+
+[bog_kit_plotter] [mol_theme="$mol_theme_current"] {
+	--mol_theme_back: var(--bog_kit_sheet);
+	--mol_theme_card: var(--bog_kit_sheet);
+	--mol_theme_text: var(--bog_kit_note);
+}
+
+[bog_kit_plotter] [mol_theme="$mol_theme_special"] {
+	--mol_theme_back: var(--bog_kit_sheet);
+	--mol_theme_card: var(--bog_kit_sheet);
+	--mol_theme_text: var(--bog_kit_signal);
+}
+
+/*
+	The plotter never blurs.
+
+	Icons come with a drop shadow and bubbles float on a soft black halo. Both
+	are replaced by the thing a plotter can actually draw: nothing at all for the
+	icons, and a hard two-pen edge for anything that has to sit above the page.
+*/
+[bog_kit_plotter] [mol_icon] {
+	filter: none;
+}
+
+[bog_kit_plotter] [mol_pop_bubble] {
+	background: var(--bog_kit_sheet);
+	border-radius: 2px;
+	box-shadow: 0 0 0 1px var(--bog_kit_ink);
+}
+
+/*
+	$mol_book2 separates its columns with a pale inset frame around each page.
+	One vertical rule between them says the same thing with a single stroke.
+*/
+[bog_kit_plotter] [mol_book2] > [mol_page] {
+	box-shadow: inset -1px 0 0 0 var(--bog_kit_line);
+}
+
+[bog_kit_plotter] [mol_view]::selection {
+	background: var(--bog_kit_pen);
+	color: var(--bog_kit_sheet);
+}

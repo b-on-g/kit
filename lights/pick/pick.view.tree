@@ -1,0 +1,6 @@
+$bog_kit_lights_pick $mol_switch
+	value? <=> lights? \auto
+	options *
+		auto \Auto
+		light \Light
+		dark \Dark

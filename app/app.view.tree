@@ -1,6 +1,10 @@
 $bog_kit_app $mol_book2_catalog
 	param \section
 	menu_title \$mol Kit
+	plugins /
+		<= Theme $mol_theme_auto
+	menu_tools /
+		<= Lights $mol_lights_toggle
 	Spread_default <= Intro $mol_page
 		title \$mol Kit
 		body /

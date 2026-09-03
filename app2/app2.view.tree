@@ -1,0 +1,16 @@
+$bog_kit_app2 $bog_kit_app
+	menu_title \Kit
+	Theme $bog_kit_plotter
+	menu_tools /
+		<= Lights_pick $bog_kit_lights_pick
+	Intro_text $mol_text
+		text \
+			\# The same catalogue, drawn by the Kit
+			\
+			\Nothing in the pages changed. `$bog_kit_app2` inherits the whole
+			\catalogue from `$bog_kit_app` and hands it a context where the stock
+			\components have been swapped for their Kit subclasses, so every
+			\button, field and card on every page is re-drawn without a page
+			\being touched.
+			\
+			\Open `../app/-/` in another tab to compare.

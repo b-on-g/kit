@@ -1,0 +1,21 @@
+/*
+	$mol_check_box fills its own box from a rule three attributes deep:
+
+		[mol_check]:not([disabled]) > [mol_check_box_icon]
+
+	Everything $mol_style_define emits for a sub-view goes inside :where(), which
+	carries no specificity at all, so the typed sheet cannot outweigh that rule
+	however it is written. The fill is stated here instead, where the selector
+	can be given the weight it needs. Geometry and strokes stay in the typed
+	sheet next door.
+*/
+
+[mol_check][bog_kit_check]:not([disabled]) > [bog_kit_check_icon] {
+	background: var(--bog_kit_sheet);
+	color: transparent;
+}
+
+[mol_check][bog_kit_check][mol_check_checked]:not([disabled]) > [bog_kit_check_icon] {
+	background: var(--bog_kit_pen);
+	color: var(--bog_kit_sheet);
+}
