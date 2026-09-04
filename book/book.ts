@@ -95,10 +95,51 @@ namespace $ {
 			return [ ... super.auto(), this.Pages_watch() ]
 		}
 
+		/**
+		 * How wide each column is, in order.
+		 *
+		 * The bar is drawn from these, so a segment ends where its column ends.
+		 * On a phone the columns are all one screen wide and the segments come
+		 * out equal; on a desktop they differ and the bar becomes a rule over
+		 * the layout instead of a block of its own.
+		 */
+		@ $mol_mem
+		page_spans(): readonly number[] {
+
+			// Re-measure when the window changes and when the columns do.
+			this.$.$mol_window.size()
+			this.pages_deep()
+
+			const root = this.dom_node() as HTMLElement
+
+			return [ ... root.children ]
+				.filter( node => node.hasAttribute( 'mol_page' ) )
+				.map( node => ( node as HTMLElement ).offsetWidth )
+		}
+
+		/**
+		 * How far the bar runs: to the end of the last column, or to the edge of
+		 * the screen when the columns overrun it.
+		 */
+		@ $mol_mem
+		page_span_total() {
+
+			const spans = this.page_spans()
+			if( !spans.length ) return 0
+
+			// The seams between columns are part of the run — same 2px the bar
+			// puts between its own segments.
+			const seams = ( spans.length - 1 ) * 2
+			const total = spans.reduce( ( sum, span ) => sum + span, seams )
+
+			return Math.min( total, ( this.dom_node() as HTMLElement ).clientWidth )
+		}
+
 		@ $mol_mem
 		Pager() {
 			const obj = new this.$.$bog_kit_pager()
-			obj.count = () => this.pages_deep().length
+			obj.spans = () => this.page_spans()
+			obj.span_total = () => this.page_span_total()
 			obj.current = () => this.page_current()
 			return obj
 		}

@@ -10,24 +10,19 @@ namespace $.$$ {
 		position: 'fixed',
 		top: 0,
 		left: 0,
-		right: 0,
 		zIndex: 20,
 		// $mol_book2 stretches its children to the full height of the book;
 		// an overlay is not one of its columns.
 		minHeight: 0,
 		maxHeight: '3px',
 		height: '3px',
+		// The gap matches the one between the book's columns, so a seam in the bar
+		// falls exactly on a seam in the layout. See shell.view.css.
 		gap: '2px',
-		padding: {
-			top: 0,
-			bottom: 0,
-			left: '10px',
-			right: '10px',
-		},
 		pointerEvents: 'none',
 
 		Segment: {
-			flex: { grow: 1, shrink: 1, basis: 0 },
+			flex: { shrink: 1, basis: 0 },
 			height: per( 100 ),
 			border: { radius: '2px' },
 			background: { color: $bog_kit.case },
@@ -41,21 +36,6 @@ namespace $.$$ {
 				},
 			},
 
-		},
-
-		/*
-			Only where one screen is one column.
-
-			Above the breakpoint the book lays every column out at once, and the
-			bar has nothing to say: it spans the window in equal parts that line
-			up with none of the columns, and the marked part lands over the empty
-			plate to the right of the last one. It reads as a stray block, which
-			is exactly what it is there.
-		*/
-		'@media': {
-			'(min-width: 45rem)': {
-				display: 'none',
-			},
 		},
 
 	} )
