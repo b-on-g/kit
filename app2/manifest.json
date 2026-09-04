@@ -5,8 +5,8 @@
 	"id": "bog_kit_app2",
 	"start_url": "./",
 	"display": "standalone",
-	"background_color": "#f0efec",
-	"theme_color": "#f0efec",
+	"background_color": "#eef1f5",
+	"theme_color": "#eef1f5",
 	"orientation": "portrait",
 	"scope": "./"
 }

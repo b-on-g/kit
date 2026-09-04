@@ -3460,52 +3460,144 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+
+	type $mol_view__attr_bog_kit_pager_1 = $mol_type_enforce<
+		({ 
+			'bog_kit_pager_on': ReturnType< $bog_kit_pager['segment_on'] >,
+		})  & ReturnType< $mol_view['attr'] >
+		,
+		ReturnType< $mol_view['attr'] >
+	>
+	export class $bog_kit_pager extends $mol_view {
+		segments( ): readonly($mol_view)[]
+		segment_on( id: any): boolean
+		count( ): number
+		current( ): number
+		sub( ): ReturnType< $bog_kit_pager['segments'] >
+		Segment( id: any): $mol_view
+	}
+	
+}
+
+//# sourceMappingURL=pager.view.tree.d.ts.map
+declare namespace $.$$ {
     /**
-     * A catalogue that can be presented two ways.
+     * How deep you are in a catalogue.
      *
-     * `book` keeps what $mol does: the pages are columns of one horizontal
-     * scroller, and on a phone they become full-width slides you swipe between.
-     * The browser does the momentum and the snapping, so the gesture is the
-     * platform's own.
+     * Replaces the dashes $mol_book2 draws between its columns. Those said "the
+     * page continues", which is why they were worth having on a phone — but they
+     * never said how far in you are or how much is left, and they read as an
+     * artefact rather than as a control.
      *
-     * `stack` is the navigation stack every native app has: only the top page is
-     * on screen, opening one pushes it in from the right, and the page under it
-     * hangs back a quarter of the width the way iOS does. That one is pure
-     * layout — see the `stack` section of shell.view.css.
+     * One segment per open screen, the mark on the one in front of the reader —
+     * so it moves with a swipe, not only with a tap. Three pixels under the
+     * status bar; it does not compete with the header.
      *
-     * Both share every page, every route and every component; the difference is
-     * one attribute the stylesheet keys on. That is the point of having both: it
-     * is the same app, so the feel can be compared with nothing else changing.
+     * Lives in the DOM as `[bog_kit_pager]`, hung on the book through
+     * `$bog_kit_stack.placeholders()`.
      */
-    class $bog_kit_stack extends $mol_book2_catalog {
-        /** `book` or `stack`. */
-        nav(): string;
-        /** Show where the reader is in the sequence. Off for the stock build. */
-        pager_enabled(): boolean;
+    class $bog_kit_pager extends $.$bog_kit_pager {
+        segments(): readonly $mol_view[];
+        /** One mark, on the screen in front of the reader. */
+        segment_on(index: number): boolean;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+    /**
+     * Which platform's language to speak: `ios` or `md`.
+     *
+     * One code base, two modes — the same trick Ionic uses. The Kit components
+     * are picked by the context, so the whole tree changes together; this only
+     * decides which set the context hands out.
+     *
+     * `?platform=ios` / `?platform=md` in the address forces it, which is how
+     * both are checked from one desktop browser.
+     */
+    function $bog_kit_platform(this: $): string;
+}
+
+declare namespace $ {
+
+	export class $mol_icon_chevron extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=chevron.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_chevron_left extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=left.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_arrow_left extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=left.view.tree.d.ts.map
+declare namespace $ {
+    /**
+     * The catalogue with the Kit's chrome on it.
+     *
+     * Navigation stays what $mol does: the pages are columns of one horizontal
+     * scroller, and on a phone each is exactly one screen wide, so the browser's
+     * own momentum and snapping do the paging — the gesture is the platform's,
+     * not ours. What this adds is the level bar, a back arrow in the platform's
+     * own shape, and knowing which screen the reader is looking at.
+     *
+     * The stock build inherits this too, with `kit_chrome()` left off, so the two
+     * entry points differ by components and theme alone.
+     */
+    class $bog_kit_book extends $mol_book2_catalog {
+        /** The level bar and the platform back arrow. Off for the stock build. */
+        kit_chrome(): boolean;
         /**
-         * How deep the reader is, for the pager.
+         * Which screen is in front of the reader.
          *
-         * Counted down the chain of open spreads rather than from the scroll
-         * offset or the column count. `$mol_scroll` keeps `scroll_left()` in a
-         * cell fed by the `scroll` event, and on the book that event never
-         * arrives — the cell froze at whatever the smooth scroll happened to
-         * pass through, so the indicator always marked the first level however
-         * deep you went. Columns are no better: the default spread is a column
-         * of its own, so the root and the first level would both count two.
-         * The address is the honest source.
+         * Written as columns come and go, so the bar follows a swipe rather than
+         * only a tap. Negative means nothing has been observed yet.
          */
+        page_seen(next?: number): number;
         page_current(): number;
+        /** Nothing to follow while every column fits on screen at once. */
+        page_follow(node: HTMLElement): boolean;
         /**
-         * How deep the catalogue can go, counted once by walking the spreads.
+         * Follows the swipe.
          *
-         * This is what fixes the pager's track. With one segment per open page
-         * the bar grew as you went, and the marked segment was always the last
-         * one — so the mark said nothing that the number of segments had not
-         * already said. A track of constant length that fills up instead reads
-         * as a depth: one of three, two of three, all three.
+         * Two paths on purpose. The observer is the accurate one — it knows which
+         * column actually covers the book, whatever the column widths are — and
+         * the scroll handler below is the cheap fallback for when the observer is
+         * throttled. Either may write `page_seen`; both agree.
          */
-        depth_max(): number;
+        Pages_watch(): {
+            destructor: () => void;
+        };
+        event_scroll(next?: Event): void;
+        auto(): any[];
         Pager(): $$.$bog_kit_pager;
+        /**
+         * Back, not close.
+         *
+         * Stock $mol_book2_catalog hands every page a cross on the right, which
+         * is what a dialog does; going one level up in a catalogue is a back
+         * button, and on both phone platforms it lives at the head of the header.
+         * The pages put it in the `Logo` slot for that reason; here it only
+         * changes its mark — a chevron on iOS, an arrow on Material.
+         */
+        Back_icon(): $mol_view;
+        Spread_close(): $mol_link;
         /**
          * $mol_book2 builds `sub()` itself, memoised, and scrolls a freshly
          * pushed page into view from inside it — reaching into that breaks the
@@ -3514,10 +3606,6 @@ declare namespace $ {
          * bookkeeping, which is exactly what an overlay needs.
          */
         placeholders(): readonly $mol_view[];
-        attr(): {
-            bog_kit_nav: string;
-            tabindex: ReturnType<$mol_scroll["tabindex"]>;
-        };
     }
 }
 
@@ -4077,15 +4165,6 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=float.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_chevron extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=chevron.view.tree.d.ts.map
 declare namespace $ {
 
 	export class $mol_check_expand extends $mol_check {
@@ -5395,10 +5474,10 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_bog_kit_controls_14 = $mol_type_enforce<
-		readonly(any)[]
+	type $mol_page__Logo_bog_kit_controls_14 = $mol_type_enforce<
+		ReturnType< $bog_kit_controls['Spread_close'] >
 		,
-		ReturnType< $mol_page['tools'] >
+		ReturnType< $mol_page['Logo'] >
 	>
 	type $mol_page__body_bog_kit_controls_15 = $mol_type_enforce<
 		readonly(any)[]
@@ -5480,10 +5559,10 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_bog_kit_controls_31 = $mol_type_enforce<
-		readonly(any)[]
+	type $mol_page__Logo_bog_kit_controls_31 = $mol_type_enforce<
+		ReturnType< $bog_kit_controls['Spread_close'] >
 		,
-		ReturnType< $mol_page['tools'] >
+		ReturnType< $mol_page['Logo'] >
 	>
 	type $mol_page__body_bog_kit_controls_32 = $mol_type_enforce<
 		readonly(any)[]
@@ -5548,10 +5627,10 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_bog_kit_controls_43 = $mol_type_enforce<
-		readonly(any)[]
+	type $mol_page__Logo_bog_kit_controls_43 = $mol_type_enforce<
+		ReturnType< $bog_kit_controls['Spread_close'] >
 		,
-		ReturnType< $mol_page['tools'] >
+		ReturnType< $mol_page['Logo'] >
 	>
 	type $mol_page__body_bog_kit_controls_44 = $mol_type_enforce<
 		readonly(any)[]
@@ -5615,10 +5694,10 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_bog_kit_controls_56 = $mol_type_enforce<
-		readonly(any)[]
+	type $mol_page__Logo_bog_kit_controls_56 = $mol_type_enforce<
+		ReturnType< $bog_kit_controls['Spread_close'] >
 		,
-		ReturnType< $mol_page['tools'] >
+		ReturnType< $mol_page['Logo'] >
 	>
 	type $mol_page__body_bog_kit_controls_57 = $mol_type_enforce<
 		readonly(any)[]
@@ -5760,15 +5839,6 @@ declare namespace $.$$ {
     }
 }
 
-declare namespace $ {
-
-	export class $mol_icon_chevron_left extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=left.view.tree.d.ts.map
 declare namespace $ {
 
 	export class $mol_icon_chevron_right extends $mol_icon {
@@ -7190,10 +7260,10 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_bog_kit_fields_22 = $mol_type_enforce<
-		readonly(any)[]
+	type $mol_page__Logo_bog_kit_fields_22 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['Spread_close'] >
 		,
-		ReturnType< $mol_page['tools'] >
+		ReturnType< $mol_page['Logo'] >
 	>
 	type $mol_page__body_bog_kit_fields_23 = $mol_type_enforce<
 		readonly(any)[]
@@ -7255,10 +7325,10 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_bog_kit_fields_35 = $mol_type_enforce<
-		readonly(any)[]
+	type $mol_page__Logo_bog_kit_fields_35 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['Spread_close'] >
 		,
-		ReturnType< $mol_page['tools'] >
+		ReturnType< $mol_page['Logo'] >
 	>
 	type $mol_page__body_bog_kit_fields_36 = $mol_type_enforce<
 		readonly(any)[]
@@ -7280,10 +7350,10 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_bog_kit_fields_40 = $mol_type_enforce<
-		readonly(any)[]
+	type $mol_page__Logo_bog_kit_fields_40 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['Spread_close'] >
 		,
-		ReturnType< $mol_page['tools'] >
+		ReturnType< $mol_page['Logo'] >
 	>
 	type $mol_page__body_bog_kit_fields_41 = $mol_type_enforce<
 		readonly(any)[]
@@ -7352,10 +7422,10 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_bog_kit_fields_53 = $mol_type_enforce<
-		readonly(any)[]
+	type $mol_page__Logo_bog_kit_fields_53 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['Spread_close'] >
 		,
-		ReturnType< $mol_page['tools'] >
+		ReturnType< $mol_page['Logo'] >
 	>
 	type $mol_page__body_bog_kit_fields_54 = $mol_type_enforce<
 		readonly(any)[]
@@ -7402,10 +7472,10 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_bog_kit_fields_63 = $mol_type_enforce<
-		readonly(any)[]
+	type $mol_page__Logo_bog_kit_fields_63 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['Spread_close'] >
 		,
-		ReturnType< $mol_page['tools'] >
+		ReturnType< $mol_page['Logo'] >
 	>
 	type $mol_page__body_bog_kit_fields_64 = $mol_type_enforce<
 		readonly(any)[]
@@ -7482,10 +7552,10 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_bog_kit_fields_79 = $mol_type_enforce<
-		readonly(any)[]
+	type $mol_page__Logo_bog_kit_fields_79 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['Spread_close'] >
 		,
-		ReturnType< $mol_page['tools'] >
+		ReturnType< $mol_page['Logo'] >
 	>
 	type $mol_page__body_bog_kit_fields_80 = $mol_type_enforce<
 		readonly(any)[]
@@ -8449,10 +8519,10 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_bog_kit_layout_15 = $mol_type_enforce<
-		readonly(any)[]
+	type $mol_page__Logo_bog_kit_layout_15 = $mol_type_enforce<
+		ReturnType< $bog_kit_layout['Spread_close'] >
 		,
-		ReturnType< $mol_page['tools'] >
+		ReturnType< $mol_page['Logo'] >
 	>
 	type $mol_page__body_bog_kit_layout_16 = $mol_type_enforce<
 		readonly(any)[]
@@ -8499,10 +8569,10 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_bog_kit_layout_25 = $mol_type_enforce<
-		readonly(any)[]
+	type $mol_page__Logo_bog_kit_layout_25 = $mol_type_enforce<
+		ReturnType< $bog_kit_layout['Spread_close'] >
 		,
-		ReturnType< $mol_page['tools'] >
+		ReturnType< $mol_page['Logo'] >
 	>
 	type $mol_page__body_bog_kit_layout_26 = $mol_type_enforce<
 		readonly(any)[]
@@ -8549,10 +8619,10 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_bog_kit_layout_35 = $mol_type_enforce<
-		readonly(any)[]
+	type $mol_page__Logo_bog_kit_layout_35 = $mol_type_enforce<
+		ReturnType< $bog_kit_layout['Spread_close'] >
 		,
-		ReturnType< $mol_page['tools'] >
+		ReturnType< $mol_page['Logo'] >
 	>
 	type $mol_page__body_bog_kit_layout_36 = $mol_type_enforce<
 		readonly(any)[]
@@ -8609,10 +8679,10 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_bog_kit_layout_47 = $mol_type_enforce<
-		readonly(any)[]
+	type $mol_page__Logo_bog_kit_layout_47 = $mol_type_enforce<
+		ReturnType< $bog_kit_layout['Spread_close'] >
 		,
-		ReturnType< $mol_page['tools'] >
+		ReturnType< $mol_page['Logo'] >
 	>
 	type $mol_page__body_bog_kit_layout_48 = $mol_type_enforce<
 		readonly(any)[]
@@ -8674,10 +8744,10 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_bog_kit_layout_60 = $mol_type_enforce<
-		readonly(any)[]
+	type $mol_page__Logo_bog_kit_layout_60 = $mol_type_enforce<
+		ReturnType< $bog_kit_layout['Spread_close'] >
 		,
-		ReturnType< $mol_page['tools'] >
+		ReturnType< $mol_page['Logo'] >
 	>
 	type $mol_page__body_bog_kit_layout_61 = $mol_type_enforce<
 		readonly(any)[]
@@ -8694,10 +8764,10 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_bog_kit_layout_64 = $mol_type_enforce<
-		readonly(any)[]
+	type $mol_page__Logo_bog_kit_layout_64 = $mol_type_enforce<
+		ReturnType< $bog_kit_layout['Spread_close'] >
 		,
-		ReturnType< $mol_page['tools'] >
+		ReturnType< $mol_page['Logo'] >
 	>
 	type $mol_page__body_bog_kit_layout_65 = $mol_type_enforce<
 		readonly(any)[]
@@ -8877,10 +8947,10 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_bog_kit_data_13 = $mol_type_enforce<
-		readonly(any)[]
+	type $mol_page__Logo_bog_kit_data_13 = $mol_type_enforce<
+		ReturnType< $bog_kit_data['Spread_close'] >
 		,
-		ReturnType< $mol_page['tools'] >
+		ReturnType< $mol_page['Logo'] >
 	>
 	type $mol_page__body_bog_kit_data_14 = $mol_type_enforce<
 		readonly(any)[]
@@ -8927,10 +8997,10 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_bog_kit_data_23 = $mol_type_enforce<
-		readonly(any)[]
+	type $mol_page__Logo_bog_kit_data_23 = $mol_type_enforce<
+		ReturnType< $bog_kit_data['Spread_close'] >
 		,
-		ReturnType< $mol_page['tools'] >
+		ReturnType< $mol_page['Logo'] >
 	>
 	type $mol_page__body_bog_kit_data_24 = $mol_type_enforce<
 		readonly(any)[]
@@ -8963,10 +9033,10 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_bog_kit_data_27 = $mol_type_enforce<
-		readonly(any)[]
+	type $mol_page__Logo_bog_kit_data_27 = $mol_type_enforce<
+		ReturnType< $bog_kit_data['Spread_close'] >
 		,
-		ReturnType< $mol_page['tools'] >
+		ReturnType< $mol_page['Logo'] >
 	>
 	type $mol_page__body_bog_kit_data_28 = $mol_type_enforce<
 		readonly(any)[]
@@ -8983,10 +9053,10 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_bog_kit_data_31 = $mol_type_enforce<
-		readonly(any)[]
+	type $mol_page__Logo_bog_kit_data_31 = $mol_type_enforce<
+		ReturnType< $bog_kit_data['Spread_close'] >
 		,
-		ReturnType< $mol_page['tools'] >
+		ReturnType< $mol_page['Logo'] >
 	>
 	type $mol_page__body_bog_kit_data_32 = $mol_type_enforce<
 		readonly(any)[]
@@ -9068,10 +9138,10 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_bog_kit_data_48 = $mol_type_enforce<
-		readonly(any)[]
+	type $mol_page__Logo_bog_kit_data_48 = $mol_type_enforce<
+		ReturnType< $bog_kit_data['Spread_close'] >
 		,
-		ReturnType< $mol_page['tools'] >
+		ReturnType< $mol_page['Logo'] >
 	>
 	type $mol_page__body_bog_kit_data_49 = $mol_type_enforce<
 		readonly(any)[]
@@ -9199,10 +9269,10 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_bog_kit_feedback_9 = $mol_type_enforce<
-		readonly(any)[]
+	type $mol_page__Logo_bog_kit_feedback_9 = $mol_type_enforce<
+		ReturnType< $bog_kit_feedback['Spread_close'] >
 		,
-		ReturnType< $mol_page['tools'] >
+		ReturnType< $mol_page['Logo'] >
 	>
 	type $mol_page__body_bog_kit_feedback_10 = $mol_type_enforce<
 		readonly(any)[]
@@ -9264,10 +9334,10 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_bog_kit_feedback_22 = $mol_type_enforce<
-		readonly(any)[]
+	type $mol_page__Logo_bog_kit_feedback_22 = $mol_type_enforce<
+		ReturnType< $bog_kit_feedback['Spread_close'] >
 		,
-		ReturnType< $mol_page['tools'] >
+		ReturnType< $mol_page['Logo'] >
 	>
 	type $mol_page__body_bog_kit_feedback_23 = $mol_type_enforce<
 		readonly(any)[]
@@ -9354,10 +9424,10 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_bog_kit_feedback_40 = $mol_type_enforce<
-		readonly(any)[]
+	type $mol_page__Logo_bog_kit_feedback_40 = $mol_type_enforce<
+		ReturnType< $bog_kit_feedback['Spread_close'] >
 		,
-		ReturnType< $mol_page['tools'] >
+		ReturnType< $mol_page['Logo'] >
 	>
 	type $mol_page__body_bog_kit_feedback_41 = $mol_type_enforce<
 		readonly(any)[]
@@ -9402,54 +9472,6 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=feedback.view.tree.d.ts.map
-declare namespace $ {
-
-	type $mol_view__attr_bog_kit_pager_1 = $mol_type_enforce<
-		({ 
-			'bog_kit_pager_on': ReturnType< $bog_kit_pager['segment_on'] >,
-		})  & ReturnType< $mol_view['attr'] >
-		,
-		ReturnType< $mol_view['attr'] >
-	>
-	export class $bog_kit_pager extends $mol_view {
-		segments( ): readonly($mol_view)[]
-		segment_on( id: any): boolean
-		count( ): number
-		current( ): number
-		sub( ): ReturnType< $bog_kit_pager['segments'] >
-		Segment( id: any): $mol_view
-	}
-	
-}
-
-//# sourceMappingURL=pager.view.tree.d.ts.map
-declare namespace $.$$ {
-    /**
-     * How deep you are in a catalogue.
-     *
-     * Replaces the dashes $mol_book2 draws between its columns. Those said "the
-     * page continues", which is why they were worth having on a phone — but they
-     * never said how far in you are or how much is left, and they read as an
-     * artefact rather than as a control.
-     *
-     * The track is as long as the catalogue is deep and fills from the left, so
-     * the bar answers both questions at once and never changes length under the
-     * reader. Three pixels under the status bar; it does not compete with the
-     * header.
-     *
-     * Lives in the DOM as `[bog_kit_pager]`, hung on the book through
-     * `$bog_kit_stack.placeholders()`.
-     */
-    class $bog_kit_pager extends $.$bog_kit_pager {
-        segments(): readonly $mol_view[];
-        /** Everything up to where you are, so the bar fills rather than moves. */
-        segment_on(index: number): boolean;
-    }
-}
-
-declare namespace $.$$ {
-}
-
 declare namespace $ {
 }
 
@@ -9501,32 +9523,32 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['body'] >
 	>
-	type $bog_kit_controls__menu_tools_bog_kit_app_4 = $mol_type_enforce<
-		readonly(any)[]
+	type $bog_kit_controls__Menu_logo_bog_kit_app_4 = $mol_type_enforce<
+		ReturnType< $bog_kit_app['Spread_close'] >
 		,
-		ReturnType< $bog_kit_controls['menu_tools'] >
+		ReturnType< $bog_kit_controls['Menu_logo'] >
 	>
-	type $bog_kit_fields__menu_tools_bog_kit_app_5 = $mol_type_enforce<
-		readonly(any)[]
+	type $bog_kit_fields__Menu_logo_bog_kit_app_5 = $mol_type_enforce<
+		ReturnType< $bog_kit_app['Spread_close'] >
 		,
-		ReturnType< $bog_kit_fields['menu_tools'] >
+		ReturnType< $bog_kit_fields['Menu_logo'] >
 	>
-	type $bog_kit_layout__menu_tools_bog_kit_app_6 = $mol_type_enforce<
-		readonly(any)[]
+	type $bog_kit_layout__Menu_logo_bog_kit_app_6 = $mol_type_enforce<
+		ReturnType< $bog_kit_app['Spread_close'] >
 		,
-		ReturnType< $bog_kit_layout['menu_tools'] >
+		ReturnType< $bog_kit_layout['Menu_logo'] >
 	>
-	type $bog_kit_data__menu_tools_bog_kit_app_7 = $mol_type_enforce<
-		readonly(any)[]
+	type $bog_kit_data__Menu_logo_bog_kit_app_7 = $mol_type_enforce<
+		ReturnType< $bog_kit_app['Spread_close'] >
 		,
-		ReturnType< $bog_kit_data['menu_tools'] >
+		ReturnType< $bog_kit_data['Menu_logo'] >
 	>
-	type $bog_kit_feedback__menu_tools_bog_kit_app_8 = $mol_type_enforce<
-		readonly(any)[]
+	type $bog_kit_feedback__Menu_logo_bog_kit_app_8 = $mol_type_enforce<
+		ReturnType< $bog_kit_app['Spread_close'] >
 		,
-		ReturnType< $bog_kit_feedback['menu_tools'] >
+		ReturnType< $bog_kit_feedback['Menu_logo'] >
 	>
-	export class $bog_kit_app extends $bog_kit_stack {
+	export class $bog_kit_app extends $bog_kit_book {
 		Theme( ): $mol_theme_auto
 		Lights( ): $mol_lights_toggle
 		Intro_text( ): $mol_text
@@ -9603,20 +9625,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $.$$ {
-}
-
-declare namespace $ {
-    /**
-     * Which platform's language to speak: `ios` or `md`.
-     *
-     * One code base, two modes — the same trick Ionic uses. The Kit components
-     * are picked by the context, so the whole tree changes together; this only
-     * decides which set the context hands out.
-     *
-     * `?platform=ios` / `?platform=md` in the address forces it, which is how
-     * both are checked from one desktop browser.
-     */
-    function $bog_kit_platform(this: $): string;
 }
 
 declare namespace $ {
@@ -9721,10 +9729,8 @@ declare namespace $.$$ {
 declare namespace $ {
 
 	export class $bog_kit_shell extends $mol_theme_auto {
-		tone( ): string
 		platform( ): string
 		attr( ): ({ 
-			'bog_kit_tone': ReturnType< $bog_kit_shell['tone'] >,
 			'bog_kit_platform': ReturnType< $bog_kit_shell['platform'] >,
 		})  & ReturnType< $mol_theme_auto['attr'] >
 	}
@@ -9737,13 +9743,8 @@ declare namespace $.$$ {
      * The Kit theme. Hang it on a view as a plugin and the whole subtree is
      * moulded out of the Kit shells, in the language of the platform it is
      * running on.
-     *
-     * While the palette is being chosen the tone is read from the address, so
-     * `?tone=b` shows an alternative without a rebuild. Once one is picked the
-     * rest go, and this reads its default.
      */
     class $bog_kit_shell extends $.$bog_kit_shell {
-        tone(): string;
         platform(): string;
     }
 }
@@ -9891,7 +9892,7 @@ declare namespace $ {
 	export class $bog_kit_app2 extends $bog_kit_app {
 		Lights_pick( ): $bog_kit_lights_pick
 		menu_title( ): string
-		pager_enabled( ): boolean
+		kit_chrome( ): boolean
 		Theme( ): $bog_kit_shell
 		menu_tools( ): readonly(any)[]
 		Intro_text( ): $mol_text

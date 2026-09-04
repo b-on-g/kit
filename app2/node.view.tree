@@ -358,6 +358,21 @@ $mol_book2_catalog $mol_book2
 		sub /
 			<= Spread_close_icon $mol_icon_close
 
+$bog_kit_pager $mol_view
+	count 1
+	current 0
+	sub <= segments /$mol_view
+	Segment* $mol_view
+		attr *
+			^
+			bog_kit_pager_on <= segment_on* false
+
+$mol_icon_chevron $mol_icon path \M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z
+
+$mol_icon_chevron_left $mol_icon path \M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z
+
+$mol_icon_arrow_left $mol_icon path \M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z
+
 $mol_theme_auto $mol_plugin
 	light \$mol_theme_light
 	attr * mol_theme <= theme <= dark \$mol_theme_dark
@@ -464,8 +479,6 @@ $mol_float $mol_view
 	style *
 		^
 		minHeight \auto
-
-$mol_icon_chevron $mol_icon path \M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z
 
 $mol_check_expand $mol_check
 	Icon $mol_icon_chevron
@@ -783,8 +796,7 @@ $bog_kit_controls $mol_book2_catalog
 	spreads *
 		button <= Button_page $mol_page
 			title \$mol_button
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Buttons $mol_list
 					rows /
@@ -810,8 +822,7 @@ $bog_kit_controls $mol_book2_catalog
 							text \Hello from $mol Kit
 		check <= Check_page $mol_page
 			title \$mol_check
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Checks $mol_list
 					rows /
@@ -835,8 +846,7 @@ $bog_kit_controls $mol_book2_catalog
 							expanded? <=> check_expanded? false
 		switch <= Switch_page $mol_page
 			title \$mol_switch
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Switches $mol_list
 					rows /
@@ -858,8 +868,7 @@ $bog_kit_controls $mol_book2_catalog
 									admin \Change rights
 		link <= Link_page $mol_page
 			title \$mol_link
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Links $mol_list
 					rows /
@@ -900,8 +909,6 @@ $mol_password $mol_view
 		<= Show $mol_check_icon
 			checked? <=> checked? true
 			Icon <= Show_icon $mol_icon_eye
-
-$mol_icon_chevron_left $mol_icon path \M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z
 
 $mol_icon_chevron_right $mol_icon path \M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z
 
@@ -1243,8 +1250,7 @@ $bog_kit_fields $mol_book2_catalog
 	spreads *
 		string <= String_page $mol_page
 			title \$mol_string
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Strings $mol_list
 					rows /
@@ -1277,8 +1283,7 @@ $bog_kit_fields $mol_book2_catalog
 								enabled false
 		number <= Number_page $mol_page
 			title \$mol_number
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Numbers $mol_list
 					rows /
@@ -1295,8 +1300,7 @@ $bog_kit_fields $mol_book2_catalog
 								boost +10
 		textarea <= Textarea_page $mol_page
 			title \$mol_textarea
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Textarea $mol_textarea
 					hint \Code editor with highlight
@@ -1306,8 +1310,7 @@ $bog_kit_fields $mol_book2_catalog
 						\}
 		select <= Select_page $mol_page
 			title \$mol_select
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Selects $mol_list
 					rows /
@@ -1329,8 +1332,7 @@ $bog_kit_fields $mol_book2_catalog
 									en \English
 		date <= Date_page $mol_page
 			title \$mol_date
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Dates $mol_list
 					rows /
@@ -1344,8 +1346,7 @@ $bog_kit_fields $mol_book2_catalog
 								value_moment? <=> day_empty? null
 		form <= Form_page $mol_page
 			title \$mol_form
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Form $mol_form
 					form_fields /
@@ -1538,8 +1539,7 @@ $bog_kit_layout $mol_book2_catalog
 	spreads *
 		row <= Row_page $mol_page
 			title \$mol_row
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Rows $mol_list
 					rows /
@@ -1564,8 +1564,7 @@ $bog_kit_layout $mol_book2_catalog
 										title \Go
 		list <= List_page $mol_page
 			title \$mol_list
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= List $mol_list
 					rows /
@@ -1583,8 +1582,7 @@ $bog_kit_layout $mol_book2_catalog
 								\That is why a million rows still scroll smoothly.
 		deck <= Deck_page $mol_page
 			title \$mol_deck
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Deck $mol_deck
 					items /
@@ -1602,8 +1600,7 @@ $bog_kit_layout $mol_book2_catalog
 								\42
 		expander <= Expander_page $mol_page
 			title \$mol_expander
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Expanders $mol_list
 					rows /
@@ -1624,8 +1621,7 @@ $bog_kit_layout $mol_book2_catalog
 												\Expanders nest as deep as you need.
 		section <= Section_page $mol_page
 			title \$mol_section
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Section $mol_section
 					title \Section with tools
@@ -1646,8 +1642,7 @@ $bog_kit_layout $mol_book2_catalog
 										\Level is passed by hand, the tag too.
 		scroll <= Scroll_page $mol_page
 			title \$mol_scroll
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Scroll $mol_scroll
 					sub /
@@ -1672,8 +1667,7 @@ $bog_kit_data $mol_book2_catalog
 	spreads *
 		card <= Card_page $mol_page
 			title \$mol_card
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Cards $mol_list
 					rows /
@@ -1696,8 +1690,7 @@ $bog_kit_data $mol_book2_catalog
 										title \Decline
 		labeler <= Labeler_page $mol_page
 			title \$mol_labeler
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Labelers $mol_list
 					rows /
@@ -1712,8 +1705,7 @@ $bog_kit_data $mol_book2_catalog
 								value? <=> user_name? \
 		grid <= Grid_page $mol_page
 			title \$mol_grid
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Grid $mol_grid
 					records *
@@ -1731,8 +1723,7 @@ $bog_kit_data $mol_book2_catalog
 							score +95
 		text <= Text_page $mol_page
 			title \$mol_text
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Text $mol_text
 					text \
@@ -1752,8 +1743,7 @@ $bog_kit_data $mol_book2_catalog
 						\```
 		avatar <= Avatar_page $mol_page
 			title \$mol_avatar
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Avatars $mol_list
 					rows /
@@ -1793,8 +1783,7 @@ $bog_kit_feedback $mol_book2_catalog
 	spreads *
 		status <= Status_page $mol_page
 			title \$mol_status
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Statuses $mol_list
 					rows /
@@ -1808,8 +1797,7 @@ $bog_kit_feedback $mol_book2_catalog
 								title \
 		speck <= Speck_page $mol_page
 			title \$mol_speck
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Specks $mol_list
 					rows /
@@ -1828,8 +1816,7 @@ $bog_kit_feedback $mol_book2_catalog
 										error \99+
 		pop <= Pop_page $mol_page
 			title \$mol_pop
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Pops $mol_list
 					rows /
@@ -1856,15 +1843,6 @@ $bog_kit_feedback $mol_book2_catalog
 											<= Pick_remove $mol_button_minor
 												title \Remove
 
-$bog_kit_pager $mol_view
-	count 1
-	current 0
-	sub <= segments /$mol_view
-	Segment* $mol_view
-		attr *
-			^
-			bog_kit_pager_on <= segment_on* false
-
 $mol_text_list $mol_text
 	auto_scroll null
 	attr *
@@ -1879,7 +1857,7 @@ $mol_text_list_item $mol_paragraph
 		^
 		mol_text_list_item_index <= index 0
 
-$bog_kit_app $bog_kit_stack
+$bog_kit_app $bog_kit_book
 	param \section
 	menu_title \$mol Kit
 	plugins /
@@ -1898,20 +1876,15 @@ $bog_kit_app $bog_kit_stack
 					\Nothing here has custom styles: everything you see is drawn by the stock components and the default theme.
 	spreads *
 		controls <= Controls $bog_kit_controls
-			menu_tools /
-				<= Spread_close
+			Menu_logo <= Spread_close
 		fields <= Fields $bog_kit_fields
-			menu_tools /
-				<= Spread_close
+			Menu_logo <= Spread_close
 		layout <= Layout $bog_kit_layout
-			menu_tools /
-				<= Spread_close
+			Menu_logo <= Spread_close
 		data <= Data $bog_kit_data
-			menu_tools /
-				<= Spread_close
+			Menu_logo <= Spread_close
 		feedback <= Feedback $bog_kit_feedback
-			menu_tools /
-				<= Spread_close
+			Menu_logo <= Spread_close
 
 $bog_kit_switch $mol_switch
 
@@ -1925,7 +1898,6 @@ $bog_kit_lights_pick $bog_kit_switch
 $bog_kit_shell $mol_theme_auto
 	attr *
 		^
-		bog_kit_tone <= tone \a
 		bog_kit_platform <= platform \ios
 
 $bog_kit_card $mol_card
@@ -1948,7 +1920,7 @@ $bog_kit_page $mol_page
 
 $bog_kit_app2 $bog_kit_app
 	menu_title \Kit
-	pager_enabled true
+	kit_chrome true
 	Theme $bog_kit_shell
 	menu_tools /
 		<= Lights_pick $bog_kit_lights_pick
