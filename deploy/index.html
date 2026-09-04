@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>$bog_kit</title>
+<meta name="description" content="Каталог стоковых компонентов $mol и дизайн-система поверх них — три сборки одного и того же приложения." />
+<meta name="theme-color" content="#e7e1d8" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#17140f" media="(prefers-color-scheme: dark)" />
+<style>
+
+	:root {
+		--case: #e7e1d8;
+		--panel: #f3efe8;
+		--raise: #fdfbf7;
+		--ink: #2b2621;
+		--ink_soft: #7c7268;
+		--key: #4438ca;
+		--lift: 0 1px 1px #6f604c1f, 0 6px 16px -8px #6f604c40;
+		color-scheme: light dark;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		:root {
+			--case: #17140f;
+			--panel: #201c16;
+			--raise: #2b2620;
+			--ink: #efe9df;
+			--ink_soft: #a1968a;
+			--key: #9a90ff;
+			--lift: 0 1px 1px #0000004d, 0 8px 20px -10px #00000080;
+		}
+	}
+
+	* { box-sizing: border-box; }
+
+	body {
+		margin: 0;
+		padding: 2.5rem 1.25rem 4rem;
+		background: var(--case);
+		color: var(--ink);
+		font: 400 17px/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif;
+		-webkit-font-smoothing: antialiased;
+	}
+
+	main {
+		max-width: 34rem;
+		margin: 0 auto;
+	}
+
+	h1 {
+		margin: 0 0 .5rem;
+		font-size: 1.75rem;
+		font-weight: 600;
+		letter-spacing: -0.02em;
+	}
+
+	p.lead {
+		margin: 0 0 2rem;
+		color: var(--ink_soft);
+	}
+
+	a.card {
+		display: block;
+		margin-bottom: .875rem;
+		padding: 1rem 1.25rem;
+		border-radius: 20px;
+		background: var(--raise);
+		box-shadow: var(--lift);
+		color: inherit;
+		text-decoration: none;
+		transition: transform .12s ease-out;
+	}
+
+	a.card:active { transform: translateY(1px); }
+
+	a.card b {
+		display: block;
+		font-weight: 600;
+	}
+
+	a.card span {
+		display: block;
+		margin-top: .25rem;
+		color: var(--ink_soft);
+		font-size: .9375rem;
+	}
+
+	footer {
+		margin-top: 2.5rem;
+		color: var(--ink_soft);
+		font-size: .9375rem;
+	}
+
+	footer a { color: var(--key); }
+
+	code {
+		font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+		font-size: .875em;
+	}
+
+</style>
+</head>
+<body>
+<main>
+
+	<h1>$bog_kit</h1>
+	<p class="lead">Каталог стоковых компонентов $mol и дизайн-система поверх них. Три сборки одного и того же приложения: страницы, маршруты и данные общие, отличается только то, чем они нарисованы и как между ними ходят.</p>
+
+	<a class="card" href="app/">
+		<b>Сток</b>
+		<span>Голый $mol, ни одного своего стиля. Точка отсчёта.</span>
+	</a>
+
+	<a class="card" href="app2/">
+		<b>Книга</b>
+		<span>Компоненты Kit. Страницы — колонки одного скроллера, на телефоне свайп влево-вправо.</span>
+	</a>
+
+	<a class="card" href="app3/">
+		<b>Стек</b>
+		<span>Те же компоненты, навигация как в нативном приложении: новая страница въезжает справа.</span>
+	</a>
+
+	<footer>
+		<p>Ставится на домашний экран — без адресной строки разница заметнее. Тон палитры переключается адресом: <code>?tone=a</code>, <code>b</code>, <code>c</code>. Язык платформы — <code>?platform=ios</code> или <code>md</code>.</p>
+		<p><a href="https://github.com/b-on-g/kit">Исходники</a></p>
+	</footer>
+
+</main>
+</body>
+</html>

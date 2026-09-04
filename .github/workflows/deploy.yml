@@ -1,0 +1,71 @@
+name: $bog_kit
+
+permissions: write-all
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ['**']
+  pull_request:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    # Три точки входа собираются одним прогоном: `modules` бьётся по пробелам
+    # и каждое имя дописывается к пакету. Артефакты ложатся в <модуль>/-/.
+    - uses: hyoo-ru/mam_build@master2
+      with:
+        package: 'bog/kit'
+        modules: 'app app2 app3'
+
+    # Корень — витрина со ссылками. `clean-exclude` обязателен: без него
+    # rsync --delete в корне снёс бы папки приложений.
+    - uses: hyoo-ru/gh-deploy@v4.4.1
+      if: github.ref == 'refs/heads/master'
+      with:
+        folder: 'bog/kit/deploy'
+        clean-exclude: |
+          app
+          app2
+          app3
+
+    # У каждой точки входа свой адрес. `target-folder` уводит rsync --delete
+    # внутрь подпапки, поэтому соседей и корень они не трогают.
+    - uses: hyoo-ru/gh-deploy@v4.4.1
+      if: github.ref == 'refs/heads/master'
+      with:
+        folder: 'bog/kit/app/-'
+        target-folder: 'app'
+        commit-message: 'deploy app'
+
+    - uses: hyoo-ru/gh-deploy@v4.4.1
+      if: github.ref == 'refs/heads/master'
+      with:
+        folder: 'bog/kit/app2/-'
+        target-folder: 'app2'
+        commit-message: 'deploy app2'
+
+    - uses: hyoo-ru/gh-deploy@v4.4.1
+      if: github.ref == 'refs/heads/master'
+      with:
+        folder: 'bog/kit/app3/-'
+        target-folder: 'app3'
+        commit-message: 'deploy app3'
+
+    - name: URLs
+      if: github.ref == 'refs/heads/master'
+      run: |
+        {
+          echo "- https://b-on-g.github.io/kit/"
+          echo "- https://b-on-g.github.io/kit/app/ — сток"
+          echo "- https://b-on-g.github.io/kit/app2/ — книга"
+          echo "- https://b-on-g.github.io/kit/app3/ — стек"
+        } >> "$GITHUB_STEP_SUMMARY"
