@@ -3460,6 +3460,53 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+
+	type $mol_view__attr_bog_kit_pager_1 = $mol_type_enforce<
+		({ 
+			'bog_kit_pager_on': ReturnType< $bog_kit_pager['segment_on'] >,
+		})  & ReturnType< $mol_view['attr'] >
+		,
+		ReturnType< $mol_view['attr'] >
+	>
+	export class $bog_kit_pager extends $mol_view {
+		segments( ): readonly($mol_view)[]
+		segment_on( id: any): boolean
+		count( ): number
+		current( ): number
+		sub( ): ReturnType< $bog_kit_pager['segments'] >
+		Segment( id: any): $mol_view
+	}
+	
+}
+
+//# sourceMappingURL=pager.view.tree.d.ts.map
+declare namespace $.$$ {
+    /**
+     * How deep you are in a catalogue.
+     *
+     * Replaces the dashes $mol_book2 draws between its columns. Those said "the
+     * page continues", which is why they were worth having on a phone — but they
+     * never said how far in you are or how much is left, and they read as an
+     * artefact rather than as a control.
+     *
+     * One segment per open screen, the mark on the one in front of the reader —
+     * so it moves with a swipe, not only with a tap. Three pixels under the
+     * status bar; it does not compete with the header.
+     *
+     * Lives in the DOM as `[bog_kit_pager]`, hung on the book through
+     * `$bog_kit_stack.placeholders()`.
+     */
+    class $bog_kit_pager extends $.$bog_kit_pager {
+        segments(): readonly $mol_view[];
+        /** One mark, on the screen in front of the reader. */
+        segment_on(index: number): boolean;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
     /**
      * Which platform's language to speak: `ios` or `md`.
      *
@@ -3517,16 +3564,12 @@ declare namespace $ {
         /** The level bar and the platform back arrow. Off for the stock build. */
         kit_chrome(): boolean;
         /**
-         * Which screen was last seen in front of the reader, and how many there
-         * were at the time.
+         * Which screen is in front of the reader.
          *
-         * The count is carried along on purpose. The book scrolls itself to a
-         * freshly opened page, and the observer reports the column it started
-         * from before that scroll lands — so a bare index sticks on the screen
-         * you came from and never moves again. Tagged with the route, a stale
-         * report is simply ignored: open something and you are on it.
+         * Written as columns come and go, so the bar follows a swipe rather than
+         * only a tap. Negative means nothing has been observed yet.
          */
-        page_seen(next?: readonly [number, number]): readonly [number, number];
+        page_seen(next?: number): number;
         page_current(): number;
         /** Nothing to follow while every column fits on screen at once. */
         page_follow(node: HTMLElement): boolean;
@@ -3543,36 +3586,6 @@ declare namespace $ {
         };
         event_scroll(next?: Event): void;
         auto(): any[];
-        /**
-         * Bumped once a frame after the columns change, so the widths below are
-         * taken after the layout that produced them.
-         */
-        spans_epoch(next?: number): number;
-        Spans_sync(): $mol_after_frame;
-        /**
-         * How wide each column is, in order.
-         *
-         * The bar is drawn from these, so a segment ends where its column ends.
-         * On a phone the columns are all one screen wide and the segments come
-         * out equal; on a desktop they differ and the bar becomes a rule over the
-         * layout instead of a block of its own.
-         *
-         * Measured a frame late on purpose. This is read from `sub()`, which runs
-         * before the columns are in the document, so measuring inline returns an
-         * empty list on the first pass and a stale one after that — the bar came
-         * out with no segments on a phone, and with fewer segments than screens
-         * on a desktop, which left the current one unmarked because its index was
-         * past the end.
-         *
-         * Widths are a refinement only: how many segments there are comes from
-         * the route, so the bar is right even before it has been measured.
-         */
-        page_spans(): readonly number[];
-        /**
-         * How far the bar runs: to the end of the last column, or to the edge of
-         * the screen when the columns overrun it.
-         */
-        page_span_total(): number;
         Pager(): $$.$bog_kit_pager;
         /**
          * Back, not close.
@@ -5895,17 +5908,22 @@ declare namespace $ {
 		,
 		ReturnType< $mol_string['submit'] >
 	>
-	type $mol_button_minor__event_click_mol_number_11 = $mol_type_enforce<
+	type $mol_string__selection_mol_number_11 = $mol_type_enforce<
+		ReturnType< $mol_number['selection'] >
+		,
+		ReturnType< $mol_string['selection'] >
+	>
+	type $mol_button_minor__event_click_mol_number_12 = $mol_type_enforce<
 		ReturnType< $mol_number['event_inc'] >
 		,
 		ReturnType< $mol_button_minor['event_click'] >
 	>
-	type $mol_button_minor__enabled_mol_number_12 = $mol_type_enforce<
+	type $mol_button_minor__enabled_mol_number_13 = $mol_type_enforce<
 		ReturnType< $mol_number['inc_enabled'] >
 		,
 		ReturnType< $mol_button_minor['enabled'] >
 	>
-	type $mol_button_minor__sub_mol_number_13 = $mol_type_enforce<
+	type $mol_button_minor__sub_mol_number_14 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
@@ -5925,6 +5943,7 @@ declare namespace $ {
 		hint( ): string
 		string_enabled( ): ReturnType< $mol_number['enabled'] >
 		submit( next?: any ): any
+		selection( next?: readonly(number)[] ): readonly(number)[]
 		String( ): $mol_string
 		inc_enabled( ): ReturnType< $mol_number['enabled'] >
 		inc_icon( ): $mol_icon_chevron_right
@@ -9459,86 +9478,6 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=feedback.view.tree.d.ts.map
-declare namespace $ {
-
-	type $mol_view__style_bog_kit_pager_1 = $mol_type_enforce<
-		({ 
-			'flexGrow': ReturnType< $bog_kit_pager['segment_weight'] >,
-		})  & ReturnType< $mol_view['style'] >
-		,
-		ReturnType< $mol_view['style'] >
-	>
-	type $mol_view__attr_bog_kit_pager_2 = $mol_type_enforce<
-		({ 
-			'bog_kit_pager_on': ReturnType< $bog_kit_pager['segment_on'] >,
-		})  & ReturnType< $mol_view['attr'] >
-		,
-		ReturnType< $mol_view['attr'] >
-	>
-	export class $bog_kit_pager extends $mol_view {
-		width_style( ): string
-		segments( ): readonly($mol_view)[]
-		segment_weight( id: any): number
-		segment_on( id: any): boolean
-		count( ): number
-		spans( ): readonly(number)[]
-		span_total( ): number
-		current( ): number
-		style( ): ({ 
-			'width': ReturnType< $bog_kit_pager['width_style'] >,
-		})  & ReturnType< $mol_view['style'] >
-		sub( ): ReturnType< $bog_kit_pager['segments'] >
-		Segment( id: any): $mol_view
-	}
-	
-}
-
-//# sourceMappingURL=pager.view.tree.d.ts.map
-declare namespace $.$$ {
-    /**
-     * Where you are in a catalogue.
-     *
-     * Replaces the dashes $mol_book2 draws between its columns. Those said "the
-     * page continues", which is why they were worth having on a phone — but they
-     * never said how far in you are or how much is left, and they read as an
-     * artefact rather than as a control.
-     *
-     * A segment per screen, sized like the screen it stands for and laid over it,
-     * with the mark on the one in front of the reader. On a phone every column is
-     * one screen wide, so the segments come out equal and the bar spans the
-     * display; on a desktop the columns differ and so do the segments, and the
-     * bar ends where the last column ends instead of running on over the empty
-     * plate. Either way it is a rule drawn on the layout, not a block of its own.
-     *
-     * Lives in the DOM as `[bog_kit_pager]`, hung on the book through
-     * `$bog_kit_book.placeholders()`.
-     */
-    class $bog_kit_pager extends $.$bog_kit_pager {
-        /**
-         * How many screens there are comes from the route, never from the
-         * measurement: the widths are taken a frame late, and a bar that waited
-         * for them would be empty on the first paint and short of a segment
-         * after every step deeper.
-         */
-        segments(): readonly $mol_view[];
-        /**
-         * Full width until the columns have been measured.
-         *
-         * `auto` would be wrong here: the bar is fixed and pinned on the left
-         * only, so shrink-to-fit collapses it to nothing. Falling back to the
-         * whole screen with equal segments is the behaviour it had before the
-         * columns were measured at all.
-         */
-        width_style(): string;
-        segment_weight(index: number): number;
-        /** One mark, on the screen in front of the reader. */
-        segment_on(index: number): boolean;
-    }
-}
-
-declare namespace $.$$ {
-}
-
 declare namespace $ {
 }
 
