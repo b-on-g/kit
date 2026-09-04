@@ -358,15 +358,6 @@ $mol_book2_catalog $mol_book2
 		sub /
 			<= Spread_close_icon $mol_icon_close
 
-$bog_kit_pager $mol_view
-	count 1
-	current 0
-	sub <= segments /$mol_view
-	Segment* $mol_view
-		attr *
-			^
-			bog_kit_pager_on <= segment_on* false
-
 $mol_theme_auto $mol_plugin
 	light \$mol_theme_light
 	attr * mol_theme <= theme <= dark \$mol_theme_dark
@@ -1897,6 +1888,15 @@ $bog_kit_lights_pick $bog_kit_switch
 $bog_kit_input $mol_string
 
 $bog_kit_page $mol_page
+
+$bog_kit_pager $mol_view
+	count 1
+	current 0
+	sub <= segments /$mol_view
+	Segment* $mol_view
+		attr *
+			^
+			bog_kit_pager_on <= segment_on* false
 
 $mol_text_list $mol_text
 	auto_scroll null
