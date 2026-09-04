@@ -3,62 +3,52 @@ namespace $.$$ {
 	const { rem } = $mol_style_unit
 
 	/*
-		The one loud thing in the Kit.
-
-		A link carries a rail on its left edge: invisible while it is just a link,
-		three pixels of the pen once it is the page you are on. It is the mark a
-		tree view puts against the open branch, which is exactly what a catalogue
-		menu is, and it is the reason nothing else here needs a fill, a shadow or
-		a highlight to say "you are here".
+		Where the key colour earns its keep. A link is a quiet line of the menu
+		until it is the page you are on, and then it is a filled key — the same
+		shape and the same colour as the primary action, because "the thing that
+		is happening" is one idea, not two.
 	*/
 	$mol_style_define( $bog_kit_link, {
 
-		minHeight: rem( 2 ),
+		minHeight: rem( 2.25 ),
 		minWidth: 0,
-		gap: rem( .375 ),
+		gap: rem( .4375 ),
 		padding: {
-			top: rem( .3125 ),
-			bottom: rem( .3125 ),
-			left: rem( .625 ),
-			right: rem( .5 ),
+			top: rem( .375 ),
+			bottom: rem( .375 ),
+			left: rem( .875 ),
+			right: rem( .875 ),
 		},
-		borderRadius: '2px',
-		border: {
-			left: {
-				width: '3px',
-				style: 'solid',
-				color: 'transparent',
-			},
-		},
-		color: $bog_kit_tokens.pen,
+		border: { radius: $bog_kit.round_pill },
+		color: $bog_kit.ink,
+		background: { color: 'transparent' },
 		textDecoration: 'none',
-		transition: 'border-color .1s linear, color .1s linear',
+		transition: 'background-color .16s ease-out, color .16s ease-out',
 
 		':hover': {
-			color: $bog_kit_tokens.ink,
-			background: { color: 'transparent' },
-			border: { left: { color: $bog_kit_tokens.line } },
+			color: $bog_kit.ink,
+			background: { color: $bog_kit.case },
 		},
 
 		':focus-visible': {
 			outline: 'none',
-			background: { color: 'transparent' },
-			border: { left: { color: $bog_kit_tokens.pen } },
+			background: { color: $bog_kit.case },
 		},
 
 		':active': {
-			color: $bog_kit_tokens.pen,
+			color: $bog_kit.key,
 		},
 
 		'@': {
 			mol_link_current: {
 				'true': {
-					color: $bog_kit_tokens.ink,
+					color: $bog_kit.key_ink,
+					background: { color: $bog_kit.key },
 					textShadow: 'none',
-					font: { weight: 600 },
-					border: { left: { color: $bog_kit_tokens.pen } },
+					font: { weight: 500 },
 					':hover': {
-						border: { left: { color: $bog_kit_tokens.pen } },
+						color: $bog_kit.key_ink,
+						background: { color: $bog_kit.key },
 					},
 				},
 			},

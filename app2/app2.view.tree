@@ -1,6 +1,6 @@
 $bog_kit_app2 $bog_kit_app
 	menu_title \Kit
-	Theme $bog_kit_plotter
+	Theme $bog_kit_shell
 	menu_tools /
 		<= Lights_pick $bog_kit_lights_pick
 	Intro_text $mol_text

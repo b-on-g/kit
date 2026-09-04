@@ -7,51 +7,51 @@ namespace $.$$ {
 		because the digits are the same width, so a reader can compare them by
 		length alone. Numbers sit at the end of their cell for the same reason.
 
-		Column heads step down in size and take the fine pen — the data is the
-		thing to look at, not its labels.
+		Rows are told apart by a seam of the case, not by a rule — the same idea
+		as everywhere else in the Kit.
 	*/
 	$mol_style_define( $bog_kit_grid, {
 
-		color: $bog_kit_tokens.ink,
+		color: $bog_kit.ink,
 
 		Col_head: {
 			padding: {
-				top: rem( .3125 ),
-				bottom: rem( .3125 ),
-				left: rem( .625 ),
-				right: rem( .625 ),
+				top: rem( .4375 ),
+				bottom: rem( .4375 ),
+				left: rem( .875 ),
+				right: rem( .875 ),
 			},
-			color: $bog_kit_tokens.ink_soft,
+			color: $bog_kit.ink_soft,
 			lineHeight: '1.25rem',
 			font: {
 				size: rem( .8125 ),
 				weight: 500,
 			},
-			// Column heads are $mol_float, which arrives with a soft halo. Draw the
-			// rule stock $mol draws under the head row instead, and nothing else.
-			box: { shadow: [ [ 'inset', '2px', '-2px', 0, '-1px', $bog_kit_tokens.line ] ] },
+			box: { shadow: 'none' },
 		},
 
 		Cell_text: {
 			padding: {
-				top: rem( .3125 ),
-				bottom: rem( .3125 ),
-				left: rem( .625 ),
-				right: rem( .625 ),
+				top: rem( .4375 ),
+				bottom: rem( .4375 ),
+				left: rem( .875 ),
+				right: rem( .875 ),
 			},
+			box: { shadow: [ [ 'inset', 0, '1px', 0, 0, $bog_kit.case ] ] },
 		},
 
 		Cell_number: {
 			padding: {
-				top: rem( .3125 ),
-				bottom: rem( .3125 ),
-				left: rem( .625 ),
-				right: rem( .625 ),
+				top: rem( .4375 ),
+				bottom: rem( .4375 ),
+				left: rem( .875 ),
+				right: rem( .875 ),
 			},
 			textAlign: 'end',
 			font: {
-				family: $bog_kit_tokens.font_code,
+				family: $bog_kit.font_code,
 			},
+			box: { shadow: [ [ 'inset', 0, '1px', 0, 0, $bog_kit.case ] ] },
 		},
 
 	} )

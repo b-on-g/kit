@@ -3,58 +3,57 @@ namespace $.$$ {
 	const { rem } = $mol_style_unit
 
 	/*
-		One choice out of a few, so the options are drawn as one block with the
-		dividers between them rather than as separate buttons: a reader sees a
-		single control with a window cut where the answer is.
+		One choice out of a few. The track is sunk into the panel and the answer
+		is a raised key sliding along it — the position is the answer, which is
+		why this one does not use the key colour: colour here would say "on", and
+		a radio group has no off.
 
-		Stock $mol leaves these as bare words, which is legible but does not read
-		as something you can operate.
+		Stock $mol leaves these as bare words, legible but not operable-looking.
 	*/
 	$mol_style_define( $bog_kit_switch, {
 
-		gap: 0,
+		gap: rem( .125 ),
 		alignSelf: 'flex-start',
 		flexWrap: 'wrap',
-		borderRadius: '2px',
-		background: { color: $bog_kit_tokens.sheet },
-		box: { shadow: [ [ 'inset', 0, 0, 0, '1px', $bog_kit_tokens.line ] ] },
-		overflow: { x: 'hidden', y: 'hidden' },
+		padding: {
+			top: rem( .1875 ),
+			bottom: rem( .1875 ),
+			left: rem( .1875 ),
+			right: rem( .1875 ),
+		},
+		border: { radius: $bog_kit.round_pill },
+		background: { color: $bog_kit.case },
 
 		Option: {
 
-			minHeight: rem( 1.875 ),
+			minHeight: rem( 2 ),
 			padding: {
-				top: rem( .1875 ),
-				bottom: rem( .1875 ),
-				left: rem( .625 ),
-				right: rem( .625 ),
+				top: rem( .25 ),
+				bottom: rem( .25 ),
+				left: rem( .875 ),
+				right: rem( .875 ),
 			},
-			borderRadius: '0px',
-			color: $bog_kit_tokens.sheet,
-			background: { color: $bog_kit_tokens.pen },
-			transition: 'background-color .1s linear, color .1s linear',
-			box: { shadow: 'none' },
+			border: { radius: $bog_kit.round_pill },
+			color: $bog_kit.ink,
+			background: { color: $bog_kit.raise },
+			font: { weight: 500 },
+			transition: 'background-color .16s ease-out, color .16s ease-out',
 
 			':not([mol_check_checked])': {
 
-				color: $bog_kit_tokens.ink_soft,
+				color: $bog_kit.ink_soft,
 				background: { color: 'transparent' },
-				box: { shadow: [ [ 'inset', '1px', 0, 0, 0, $bog_kit_tokens.line ] ] },
+				font: { weight: 400 },
 
 				':hover': {
-					color: $bog_kit_tokens.ink,
-					background: { color: $bog_kit_tokens.paper },
+					color: $bog_kit.ink,
+					background: { color: 'transparent' },
 				},
 
 			},
 
-			':first-child': {
-				box: { shadow: 'none' },
-			},
-
 			':focus-visible': {
 				outline: 'none',
-				box: { shadow: [ [ 'inset', 0, 0, 0, '2px', $bog_kit_tokens.pen ] ] },
 			},
 
 		},

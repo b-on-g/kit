@@ -3,67 +3,52 @@ namespace $.$$ {
 	const { rem } = $mol_style_unit
 
 	/*
-		The row itself is not a surface — only the box is drawn. Ticking it fills
-		the box with the pen and lets the tick show through in paper, the same
-		figure-ground flip the major button uses, so "on" reads the same way
-		everywhere in the Kit.
+		The row is not a surface — only the box is. Ticking it fills the box with
+		the key colour and lets the tick show through, the same figure-ground flip
+		the primary key uses, so "on" reads the same way everywhere in the Kit.
 	*/
 	$mol_style_define( $bog_kit_check_box, {
 
-		minHeight: rem( 1.875 ),
-		gap: rem( .5 ),
+		minHeight: rem( 2.25 ),
+		alignSelf: 'flex-start',
+		gap: rem( .625 ),
 		padding: {
-			top: rem( .25 ),
-			bottom: rem( .25 ),
-			left: rem( .125 ),
-			right: rem( .375 ),
+			top: rem( .3125 ),
+			bottom: rem( .3125 ),
+			left: rem( .25 ),
+			right: rem( .625 ),
 		},
-		color: $bog_kit_tokens.ink,
+		border: { radius: $bog_kit.round_pill },
+		color: $bog_kit.ink,
 		background: { color: 'transparent' },
 		box: { shadow: 'none' },
 
 		// The fill of the box lives in box.view.css — see the note there.
 		Icon: {
-			width: rem( 1.125 ),
-			height: rem( 1.125 ),
+			width: rem( 1.375 ),
+			height: rem( 1.375 ),
 			alignSelf: 'center',
-			border: { radius: '2px' },
-			transition: 'box-shadow .1s linear',
-			box: { shadow: [ [ 'inset', 0, 0, 0, '1px', $bog_kit_tokens.ink_soft ] ] },
+			border: { radius: rem( .5 ) },
+			transition: 'background-color .16s ease-out',
+			box: { shadow: 'none' },
 		},
 
 		':hover': {
-			color: $bog_kit_tokens.ink,
+			color: $bog_kit.ink,
 			background: { color: 'transparent' },
-			Icon: {
-				box: { shadow: [ [ 'inset', 0, 0, 0, '1px', $bog_kit_tokens.ink ] ] },
-			},
 		},
 
 		':focus-visible': {
 			outline: 'none',
-			Icon: {
-				box: { shadow: [ [ 'inset', 0, 0, 0, '2px', $bog_kit_tokens.pen ] ] },
-			},
 		},
 
 		'@': {
-
-			mol_check_checked: {
-				'true': {
-					Icon: {
-						box: { shadow: [ [ 'inset', 0, 0, 0, '1px', $bog_kit_tokens.pen ] ] },
-					},
-				},
-			},
-
 			disabled: {
 				'true': {
-					color: $bog_kit_tokens.ink_soft,
+					color: $bog_kit.ink_soft,
 					opacity: .5,
 				},
 			},
-
 		},
 
 	} )

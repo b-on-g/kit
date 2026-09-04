@@ -3,45 +3,43 @@ namespace $.$$ {
 	const { rem } = $mol_style_unit
 
 	/*
-		A toggle with no words: same square as the buttons, same stroke ladder,
-		filled with the pen while it is on.
+		A key with no words: round, the same height as every other key, filled
+		with the key colour while it is on.
 	*/
 	$mol_style_define( $bog_kit_check_icon, {
 
-		minHeight: rem( 2.125 ),
+		minHeight: rem( 2.375 ),
+		minWidth: rem( 2.375 ),
 		alignSelf: 'flex-start',
-		minWidth: rem( 2.125 ),
 		justifyContent: 'center',
 		padding: {
-			top: rem( .3125 ),
-			bottom: rem( .3125 ),
-			left: rem( .3125 ),
-			right: rem( .3125 ),
+			top: rem( .4375 ),
+			bottom: rem( .4375 ),
+			left: rem( .4375 ),
+			right: rem( .4375 ),
 		},
-		borderRadius: '2px',
-		color: $bog_kit_tokens.ink,
-		background: { color: 'transparent' },
-		transition: 'background-color .1s linear, color .1s linear, box-shadow .1s linear',
-		box: { shadow: [ [ 'inset', 0, 0, 0, '1px', $bog_kit_tokens.line ] ] },
+		border: { radius: $bog_kit.round_pill },
+		color: $bog_kit.ink,
+		background: { color: $bog_kit.raise },
+		transition: 'background-color .16s ease-out, color .16s ease-out, box-shadow .16s ease-out',
 
 		':hover': {
-			color: $bog_kit_tokens.pen,
-			box: { shadow: [ [ 'inset', 0, 0, 0, '1px', $bog_kit_tokens.ink ] ] },
+			color: $bog_kit.ink,
+			background: { color: $bog_kit.raise },
 		},
 
 		':focus-visible': {
 			outline: 'none',
-			box: { shadow: [ [ 'inset', 0, 0, 0, '2px', $bog_kit_tokens.pen ] ] },
 		},
 
 		'@': {
 			mol_check_checked: {
 				'true': {
-					color: $bog_kit_tokens.sheet,
-					background: { color: $bog_kit_tokens.pen },
-					box: { shadow: [ [ 'inset', 0, 0, 0, '1px', $bog_kit_tokens.pen ] ] },
+					color: $bog_kit.key_ink,
+					background: { color: $bog_kit.key },
 					':hover': {
-						color: $bog_kit_tokens.sheet,
+						color: $bog_kit.key_ink,
+						background: { color: $bog_kit.key },
 					},
 				},
 			},

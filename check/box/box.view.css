@@ -6,16 +6,17 @@
 	Everything $mol_style_define emits for a sub-view goes inside :where(), which
 	carries no specificity at all, so the typed sheet cannot outweigh that rule
 	however it is written. The fill is stated here instead, where the selector
-	can be given the weight it needs. Geometry and strokes stay in the typed
-	sheet next door.
+	can be given the weight it needs. Geometry stays in the typed sheet next door.
 */
 
 [mol_check][bog_kit_check_box]:not([disabled]) > [bog_kit_check_box_icon] {
-	background: var(--bog_kit_sheet);
+	background: var(--bog_kit_raise);
 	color: transparent;
+	box-shadow: var(--bog_kit_sink);
 }
 
 [mol_check][bog_kit_check_box][mol_check_checked]:not([disabled]) > [bog_kit_check_box_icon] {
-	background: var(--bog_kit_pen);
-	color: var(--bog_kit_sheet);
+	background: var(--bog_kit_key);
+	color: var(--bog_kit_key_ink);
+	box-shadow: none;
 }

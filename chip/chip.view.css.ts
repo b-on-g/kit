@@ -4,30 +4,30 @@ namespace $.$$ {
 
 	/*
 		Chips hold values the machine put there — a state, a tag, a count — so
-		they are set in the mono face. Outlined rather than filled, because a
-		chip labels something else and must not outrank it.
+		they are set in the mono face and moulded out of the case rather than
+		raised: a chip labels something else and must not outrank it.
 	*/
 	$mol_style_define( $bog_kit_chip, {
 
-		minHeight: rem( 1.625 ),
+		minHeight: rem( 1.75 ),
 		alignSelf: 'center',
 		padding: {
-			top: rem( .0625 ),
-			bottom: rem( .0625 ),
-			left: rem( .4375 ),
-			right: rem( .4375 ),
+			top: rem( .125 ),
+			bottom: rem( .125 ),
+			left: rem( .625 ),
+			right: rem( .625 ),
 		},
 		gap: rem( .375 ),
-		borderRadius: '2px',
-		background: { color: 'transparent' },
-		color: $bog_kit_tokens.ink_soft,
-		lineHeight: '1.375rem',
+		border: { radius: $bog_kit.round_pill },
+		background: { color: $bog_kit.case },
+		color: $bog_kit.ink_soft,
+		lineHeight: '1.5rem',
 		font: {
-			family: $bog_kit_tokens.font_code,
+			family: $bog_kit.font_code,
 			size: rem( .8125 ),
 			weight: 500,
 		},
-		box: { shadow: [ [ 'inset', 0, 0, 0, '1px', $bog_kit_tokens.line ] ] },
+		box: { shadow: 'none' },
 
 	} )
 

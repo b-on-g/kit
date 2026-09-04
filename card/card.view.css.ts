@@ -3,40 +3,39 @@ namespace $.$$ {
 	const { rem } = $mol_style_unit
 
 	/*
-		Cards are the usual place a design leaks a soft grey shadow. Here they are
-		a sheet with a stroke around it, and the status strip is separated by one
-		hairline instead of a fill. Flat, but never ambiguous about where the card
-		ends.
+		A raised shell with a generous corner. The status strip is part of the
+		same moulding, one tone down, so the card stays a single object instead of
+		a box with a bar stuck to it.
 	*/
 	$mol_style_define( $bog_kit_card, {
 
-		border: { radius: '2px' },
-		background: { color: $bog_kit_tokens.sheet },
-		color: $bog_kit_tokens.ink,
-		box: { shadow: [ [ 'inset', 0, 0, 0, '1px', $bog_kit_tokens.line ] ] },
+		border: { radius: $bog_kit.round_panel },
+		background: { color: $bog_kit.raise },
+		color: $bog_kit.ink,
+		overflow: { x: 'hidden', y: 'hidden' },
 
 		Content: {
 			padding: {
-				top: rem( .625 ),
-				bottom: rem( .625 ),
-				left: rem( .75 ),
-				right: rem( .75 ),
+				top: rem( .875 ),
+				bottom: rem( .875 ),
+				left: rem( 1.125 ),
+				right: rem( 1.125 ),
 			},
-			gap: rem( .375 ),
+			gap: rem( .5 ),
 		},
 
 		Status: {
-			minHeight: rem( 1.75 ),
+			minHeight: rem( 2 ),
 			padding: {
-				top: rem( .3125 ),
-				bottom: rem( .3125 ),
-				left: rem( .75 ),
-				right: rem( .75 ),
+				top: rem( .375 ),
+				bottom: rem( .5 ),
+				left: rem( 1.125 ),
+				right: rem( 1.125 ),
 			},
-			background: { color: 'transparent' },
-			color: $bog_kit_tokens.ink_soft,
-			font: { family: $bog_kit_tokens.font_code, size: rem( .8125 ) },
-			box: { shadow: [ [ 'inset', 0, '1px', 0, 0, $bog_kit_tokens.line ] ] },
+			background: { color: $bog_kit.panel },
+			color: $bog_kit.ink_soft,
+			font: { family: $bog_kit.font_code, size: rem( .8125 ) },
+			box: { shadow: 'none' },
 		},
 
 	} )

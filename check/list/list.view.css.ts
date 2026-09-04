@@ -3,48 +3,46 @@ namespace $.$$ {
 	const { rem } = $mol_style_unit
 
 	/*
-		Any number of the options can be on at once, so unlike the switch they are
-		separate objects with air between them: each one is its own outlined
-		toggle, filled with the pen while it is on.
+		Any number of these can be on at once, so unlike the switch they are
+		separate keys with air between them — and unlike the switch they do take
+		the key colour, because here there really is an on and an off.
 	*/
 	$mol_style_define( $bog_kit_check_list, {
 
-		gap: rem( .375 ),
+		gap: rem( .5 ),
 		flexWrap: 'wrap',
 		alignSelf: 'flex-start',
 
 		Option: {
 
-			minHeight: rem( 1.875 ),
+			minHeight: rem( 2.25 ),
 			padding: {
-				top: rem( .1875 ),
-				bottom: rem( .1875 ),
-				left: rem( .625 ),
-				right: rem( .625 ),
+				top: rem( .375 ),
+				bottom: rem( .375 ),
+				left: rem( 1 ),
+				right: rem( 1 ),
 			},
-			borderRadius: '2px',
-			color: $bog_kit_tokens.sheet,
-			background: { color: $bog_kit_tokens.pen },
-			transition: 'background-color .1s linear, color .1s linear, box-shadow .1s linear',
-			box: { shadow: [ [ 'inset', 0, 0, 0, '1px', $bog_kit_tokens.pen ] ] },
+			border: { radius: $bog_kit.round_pill },
+			color: $bog_kit.key_ink,
+			background: { color: $bog_kit.key },
+			font: { weight: 500 },
+			transition: 'background-color .16s ease-out, color .16s ease-out, box-shadow .16s ease-out',
 
 			':not([mol_check_checked])': {
 
-				color: $bog_kit_tokens.ink,
-				background: { color: 'transparent' },
-				box: { shadow: [ [ 'inset', 0, 0, 0, '1px', $bog_kit_tokens.line ] ] },
+				color: $bog_kit.ink,
+				background: { color: $bog_kit.raise },
+				font: { weight: 400 },
 
 				':hover': {
-					color: $bog_kit_tokens.pen,
-					background: { color: 'transparent' },
-					box: { shadow: [ [ 'inset', 0, 0, 0, '1px', $bog_kit_tokens.ink ] ] },
+					color: $bog_kit.ink,
+					background: { color: $bog_kit.raise },
 				},
 
 			},
 
 			':focus-visible': {
 				outline: 'none',
-				box: { shadow: [ [ 'inset', 0, 0, 0, '2px', $bog_kit_tokens.pen ] ] },
 			},
 
 		},
