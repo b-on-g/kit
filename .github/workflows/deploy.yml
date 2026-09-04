@@ -26,6 +26,21 @@ jobs:
         package: 'bog/kit'
         modules: 'app app2'
 
+    # GitHub Pages отдаёт web.js с `cache-control: max-age=600`, поэтому первые
+    # десять минут после деплоя вернувшийся читатель получает старый бандл и
+    # видит ровно то, что уже починили. Ссылка со стемпом коммита делает адрес
+    # бандла новым на каждый деплой — кэшу нечего отдавать.
+    - name: Cache-bust the bundle
+      if: github.ref == 'refs/heads/master'
+      run: |
+        set -euo pipefail
+        stamp="${GITHUB_SHA::7}"
+        for module in app app2; do
+          file="bog/kit/$module/-/index.html"
+          sed -i "s|src=\"web.js\"|src=\"web.js?v=$stamp\"|" "$file"
+          grep -q "web.js?v=$stamp" "$file"
+        done
+
     # Корень — витрина со ссылками. `clean-exclude` обязателен: без него
     # rsync --delete в корне снёс бы папки приложений. Всё, чего в списке нет,
     # из корня удаляется — так ушла папка app3.
