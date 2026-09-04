@@ -20,29 +20,20 @@ namespace $ {
 		}
 
 		/**
-		 * Which screen was last seen in front of the reader, and how many there
-		 * were at the time.
+		 * Which screen is in front of the reader.
 		 *
-		 * The count is carried along on purpose. The book scrolls itself to a
-		 * freshly opened page, and the observer reports the column it started
-		 * from before that scroll lands — so a bare index sticks on the screen
-		 * you came from and never moves again. Tagged with the route, a stale
-		 * report is simply ignored: open something and you are on it.
+		 * Written as columns come and go, so the bar follows a swipe rather than
+		 * only a tap. Negative means nothing has been observed yet.
 		 */
 		@ $mol_mem
-		page_seen( next?: readonly [ number, number ] ): readonly [ number, number ] {
-			return next ?? [ 0, -1 ]
+		page_seen( next?: number ) {
+			return next ?? -1
 		}
 
 		@ $mol_mem
 		page_current() {
-
-			const count = this.pages_deep().length
-			const last = count - 1
-
-			const [ seen_count, seen ] = this.page_seen()
-			if( seen_count !== count ) return last
-
+			const last = this.pages_deep().length - 1
+			const seen = this.page_seen()
 			return seen < 0 || seen > last ? last : seen
 		}
 
@@ -74,7 +65,7 @@ namespace $ {
 					for( const entry of entries ) {
 						if( !entry.isIntersecting ) continue
 						const index = nodes.indexOf( entry.target )
-						if( index >= 0 ) this.page_seen([ nodes.length, index ])
+						if( index >= 0 ) this.page_seen( index )
 					}
 				},
 				{ root, threshold: 0.6 },
@@ -97,85 +88,17 @@ namespace $ {
 			const width = node.clientWidth
 			if( !width ) return
 
-			this.page_seen([ this.pages_deep().length, Math.round( node.scrollLeft / width ) ])
+			this.page_seen( Math.round( node.scrollLeft / width ) )
 		}
 
 		override auto() {
-			return [ ... super.auto(), this.Pages_watch(), this.Spans_sync() ]
-		}
-
-		/**
-		 * Bumped once a frame after the columns change, so the widths below are
-		 * taken after the layout that produced them.
-		 */
-		@ $mol_mem
-		spans_epoch( next?: number ) {
-			return next ?? 0
-		}
-
-		@ $mol_mem
-		Spans_sync() {
-			this.pages_deep()
-			this.$.$mol_window.size()
-			return new this.$.$mol_after_frame( () => this.spans_epoch( Date.now() ) )
-		}
-
-		/**
-		 * How wide each column is, in order.
-		 *
-		 * The bar is drawn from these, so a segment ends where its column ends.
-		 * On a phone the columns are all one screen wide and the segments come
-		 * out equal; on a desktop they differ and the bar becomes a rule over the
-		 * layout instead of a block of its own.
-		 *
-		 * Measured a frame late on purpose. This is read from `sub()`, which runs
-		 * before the columns are in the document, so measuring inline returns an
-		 * empty list on the first pass and a stale one after that — the bar came
-		 * out with no segments on a phone, and with fewer segments than screens
-		 * on a desktop, which left the current one unmarked because its index was
-		 * past the end.
-		 *
-		 * Widths are a refinement only: how many segments there are comes from
-		 * the route, so the bar is right even before it has been measured.
-		 */
-		@ $mol_mem
-		page_spans(): readonly number[] {
-
-			this.spans_epoch()
-			this.pages_deep()
-
-			const root = this.dom_node() as HTMLElement
-
-			return [ ... root.children ]
-				.filter( node => node.hasAttribute( 'mol_page' ) )
-				.map( node => ( node as HTMLElement ).offsetWidth )
-		}
-
-		/**
-		 * How far the bar runs: to the end of the last column, or to the edge of
-		 * the screen when the columns overrun it.
-		 */
-		@ $mol_mem
-		page_span_total() {
-
-			const spans = this.page_spans()
-			if( spans.length !== this.pages_deep().length ) return 0
-			if( spans.some( span => !span ) ) return 0
-
-			// The seams between columns are part of the run — same 2px the bar
-			// puts between its own segments.
-			const seams = ( spans.length - 1 ) * 2
-			const total = spans.reduce( ( sum, span ) => sum + span, seams )
-
-			return Math.min( total, ( this.dom_node() as HTMLElement ).clientWidth )
+			return [ ... super.auto(), this.Pages_watch() ]
 		}
 
 		@ $mol_mem
 		Pager() {
 			const obj = new this.$.$bog_kit_pager()
 			obj.count = () => this.pages_deep().length
-			obj.spans = () => this.page_spans()
-			obj.span_total = () => this.page_span_total()
 			obj.current = () => this.page_current()
 			return obj
 		}

@@ -10,23 +10,24 @@ namespace $.$$ {
 		position: 'fixed',
 		top: 0,
 		left: 0,
+		right: 0,
 		zIndex: 20,
-		// The width comes from a measurement, and a measurement taken at the
-		// wrong moment can be anything. Whatever it says, the bar stops at the
-		// edge of the screen.
-		maxWidth: per( 100 ),
 		// $mol_book2 stretches its children to the full height of the book;
 		// an overlay is not one of its columns.
 		minHeight: 0,
 		maxHeight: '3px',
 		height: '3px',
-		// The gap matches the one between the book's columns, so a seam in the bar
-		// falls exactly on a seam in the layout. See shell.view.css.
 		gap: '2px',
+		padding: {
+			top: 0,
+			bottom: 0,
+			left: '10px',
+			right: '10px',
+		},
 		pointerEvents: 'none',
 
 		Segment: {
-			flex: { shrink: 1, basis: 0 },
+			flex: { grow: 1, shrink: 1, basis: 0 },
 			height: per( 100 ),
 			border: { radius: '2px' },
 			background: { color: $bog_kit.case },
