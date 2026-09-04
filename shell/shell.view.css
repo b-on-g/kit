@@ -32,41 +32,46 @@
 }
 
 /*
-	Tone A — sand and indigo.
-	Warm neutral case, generous corners, a soft lift under everything raised.
+	Tone A — paper.
+
+	Nearly neutral with a trace of warmth. The first attempt made the case a
+	saturated beige and the panel almost the same value, so the whole screen read
+	as one dingy field with white pills floating on it. Two fixes: pull the chroma
+	most of the way out, and open the gap between the case, the panel and the
+	raised parts so the stack is actually legible.
 */
 [bog_kit_shell][bog_kit_tone="a"] {
-	--bog_kit_case: #e7e1d8;
-	--bog_kit_panel: #f3efe8;
-	--bog_kit_raise: #fdfbf7;
-	--bog_kit_ink: #2b2621;
-	--bog_kit_ink_soft: #7c7268;
-	--bog_kit_key: #4438ca;
-	--bog_kit_key_ink: #fdfbf7;
+	--bog_kit_case: #dedcd8;
+	--bog_kit_panel: #f0efec;
+	--bog_kit_raise: #ffffff;
+	--bog_kit_ink: #1a1917;
+	--bog_kit_ink_soft: #6e6b66;
+	--bog_kit_key: #3d38cc;
+	--bog_kit_key_ink: #ffffff;
 
 	--bog_kit_round_panel: 20px;
 	--bog_kit_round_field: 14px;
 	--bog_kit_round_pill: 999px;
 
-	--bog_kit_lift: 0 1px 1px #6f604c1f, 0 6px 16px -8px #6f604c40;
-	--bog_kit_lift_high: 0 2px 3px #6f604c26, 0 14px 28px -12px #6f604c59;
-	--bog_kit_sink: inset 0 1px 2px #6f604c1a;
-	--bog_kit_seam: #e7e1d8;
+	--bog_kit_lift: 0 1px 1px #5c584f1f, 0 6px 16px -8px #5c584f3d;
+	--bog_kit_lift_high: 0 2px 3px #5c584f26, 0 14px 28px -12px #5c584f52;
+	--bog_kit_sink: inset 0 1px 2px #5c584f1f;
+	--bog_kit_seam: #d4d2ce;
 }
 
 /*
-	Tone B — cream and plum.
-	No shadow anywhere: the stack is told by tone alone, and the type runs one
-	step larger to carry the hierarchy the depth is not carrying.
+	Tone B — canvas.
+	Cool and crisp, no shadow anywhere: the stack is told by tone alone, and the
+	type runs one step larger to carry the hierarchy the depth is not carrying.
 */
 [bog_kit_shell][bog_kit_tone="b"] {
-	--bog_kit_case: #ece3d7;
-	--bog_kit_panel: #f8f2ea;
-	--bog_kit_raise: #fffcf7;
-	--bog_kit_ink: #2e2429;
-	--bog_kit_ink_soft: #806f78;
-	--bog_kit_key: #7a2a57;
-	--bog_kit_key_ink: #fffcf7;
+	--bog_kit_case: #dfe3e9;
+	--bog_kit_panel: #eef1f5;
+	--bog_kit_raise: #ffffff;
+	--bog_kit_ink: #13161b;
+	--bog_kit_ink_soft: #656d7a;
+	--bog_kit_key: #1b53d0;
+	--bog_kit_key_ink: #ffffff;
 
 	--bog_kit_round_panel: 22px;
 	--bog_kit_round_field: 16px;
@@ -75,43 +80,49 @@
 	--bog_kit_lift: none;
 	--bog_kit_lift_high: none;
 	--bog_kit_sink: none;
-	--bog_kit_seam: #e0d3c2;
+	--bog_kit_seam: #d2d8e1;
 
 	font-size: 1rem;
 	line-height: 1.6rem;
 }
 
 /*
-	Tone C — clay and moss.
-	Earthier and tighter: smaller corners on the panels, keys still fully round,
-	the lift barely there.
+	Tone C — linen.
+	The one that keeps a visible warmth, but pale enough not to go muddy, with a
+	warm key so the accent stops fighting the ground. Corners a size smaller.
 */
 [bog_kit_shell][bog_kit_tone="c"] {
-	--bog_kit_case: #e2ddd0;
-	--bog_kit_panel: #efebe1;
-	--bog_kit_raise: #faf8f0;
-	--bog_kit_ink: #26251e;
-	--bog_kit_ink_soft: #706f5f;
-	--bog_kit_key: #3c6b3a;
-	--bog_kit_key_ink: #faf8f0;
+	--bog_kit_case: #e4ded4;
+	--bog_kit_panel: #f6f3ed;
+	--bog_kit_raise: #ffffff;
+	--bog_kit_ink: #1d1a16;
+	--bog_kit_ink_soft: #726b61;
+	--bog_kit_key: #8a2f4f;
+	--bog_kit_key_ink: #ffffff;
 
 	--bog_kit_round_panel: 14px;
 	--bog_kit_round_field: 10px;
 	--bog_kit_round_pill: 999px;
 
-	--bog_kit_lift: 0 1px 1px #5c5c3f1a, 0 4px 10px -6px #5c5c3f33;
-	--bog_kit_lift_high: 0 2px 2px #5c5c3f26, 0 10px 20px -10px #5c5c3f4d;
-	--bog_kit_sink: inset 0 1px 2px #5c5c3f1a;
-	--bog_kit_seam: #d8d2c2;
+	--bog_kit_lift: 0 1px 1px #6b5f4c1a, 0 4px 10px -6px #6b5f4c38;
+	--bog_kit_lift_high: 0 2px 2px #6b5f4c26, 0 10px 20px -10px #6b5f4c4d;
+	--bog_kit_sink: inset 0 1px 2px #6b5f4c1a;
+	--bog_kit_seam: #dad3c6;
 }
 
-/* Night: the same three, moulded out of a dark shell. */
+/*
+	Night: the same three, moulded out of a dark shell.
+
+	The ink is deliberately short of white — a full-strength white on a dark
+	panel glares and smears at small sizes. These sit around 80% lightness,
+	which still clears 9:1 against the panel.
+*/
 [bog_kit_shell][mol_theme="$mol_theme_dark"][bog_kit_tone="a"] {
 	--bog_kit_case: #17140f;
 	--bog_kit_panel: #201c16;
 	--bog_kit_raise: #2b2620;
-	--bog_kit_ink: #efe9df;
-	--bog_kit_ink_soft: #a1968a;
+	--bog_kit_ink: #cfc9c0;
+	--bog_kit_ink_soft: #8c8378;
 	--bog_kit_key: #9a90ff;
 	--bog_kit_key_ink: #17140f;
 	--bog_kit_lift: 0 1px 1px #0000004d, 0 8px 20px -10px #00000080;
@@ -121,31 +132,31 @@
 }
 
 [bog_kit_shell][mol_theme="$mol_theme_dark"][bog_kit_tone="b"] {
-	--bog_kit_case: #1a1418;
-	--bog_kit_panel: #241c21;
-	--bog_kit_raise: #2f252b;
-	--bog_kit_ink: #f2e7ee;
-	--bog_kit_ink_soft: #a8929f;
-	--bog_kit_key: #e589bb;
-	--bog_kit_key_ink: #1a1418;
+	--bog_kit_case: #12161c;
+	--bog_kit_panel: #1a1f27;
+	--bog_kit_raise: #232932;
+	--bog_kit_ink: #c6ccd5;
+	--bog_kit_ink_soft: #7f8794;
+	--bog_kit_key: #7ba4ff;
+	--bog_kit_key_ink: #12161c;
 	--bog_kit_lift: none;
 	--bog_kit_lift_high: none;
 	--bog_kit_sink: none;
-	--bog_kit_seam: #120d10;
+	--bog_kit_seam: #0d1116;
 }
 
 [bog_kit_shell][mol_theme="$mol_theme_dark"][bog_kit_tone="c"] {
-	--bog_kit_case: #14150f;
-	--bog_kit_panel: #1c1e16;
-	--bog_kit_raise: #262920;
-	--bog_kit_ink: #e9e9dc;
-	--bog_kit_ink_soft: #979a86;
-	--bog_kit_key: #7fc178;
-	--bog_kit_key_ink: #14150f;
+	--bog_kit_case: #16130f;
+	--bog_kit_panel: #1e1a15;
+	--bog_kit_raise: #27221c;
+	--bog_kit_ink: #ccc4b8;
+	--bog_kit_ink_soft: #8a8175;
+	--bog_kit_key: #e58aa8;
+	--bog_kit_key_ink: #16130f;
 	--bog_kit_lift: 0 1px 1px #0000004d, 0 6px 14px -8px #00000073;
 	--bog_kit_lift_high: 0 2px 2px #00000059, 0 12px 24px -12px #00000099;
 	--bog_kit_sink: inset 0 1px 2px #00000040;
-	--bog_kit_seam: #0e0f0a;
+	--bog_kit_seam: #0f0d09;
 }
 
 /*
@@ -232,6 +243,15 @@
 [bog_kit_shell] [mol_book2] {
 	gap: 2px;
 	background: var(--bog_kit_case);
+	/*
+		$mol_scroll asks for `contain: content`, which is layout + paint + style —
+		and anything with layout or paint containment becomes the containing block
+		for its `position: fixed` children. The level indicator was then pinned to
+		the scrolled content rather than to the screen, so it slid away with the
+		first column and only ever showed up on the first level. Style containment
+		is all this needs.
+	*/
+	contain: style;
 }
 
 [bog_kit_shell][mol_book2] > [mol_page],

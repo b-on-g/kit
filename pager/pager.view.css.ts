@@ -4,7 +4,10 @@ namespace $.$$ {
 
 	$mol_style_define( $bog_kit_pager, {
 
-		position: 'absolute',
+		// Fixed, not absolute. The book is a horizontal scroller, and an absolutely
+		// positioned child of a scroller scrolls away with the content — the bar
+		// sat at the far left and was only ever visible on the first screen.
+		position: 'fixed',
 		top: 0,
 		left: 0,
 		right: 0,
@@ -38,12 +41,6 @@ namespace $.$$ {
 				},
 			},
 
-		},
-
-		'@media': {
-			'(min-width: 45rem)': {
-				display: 'none',
-			},
 		},
 
 	} )

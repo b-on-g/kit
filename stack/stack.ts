@@ -29,17 +29,19 @@ namespace $ {
 			return false
 		}
 
-		/** Where the reader is in the sequence, for the pager. */
+		/**
+		 * How deep the reader is, for the pager.
+		 *
+		 * Taken from the route, not from the scroll offset. `$mol_scroll` keeps
+		 * `scroll_left()` in a cell fed by the `scroll` event, and on the book
+		 * that event never arrives — the cell froze at whatever the smooth
+		 * scroll happened to pass through, so the indicator always marked the
+		 * first level however deep you went. The address is the honest source:
+		 * the deepest open page is where you are.
+		 */
 		@ $mol_mem
 		page_current() {
-
-			const pages = this.pages_deep()
-			if( this.nav() === 'stack' ) return pages.length - 1
-
-			const width = this.dom_node().clientWidth
-			if( !width ) return 0
-
-			return Math.min( pages.length - 1, Math.round( this.scroll_left() / width ) )
+			return this.pages_deep().length - 1
 		}
 
 		@ $mol_mem
