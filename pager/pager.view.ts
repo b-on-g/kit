@@ -20,12 +20,20 @@ namespace $.$$ {
 	 */
 	export class $bog_kit_pager extends $.$bog_kit_pager {
 
+		/**
+		 * How many screens there are comes from the route, never from the
+		 * measurement: the widths are taken a frame late, and a bar that waited
+		 * for them would be empty on the first paint and short of a segment
+		 * after every step deeper.
+		 */
 		@ $mol_mem
 		override segments(): readonly $mol_view[] {
-			const spans = this.spans()
+			const count = this.count()
 			// A sequence of one is not a sequence.
-			if( spans.length < 2 ) return []
-			return spans.map( ( _, index ) => this.Segment( index ) )
+			if( count < 2 ) return []
+			const list = [] as $mol_view[]
+			for( let index = 0; index < count; ++index ) list.push( this.Segment( index ) )
+			return list
 		}
 
 		/**

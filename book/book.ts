@@ -92,7 +92,23 @@ namespace $ {
 		}
 
 		override auto() {
-			return [ ... super.auto(), this.Pages_watch() ]
+			return [ ... super.auto(), this.Pages_watch(), this.Spans_sync() ]
+		}
+
+		/**
+		 * Bumped once a frame after the columns change, so the widths below are
+		 * taken after the layout that produced them.
+		 */
+		@ $mol_mem
+		spans_epoch( next?: number ) {
+			return next ?? 0
+		}
+
+		@ $mol_mem
+		Spans_sync() {
+			this.pages_deep()
+			this.$.$mol_window.size()
+			return new this.$.$mol_after_frame( () => this.spans_epoch( Date.now() ) )
 		}
 
 		/**
@@ -100,14 +116,23 @@ namespace $ {
 		 *
 		 * The bar is drawn from these, so a segment ends where its column ends.
 		 * On a phone the columns are all one screen wide and the segments come
-		 * out equal; on a desktop they differ and the bar becomes a rule over
-		 * the layout instead of a block of its own.
+		 * out equal; on a desktop they differ and the bar becomes a rule over the
+		 * layout instead of a block of its own.
+		 *
+		 * Measured a frame late on purpose. This is read from `sub()`, which runs
+		 * before the columns are in the document, so measuring inline returns an
+		 * empty list on the first pass and a stale one after that — the bar came
+		 * out with no segments on a phone, and with fewer segments than screens
+		 * on a desktop, which left the current one unmarked because its index was
+		 * past the end.
+		 *
+		 * Widths are a refinement only: how many segments there are comes from
+		 * the route, so the bar is right even before it has been measured.
 		 */
 		@ $mol_mem
 		page_spans(): readonly number[] {
 
-			// Re-measure when the window changes and when the columns do.
-			this.$.$mol_window.size()
+			this.spans_epoch()
 			this.pages_deep()
 
 			const root = this.dom_node() as HTMLElement
@@ -125,7 +150,8 @@ namespace $ {
 		page_span_total() {
 
 			const spans = this.page_spans()
-			if( !spans.length ) return 0
+			if( spans.length !== this.pages_deep().length ) return 0
+			if( spans.some( span => !span ) ) return 0
 
 			// The seams between columns are part of the run — same 2px the bar
 			// puts between its own segments.
@@ -138,6 +164,7 @@ namespace $ {
 		@ $mol_mem
 		Pager() {
 			const obj = new this.$.$bog_kit_pager()
+			obj.count = () => this.pages_deep().length
 			obj.spans = () => this.page_spans()
 			obj.span_total = () => this.page_span_total()
 			obj.current = () => this.page_current()
