@@ -9124,19 +9124,40 @@ var $;
             this.page_seen(Math.round(node.scrollLeft / width));
         }
         auto() {
-            return [...super.auto(), this.Pages_watch()];
+            return [...super.auto(), this.Pages_watch(), this.Spans_sync()];
+        }
+        /**
+         * Bumped once a frame after the columns change, so the widths below are
+         * taken after the layout that produced them.
+         */
+        spans_epoch(next) {
+            return next ?? 0;
+        }
+        Spans_sync() {
+            this.pages_deep();
+            this.$.$mol_window.size();
+            return new this.$.$mol_after_frame(() => this.spans_epoch(Date.now()));
         }
         /**
          * How wide each column is, in order.
          *
          * The bar is drawn from these, so a segment ends where its column ends.
          * On a phone the columns are all one screen wide and the segments come
-         * out equal; on a desktop they differ and the bar becomes a rule over
-         * the layout instead of a block of its own.
+         * out equal; on a desktop they differ and the bar becomes a rule over the
+         * layout instead of a block of its own.
+         *
+         * Measured a frame late on purpose. This is read from `sub()`, which runs
+         * before the columns are in the document, so measuring inline returns an
+         * empty list on the first pass and a stale one after that — the bar came
+         * out with no segments on a phone, and with fewer segments than screens
+         * on a desktop, which left the current one unmarked because its index was
+         * past the end.
+         *
+         * Widths are a refinement only: how many segments there are comes from
+         * the route, so the bar is right even before it has been measured.
          */
         page_spans() {
-            // Re-measure when the window changes and when the columns do.
-            this.$.$mol_window.size();
+            this.spans_epoch();
             this.pages_deep();
             const root = this.dom_node();
             return [...root.children]
@@ -9149,7 +9170,9 @@ var $;
          */
         page_span_total() {
             const spans = this.page_spans();
-            if (!spans.length)
+            if (spans.length !== this.pages_deep().length)
+                return 0;
+            if (spans.some(span => !span))
                 return 0;
             // The seams between columns are part of the run — same 2px the bar
             // puts between its own segments.
@@ -9159,6 +9182,7 @@ var $;
         }
         Pager() {
             const obj = new this.$.$bog_kit_pager();
+            obj.count = () => this.pages_deep().length;
             obj.spans = () => this.page_spans();
             obj.span_total = () => this.page_span_total();
             obj.current = () => this.page_current();
@@ -9205,6 +9229,12 @@ var $;
     __decorate([
         $mol_mem
     ], $bog_kit_book.prototype, "Pages_watch", null);
+    __decorate([
+        $mol_mem
+    ], $bog_kit_book.prototype, "spans_epoch", null);
+    __decorate([
+        $mol_mem
+    ], $bog_kit_book.prototype, "Spans_sync", null);
     __decorate([
         $mol_mem
     ], $bog_kit_book.prototype, "page_spans", null);
@@ -18130,7 +18160,7 @@ var $;
 ;
 	($.$bog_kit_pager) = class $bog_kit_pager extends ($.$mol_view) {
 		width_style(){
-			return "auto";
+			return "100%";
 		}
 		segments(){
 			return [];
@@ -18140,6 +18170,9 @@ var $;
 		}
 		segment_on(id){
 			return false;
+		}
+		count(){
+			return 1;
 		}
 		spans(){
 			return [];
@@ -18195,12 +18228,21 @@ var $;
          * `$bog_kit_book.placeholders()`.
          */
         class $bog_kit_pager extends $.$bog_kit_pager {
+            /**
+             * How many screens there are comes from the route, never from the
+             * measurement: the widths are taken a frame late, and a bar that waited
+             * for them would be empty on the first paint and short of a segment
+             * after every step deeper.
+             */
             segments() {
-                const spans = this.spans();
+                const count = this.count();
                 // A sequence of one is not a sequence.
-                if (spans.length < 2)
+                if (count < 2)
                     return [];
-                return spans.map((_, index) => this.Segment(index));
+                const list = [];
+                for (let index = 0; index < count; ++index)
+                    list.push(this.Segment(index));
+                return list;
             }
             /**
              * Full width until the columns have been measured.
@@ -22105,6 +22147,59 @@ var $;
             const moment = new $mol_time_moment('2026-01-25T16:37:36.129+00:00');
             const restored = new $mol_time_moment(moment.toArray());
             $mol_assert_equal(restored.offset?.count('PT1m'), 0);
+        },
+    });
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($_1) {
+    $mol_test({
+        'a segment per screen, marked where the reader is'($) {
+            const pager = new $.$bog_kit_pager;
+            pager.$ = $;
+            pager.count = () => 3;
+            pager.current = () => 1;
+            $mol_assert_equal(pager.segments().length, 3);
+            $mol_assert_equal(pager.segment_on(0), false);
+            $mol_assert_equal(pager.segment_on(1), true);
+            $mol_assert_equal(pager.segment_on(2), false);
+        },
+        /*
+            The widths are taken a frame after the columns are laid out, so they
+            are empty on the first paint and one short after every step deeper.
+            A bar that counted its segments from them came out blank on a phone
+            and left the current screen unmarked on a desktop, because the index
+            ran past the end. The count comes from the route instead.
+        */
+        'segments do not wait for the columns to be measured'($) {
+            const pager = new $.$bog_kit_pager;
+            pager.$ = $;
+            pager.count = () => 3;
+            pager.spans = () => [];
+            pager.span_total = () => 0;
+            pager.current = () => 2;
+            $mol_assert_equal(pager.segments().length, 3);
+            $mol_assert_equal(pager.segment_on(2), true);
+            $mol_assert_equal(pager.segment_weight(0), 1);
+            $mol_assert_equal(pager.width_style(), '100%');
+        },
+        'measured columns set the segment widths'($) {
+            const pager = new $.$bog_kit_pager;
+            pager.$ = $;
+            pager.count = () => 3;
+            pager.spans = () => [450, 355, 585];
+            pager.span_total = () => 1394;
+            $mol_assert_equal(pager.segment_weight(0), 450);
+            $mol_assert_equal(pager.segment_weight(2), 585);
+            $mol_assert_equal(pager.width_style(), '1394px');
+        },
+        'one screen is not a sequence'($) {
+            const pager = new $.$bog_kit_pager;
+            pager.$ = $;
+            pager.count = () => 1;
+            $mol_assert_equal(pager.segments().length, 0);
         },
     });
 })($ || ($ = {}));

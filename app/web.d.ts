@@ -3540,12 +3540,28 @@ declare namespace $ {
         event_scroll(next?: Event): void;
         auto(): any[];
         /**
+         * Bumped once a frame after the columns change, so the widths below are
+         * taken after the layout that produced them.
+         */
+        spans_epoch(next?: number): number;
+        Spans_sync(): $mol_after_frame;
+        /**
          * How wide each column is, in order.
          *
          * The bar is drawn from these, so a segment ends where its column ends.
          * On a phone the columns are all one screen wide and the segments come
-         * out equal; on a desktop they differ and the bar becomes a rule over
-         * the layout instead of a block of its own.
+         * out equal; on a desktop they differ and the bar becomes a rule over the
+         * layout instead of a block of its own.
+         *
+         * Measured a frame late on purpose. This is read from `sub()`, which runs
+         * before the columns are in the document, so measuring inline returns an
+         * empty list on the first pass and a stale one after that — the bar came
+         * out with no segments on a phone, and with fewer segments than screens
+         * on a desktop, which left the current one unmarked because its index was
+         * past the end.
+         *
+         * Widths are a refinement only: how many segments there are comes from
+         * the route, so the bar is right even before it has been measured.
          */
         page_spans(): readonly number[];
         /**
@@ -9611,6 +9627,7 @@ declare namespace $ {
 		segments( ): readonly($mol_view)[]
 		segment_weight( id: any): number
 		segment_on( id: any): boolean
+		count( ): number
 		spans( ): readonly(number)[]
 		span_total( ): number
 		current( ): number
@@ -9644,6 +9661,12 @@ declare namespace $.$$ {
      * `$bog_kit_book.placeholders()`.
      */
     class $bog_kit_pager extends $.$bog_kit_pager {
+        /**
+         * How many screens there are comes from the route, never from the
+         * measurement: the widths are taken a frame late, and a bar that waited
+         * for them would be empty on the first paint and short of a segment
+         * after every step deeper.
+         */
         segments(): readonly $mol_view[];
         /**
          * Full width until the columns have been measured.
