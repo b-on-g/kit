@@ -8985,127 +8985,6 @@ var $;
 })($ || ($ = {}));
 
 ;
-	($.$bog_kit_pager) = class $bog_kit_pager extends ($.$mol_view) {
-		segments(){
-			return [];
-		}
-		segment_on(id){
-			return false;
-		}
-		count(){
-			return 1;
-		}
-		current(){
-			return 0;
-		}
-		sub(){
-			return (this.segments());
-		}
-		Segment(id){
-			const obj = new this.$.$mol_view();
-			(obj.attr) = () => ({...(this.$.$mol_view.prototype.attr.call(obj)), "bog_kit_pager_on": (this.segment_on(id))});
-			return obj;
-		}
-	};
-	($mol_mem_key(($.$bog_kit_pager.prototype), "Segment"));
-
-
-;
-"use strict";
-
-
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        /**
-         * How deep you are in a catalogue.
-         *
-         * Replaces the dashes $mol_book2 draws between its columns. Those said "the
-         * page continues", which is why they were worth having on a phone — but they
-         * never said how far in you are or how much is left, and they read as an
-         * artefact rather than as a control.
-         *
-         * One segment per open screen, the mark on the one in front of the reader —
-         * so it moves with a swipe, not only with a tap. Three pixels under the
-         * status bar; it does not compete with the header.
-         *
-         * Lives in the DOM as `[bog_kit_pager]`, hung on the book through
-         * `$bog_kit_stack.placeholders()`.
-         */
-        class $bog_kit_pager extends $.$bog_kit_pager {
-            segments() {
-                const count = this.count();
-                // A sequence of one is not a sequence.
-                if (count < 2)
-                    return [];
-                const list = [];
-                for (let index = 0; index < count; ++index)
-                    list.push(this.Segment(index));
-                return list;
-            }
-            /** One mark, on the screen in front of the reader. */
-            segment_on(index) {
-                return index === this.current();
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], $bog_kit_pager.prototype, "segments", null);
-        $$.$bog_kit_pager = $bog_kit_pager;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        const { per } = $mol_style_unit;
-        $mol_style_define($bog_kit_pager, {
-            // Fixed, not absolute. The book is a horizontal scroller, and an absolutely
-            // positioned child of a scroller scrolls away with the content — the bar
-            // sat at the far left and was only ever visible on the first screen.
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            zIndex: 20,
-            // $mol_book2 stretches its children to the full height of the book;
-            // an overlay is not one of its columns.
-            minHeight: 0,
-            maxHeight: '3px',
-            height: '3px',
-            gap: '2px',
-            padding: {
-                top: 0,
-                bottom: 0,
-                left: '10px',
-                right: '10px',
-            },
-            pointerEvents: 'none',
-            Segment: {
-                flex: { grow: 1, shrink: 1, basis: 0 },
-                height: per(100),
-                border: { radius: '2px' },
-                background: { color: $bog_kit.case },
-                transition: 'background-color .2s ease-out',
-                '@': {
-                    bog_kit_pager_on: {
-                        'true': {
-                            background: { color: $bog_kit.key },
-                        },
-                    },
-                },
-            },
-        });
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-
-;
 "use strict";
 var $;
 (function ($) {
@@ -9196,17 +9075,24 @@ var $;
             return false;
         }
         /**
-         * Which screen is in front of the reader.
+         * Which screen was last seen in front of the reader, and how many there
+         * were at the time.
          *
-         * Written as columns come and go, so the bar follows a swipe rather than
-         * only a tap. Negative means nothing has been observed yet.
+         * The count is carried along on purpose. The book scrolls itself to a
+         * freshly opened page, and the observer reports the column it started
+         * from before that scroll lands — so a bare index sticks on the screen
+         * you came from and never moves again. Tagged with the route, a stale
+         * report is simply ignored: open something and you are on it.
          */
         page_seen(next) {
-            return next ?? -1;
+            return next ?? [0, -1];
         }
         page_current() {
-            const last = this.pages_deep().length - 1;
-            const seen = this.page_seen();
+            const count = this.pages_deep().length;
+            const last = count - 1;
+            const [seen_count, seen] = this.page_seen();
+            if (seen_count !== count)
+                return last;
             return seen < 0 || seen > last ? last : seen;
         }
         /** Nothing to follow while every column fits on screen at once. */
@@ -9234,7 +9120,7 @@ var $;
                         continue;
                     const index = nodes.indexOf(entry.target);
                     if (index >= 0)
-                        this.page_seen(index);
+                        this.page_seen([nodes.length, index]);
                 }
             }, { root, threshold: 0.6 });
             for (const node of nodes)
@@ -9251,14 +9137,70 @@ var $;
             const width = node.clientWidth;
             if (!width)
                 return;
-            this.page_seen(Math.round(node.scrollLeft / width));
+            this.page_seen([this.pages_deep().length, Math.round(node.scrollLeft / width)]);
         }
         auto() {
-            return [...super.auto(), this.Pages_watch()];
+            return [...super.auto(), this.Pages_watch(), this.Spans_sync()];
+        }
+        /**
+         * Bumped once a frame after the columns change, so the widths below are
+         * taken after the layout that produced them.
+         */
+        spans_epoch(next) {
+            return next ?? 0;
+        }
+        Spans_sync() {
+            this.pages_deep();
+            this.$.$mol_window.size();
+            return new this.$.$mol_after_frame(() => this.spans_epoch(Date.now()));
+        }
+        /**
+         * How wide each column is, in order.
+         *
+         * The bar is drawn from these, so a segment ends where its column ends.
+         * On a phone the columns are all one screen wide and the segments come
+         * out equal; on a desktop they differ and the bar becomes a rule over the
+         * layout instead of a block of its own.
+         *
+         * Measured a frame late on purpose. This is read from `sub()`, which runs
+         * before the columns are in the document, so measuring inline returns an
+         * empty list on the first pass and a stale one after that — the bar came
+         * out with no segments on a phone, and with fewer segments than screens
+         * on a desktop, which left the current one unmarked because its index was
+         * past the end.
+         *
+         * Widths are a refinement only: how many segments there are comes from
+         * the route, so the bar is right even before it has been measured.
+         */
+        page_spans() {
+            this.spans_epoch();
+            this.pages_deep();
+            const root = this.dom_node();
+            return [...root.children]
+                .filter(node => node.hasAttribute('mol_page'))
+                .map(node => node.offsetWidth);
+        }
+        /**
+         * How far the bar runs: to the end of the last column, or to the edge of
+         * the screen when the columns overrun it.
+         */
+        page_span_total() {
+            const spans = this.page_spans();
+            if (spans.length !== this.pages_deep().length)
+                return 0;
+            if (spans.some(span => !span))
+                return 0;
+            // The seams between columns are part of the run — same 2px the bar
+            // puts between its own segments.
+            const seams = (spans.length - 1) * 2;
+            const total = spans.reduce((sum, span) => sum + span, seams);
+            return Math.min(total, this.dom_node().clientWidth);
         }
         Pager() {
             const obj = new this.$.$bog_kit_pager();
             obj.count = () => this.pages_deep().length;
+            obj.spans = () => this.page_spans();
+            obj.span_total = () => this.page_span_total();
             obj.current = () => this.page_current();
             return obj;
         }
@@ -9303,6 +9245,18 @@ var $;
     __decorate([
         $mol_mem
     ], $bog_kit_book.prototype, "Pages_watch", null);
+    __decorate([
+        $mol_mem
+    ], $bog_kit_book.prototype, "spans_epoch", null);
+    __decorate([
+        $mol_mem
+    ], $bog_kit_book.prototype, "Spans_sync", null);
+    __decorate([
+        $mol_mem
+    ], $bog_kit_book.prototype, "page_spans", null);
+    __decorate([
+        $mol_mem
+    ], $bog_kit_book.prototype, "page_span_total", null);
     __decorate([
         $mol_mem
     ], $bog_kit_book.prototype, "Pager", null);
@@ -18311,6 +18265,166 @@ var $;
                 border: { radius: 0 },
                 background: { color: $bog_kit.panel },
                 box: { shadow: 'none' },
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+	($.$bog_kit_pager) = class $bog_kit_pager extends ($.$mol_view) {
+		width_style(){
+			return "100%";
+		}
+		segments(){
+			return [];
+		}
+		segment_weight(id){
+			return 1;
+		}
+		segment_on(id){
+			return false;
+		}
+		count(){
+			return 1;
+		}
+		spans(){
+			return [];
+		}
+		span_total(){
+			return 0;
+		}
+		current(){
+			return 0;
+		}
+		style(){
+			return {...(super.style()), "width": (this.width_style())};
+		}
+		sub(){
+			return (this.segments());
+		}
+		Segment(id){
+			const obj = new this.$.$mol_view();
+			(obj.style) = () => ({...(this.$.$mol_view.prototype.style.call(obj)), "flexGrow": (this.segment_weight(id))});
+			(obj.attr) = () => ({...(this.$.$mol_view.prototype.attr.call(obj)), "bog_kit_pager_on": (this.segment_on(id))});
+			return obj;
+		}
+	};
+	($mol_mem_key(($.$bog_kit_pager.prototype), "Segment"));
+
+
+;
+"use strict";
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        /**
+         * Where you are in a catalogue.
+         *
+         * Replaces the dashes $mol_book2 draws between its columns. Those said "the
+         * page continues", which is why they were worth having on a phone — but they
+         * never said how far in you are or how much is left, and they read as an
+         * artefact rather than as a control.
+         *
+         * A segment per screen, sized like the screen it stands for and laid over it,
+         * with the mark on the one in front of the reader. On a phone every column is
+         * one screen wide, so the segments come out equal and the bar spans the
+         * display; on a desktop the columns differ and so do the segments, and the
+         * bar ends where the last column ends instead of running on over the empty
+         * plate. Either way it is a rule drawn on the layout, not a block of its own.
+         *
+         * Lives in the DOM as `[bog_kit_pager]`, hung on the book through
+         * `$bog_kit_book.placeholders()`.
+         */
+        class $bog_kit_pager extends $.$bog_kit_pager {
+            /**
+             * How many screens there are comes from the route, never from the
+             * measurement: the widths are taken a frame late, and a bar that waited
+             * for them would be empty on the first paint and short of a segment
+             * after every step deeper.
+             */
+            segments() {
+                const count = this.count();
+                // A sequence of one is not a sequence.
+                if (count < 2)
+                    return [];
+                const list = [];
+                for (let index = 0; index < count; ++index)
+                    list.push(this.Segment(index));
+                return list;
+            }
+            /**
+             * Full width until the columns have been measured.
+             *
+             * `auto` would be wrong here: the bar is fixed and pinned on the left
+             * only, so shrink-to-fit collapses it to nothing. Falling back to the
+             * whole screen with equal segments is the behaviour it had before the
+             * columns were measured at all.
+             */
+            width_style() {
+                const total = this.span_total();
+                return total ? total + 'px' : '100%';
+            }
+            segment_weight(index) {
+                return this.spans()[index] || 1;
+            }
+            /** One mark, on the screen in front of the reader. */
+            segment_on(index) {
+                return index === this.current();
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $bog_kit_pager.prototype, "segments", null);
+        $$.$bog_kit_pager = $bog_kit_pager;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        const { per } = $mol_style_unit;
+        $mol_style_define($bog_kit_pager, {
+            // Fixed, not absolute. The book is a horizontal scroller, and an absolutely
+            // positioned child of a scroller scrolls away with the content — the bar
+            // sat at the far left and was only ever visible on the first screen.
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            zIndex: 20,
+            // The width comes from a measurement, and a measurement taken at the
+            // wrong moment can be anything. Whatever it says, the bar stops at the
+            // edge of the screen.
+            maxWidth: per(100),
+            // $mol_book2 stretches its children to the full height of the book;
+            // an overlay is not one of its columns.
+            minHeight: 0,
+            maxHeight: '3px',
+            height: '3px',
+            // The gap matches the one between the book's columns, so a seam in the bar
+            // falls exactly on a seam in the layout. See shell.view.css.
+            gap: '2px',
+            pointerEvents: 'none',
+            Segment: {
+                flex: { shrink: 1, basis: 0 },
+                height: per(100),
+                border: { radius: '2px' },
+                background: { color: $bog_kit.case },
+                transition: 'background-color .2s ease-out',
+                '@': {
+                    bog_kit_pager_on: {
+                        'true': {
+                            background: { color: $bog_kit.key },
+                        },
+                    },
+                },
             },
         });
     })($$ = $.$$ || ($.$$ = {}));
