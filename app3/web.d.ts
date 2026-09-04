@@ -3460,46 +3460,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-
-	type $mol_view__attr_bog_kit_pager_1 = $mol_type_enforce<
-		({ 
-			'bog_kit_pager_on': ReturnType< $bog_kit_pager['segment_on'] >,
-		})  & ReturnType< $mol_view['attr'] >
-		,
-		ReturnType< $mol_view['attr'] >
-	>
-	export class $bog_kit_pager extends $mol_view {
-		segments( ): readonly($mol_view)[]
-		segment_on( id: any): boolean
-		count( ): number
-		current( ): number
-		sub( ): ReturnType< $bog_kit_pager['segments'] >
-		Segment( id: any): $mol_view
-	}
-	
-}
-
-//# sourceMappingURL=pager.view.tree.d.ts.map
-declare namespace $.$$ {
-    /**
-     * Where you are in a sequence of screens.
-     *
-     * Replaces the dashes $mol_book2 draws between its columns. Those said "the
-     * page continues", which is why they were worth having on a phone — but they
-     * never said how far along you are or how much is left, and they read as an
-     * artefact rather than as a control. A bar split into one segment per screen
-     * says both, in three pixels, and does not compete with the header.
-     */
-    class $bog_kit_pager extends $.$bog_kit_pager {
-        segments(): readonly $mol_view[];
-        segment_on(index: number): boolean;
-    }
-}
-
-declare namespace $.$$ {
-}
-
-declare namespace $ {
     /**
      * A catalogue that can be presented two ways.
      *
@@ -3522,7 +3482,16 @@ declare namespace $ {
         nav(): string;
         /** Show where the reader is in the sequence. Off for the stock build. */
         pager_enabled(): boolean;
-        /** Where the reader is in the sequence, for the pager. */
+        /**
+         * How deep the reader is, for the pager.
+         *
+         * Taken from the route, not from the scroll offset. `$mol_scroll` keeps
+         * `scroll_left()` in a cell fed by the `scroll` event, and on the book
+         * that event never arrives — the cell froze at whatever the smooth
+         * scroll happened to pass through, so the indicator always marked the
+         * first level however deep you went. The address is the honest source:
+         * the deepest open page is where you are.
+         */
         page_current(): number;
         Pager(): $$.$bog_kit_pager;
         /**
@@ -9421,6 +9390,49 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=feedback.view.tree.d.ts.map
+declare namespace $ {
+
+	type $mol_view__attr_bog_kit_pager_1 = $mol_type_enforce<
+		({ 
+			'bog_kit_pager_on': ReturnType< $bog_kit_pager['segment_on'] >,
+		})  & ReturnType< $mol_view['attr'] >
+		,
+		ReturnType< $mol_view['attr'] >
+	>
+	export class $bog_kit_pager extends $mol_view {
+		segments( ): readonly($mol_view)[]
+		segment_on( id: any): boolean
+		count( ): number
+		current( ): number
+		sub( ): ReturnType< $bog_kit_pager['segments'] >
+		Segment( id: any): $mol_view
+	}
+	
+}
+
+//# sourceMappingURL=pager.view.tree.d.ts.map
+declare namespace $.$$ {
+    /**
+     * How deep you are in a catalogue.
+     *
+     * Replaces the dashes $mol_book2 draws between its columns. Those said "the
+     * page continues", which is why they were worth having on a phone — but they
+     * never said how far in you are or how much is left, and they read as an
+     * artefact rather than as a control. A bar split into one segment per open
+     * level says both, in three pixels, and does not compete with the header.
+     *
+     * Lives in the DOM as `[bog_kit_pager]`, hung on the book through
+     * `$bog_kit_stack.placeholders()`.
+     */
+    class $bog_kit_pager extends $.$bog_kit_pager {
+        segments(): readonly $mol_view[];
+        segment_on(index: number): boolean;
+    }
+}
+
+declare namespace $.$$ {
+}
+
 declare namespace $ {
 }
 
