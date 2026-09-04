@@ -11,6 +11,10 @@ namespace $.$$ {
 		top: 0,
 		left: 0,
 		zIndex: 20,
+		// The width comes from a measurement, and a measurement taken at the
+		// wrong moment can be anything. Whatever it says, the bar stops at the
+		// edge of the screen.
+		maxWidth: per( 100 ),
 		// $mol_book2 stretches its children to the full height of the book;
 		// an overlay is not one of its columns.
 		minHeight: 0,

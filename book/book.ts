@@ -20,20 +20,29 @@ namespace $ {
 		}
 
 		/**
-		 * Which screen is in front of the reader.
+		 * Which screen was last seen in front of the reader, and how many there
+		 * were at the time.
 		 *
-		 * Written as columns come and go, so the bar follows a swipe rather than
-		 * only a tap. Negative means nothing has been observed yet.
+		 * The count is carried along on purpose. The book scrolls itself to a
+		 * freshly opened page, and the observer reports the column it started
+		 * from before that scroll lands — so a bare index sticks on the screen
+		 * you came from and never moves again. Tagged with the route, a stale
+		 * report is simply ignored: open something and you are on it.
 		 */
 		@ $mol_mem
-		page_seen( next?: number ) {
-			return next ?? -1
+		page_seen( next?: readonly [ number, number ] ): readonly [ number, number ] {
+			return next ?? [ 0, -1 ]
 		}
 
 		@ $mol_mem
 		page_current() {
-			const last = this.pages_deep().length - 1
-			const seen = this.page_seen()
+
+			const count = this.pages_deep().length
+			const last = count - 1
+
+			const [ seen_count, seen ] = this.page_seen()
+			if( seen_count !== count ) return last
+
 			return seen < 0 || seen > last ? last : seen
 		}
 
@@ -65,7 +74,7 @@ namespace $ {
 					for( const entry of entries ) {
 						if( !entry.isIntersecting ) continue
 						const index = nodes.indexOf( entry.target )
-						if( index >= 0 ) this.page_seen( index )
+						if( index >= 0 ) this.page_seen([ nodes.length, index ])
 					}
 				},
 				{ root, threshold: 0.6 },
@@ -88,7 +97,7 @@ namespace $ {
 			const width = node.clientWidth
 			if( !width ) return
 
-			this.page_seen( Math.round( node.scrollLeft / width ) )
+			this.page_seen([ this.pages_deep().length, Math.round( node.scrollLeft / width ) ])
 		}
 
 		override auto() {
