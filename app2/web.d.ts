@@ -3517,12 +3517,16 @@ declare namespace $ {
         /** The level bar and the platform back arrow. Off for the stock build. */
         kit_chrome(): boolean;
         /**
-         * Which screen is in front of the reader.
+         * Which screen was last seen in front of the reader, and how many there
+         * were at the time.
          *
-         * Written as columns come and go, so the bar follows a swipe rather than
-         * only a tap. Negative means nothing has been observed yet.
+         * The count is carried along on purpose. The book scrolls itself to a
+         * freshly opened page, and the observer reports the column it started
+         * from before that scroll lands — so a bare index sticks on the screen
+         * you came from and never moves again. Tagged with the route, a stale
+         * report is simply ignored: open something and you are on it.
          */
-        page_seen(next?: number): number;
+        page_seen(next?: readonly [number, number]): readonly [number, number];
         page_current(): number;
         /** Nothing to follow while every column fits on screen at once. */
         page_follow(node: HTMLElement): boolean;
