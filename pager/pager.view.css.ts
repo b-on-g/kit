@@ -24,6 +24,19 @@ namespace $.$$ {
 		// falls exactly on a seam in the layout. See shell.view.css.
 		gap: '2px',
 		pointerEvents: 'none',
+		/*
+			The bar must not animate its own width.
+
+			$mol_view transitions `width` over .2s, and the columns do not: a new
+			one simply appears at its final size. So the bar rubber-banded after
+			an already-settled layout, and while it stretched its segments were
+			squeezed out of line with the columns they stand for — 181/149/182
+			against columns 227/186/228 sixty milliseconds in. On a phone the bar
+			is always the width of the screen, nothing to animate, which is why
+			this only showed up on a desktop. It belongs to the layout, so it
+			lands with the layout.
+		*/
+		transition: 'none',
 
 		Segment: {
 			flex: { shrink: 1, basis: 0 },
