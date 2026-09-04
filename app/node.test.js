@@ -9066,17 +9066,24 @@ var $;
             return false;
         }
         /**
-         * Which screen is in front of the reader.
+         * Which screen was last seen in front of the reader, and how many there
+         * were at the time.
          *
-         * Written as columns come and go, so the bar follows a swipe rather than
-         * only a tap. Negative means nothing has been observed yet.
+         * The count is carried along on purpose. The book scrolls itself to a
+         * freshly opened page, and the observer reports the column it started
+         * from before that scroll lands — so a bare index sticks on the screen
+         * you came from and never moves again. Tagged with the route, a stale
+         * report is simply ignored: open something and you are on it.
          */
         page_seen(next) {
-            return next ?? -1;
+            return next ?? [0, -1];
         }
         page_current() {
-            const last = this.pages_deep().length - 1;
-            const seen = this.page_seen();
+            const count = this.pages_deep().length;
+            const last = count - 1;
+            const [seen_count, seen] = this.page_seen();
+            if (seen_count !== count)
+                return last;
             return seen < 0 || seen > last ? last : seen;
         }
         /** Nothing to follow while every column fits on screen at once. */
@@ -9104,7 +9111,7 @@ var $;
                         continue;
                     const index = nodes.indexOf(entry.target);
                     if (index >= 0)
-                        this.page_seen(index);
+                        this.page_seen([nodes.length, index]);
                 }
             }, { root, threshold: 0.6 });
             for (const node of nodes)
@@ -9121,7 +9128,7 @@ var $;
             const width = node.clientWidth;
             if (!width)
                 return;
-            this.page_seen(Math.round(node.scrollLeft / width));
+            this.page_seen([this.pages_deep().length, Math.round(node.scrollLeft / width)]);
         }
         auto() {
             return [...super.auto(), this.Pages_watch(), this.Spans_sync()];
@@ -18286,6 +18293,10 @@ var $;
             top: 0,
             left: 0,
             zIndex: 20,
+            // The width comes from a measurement, and a measurement taken at the
+            // wrong moment can be anything. Whatever it says, the bar stops at the
+            // edge of the screen.
+            maxWidth: per(100),
             // $mol_book2 stretches its children to the full height of the book;
             // an overlay is not one of its columns.
             minHeight: 0,
