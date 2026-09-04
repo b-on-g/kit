@@ -358,15 +358,6 @@ $mol_book2_catalog $mol_book2
 		sub /
 			<= Spread_close_icon $mol_icon_close
 
-$bog_kit_pager $mol_view
-	count 1
-	current 0
-	sub <= segments /$mol_view
-	Segment* $mol_view
-		attr *
-			^
-			bog_kit_pager_on <= segment_on* false
-
 $mol_icon_chevron $mol_icon path \M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z
 
 $mol_icon_chevron_left $mol_icon path \M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z
@@ -1842,6 +1833,22 @@ $bog_kit_feedback $mol_book2_catalog
 												title \Move
 											<= Pick_remove $mol_button_minor
 												title \Remove
+
+$bog_kit_pager $mol_view
+	spans /number
+	span_total 0
+	current 0
+	style *
+		^
+		width <= width_style \auto
+	sub <= segments /$mol_view
+	Segment* $mol_view
+		style *
+			^
+			flexGrow <= segment_weight* 1
+		attr *
+			^
+			bog_kit_pager_on <= segment_on* false
 
 $mol_text_list $mol_text
 	auto_scroll null
