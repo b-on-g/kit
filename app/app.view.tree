@@ -1,4 +1,4 @@
-$bog_kit_app $bog_kit_stack
+$bog_kit_app $bog_kit_book
 	param \section
 	menu_title \$mol Kit
 	plugins /
@@ -17,17 +17,12 @@ $bog_kit_app $bog_kit_stack
 					\Nothing here has custom styles: everything you see is drawn by the stock components and the default theme.
 	spreads *
 		controls <= Controls $bog_kit_controls
-			menu_tools /
-				<= Spread_close
+			Menu_logo <= Spread_close
 		fields <= Fields $bog_kit_fields
-			menu_tools /
-				<= Spread_close
+			Menu_logo <= Spread_close
 		layout <= Layout $bog_kit_layout
-			menu_tools /
-				<= Spread_close
+			Menu_logo <= Spread_close
 		data <= Data $bog_kit_data
-			menu_tools /
-				<= Spread_close
+			Menu_logo <= Spread_close
 		feedback <= Feedback $bog_kit_feedback
-			menu_tools /
-				<= Spread_close
+			Menu_logo <= Spread_close

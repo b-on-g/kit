@@ -19,15 +19,16 @@ jobs:
 
     steps:
 
-    # Три точки входа собираются одним прогоном: `modules` бьётся по пробелам
+    # Обе точки входа собираются одним прогоном: `modules` бьётся по пробелам
     # и каждое имя дописывается к пакету. Артефакты ложатся в <модуль>/-/.
     - uses: hyoo-ru/mam_build@master2
       with:
         package: 'bog/kit'
-        modules: 'app app2 app3'
+        modules: 'app app2'
 
     # Корень — витрина со ссылками. `clean-exclude` обязателен: без него
-    # rsync --delete в корне снёс бы папки приложений.
+    # rsync --delete в корне снёс бы папки приложений. Всё, чего в списке нет,
+    # из корня удаляется — так ушла папка app3.
     - uses: hyoo-ru/gh-deploy@v4.4.1
       if: github.ref == 'refs/heads/master'
       with:
@@ -35,7 +36,6 @@ jobs:
         clean-exclude: |
           app
           app2
-          app3
 
     # У каждой точки входа свой адрес. `target-folder` уводит rsync --delete
     # внутрь подпапки, поэтому соседей и корень они не трогают.
@@ -53,19 +53,11 @@ jobs:
         target-folder: 'app2'
         commit-message: 'deploy app2'
 
-    - uses: hyoo-ru/gh-deploy@v4.4.1
-      if: github.ref == 'refs/heads/master'
-      with:
-        folder: 'bog/kit/app3/-'
-        target-folder: 'app3'
-        commit-message: 'deploy app3'
-
     - name: URLs
       if: github.ref == 'refs/heads/master'
       run: |
         {
           echo "- https://b-on-g.github.io/kit/"
           echo "- https://b-on-g.github.io/kit/app/ — сток"
-          echo "- https://b-on-g.github.io/kit/app2/ — книга"
-          echo "- https://b-on-g.github.io/kit/app3/ — стек"
+          echo "- https://b-on-g.github.io/kit/app2/ — Kit"
         } >> "$GITHUB_STEP_SUMMARY"

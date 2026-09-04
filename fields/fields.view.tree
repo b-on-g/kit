@@ -4,8 +4,7 @@ $bog_kit_fields $mol_book2_catalog
 	spreads *
 		string <= String_page $mol_page
 			title \$mol_string
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Strings $mol_list
 					rows /
@@ -38,8 +37,7 @@ $bog_kit_fields $mol_book2_catalog
 								enabled false
 		number <= Number_page $mol_page
 			title \$mol_number
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Numbers $mol_list
 					rows /
@@ -56,8 +54,7 @@ $bog_kit_fields $mol_book2_catalog
 								boost +10
 		textarea <= Textarea_page $mol_page
 			title \$mol_textarea
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Textarea $mol_textarea
 					hint \Code editor with highlight
@@ -67,8 +64,7 @@ $bog_kit_fields $mol_book2_catalog
 						\}
 		select <= Select_page $mol_page
 			title \$mol_select
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Selects $mol_list
 					rows /
@@ -90,8 +86,7 @@ $bog_kit_fields $mol_book2_catalog
 									en \English
 		date <= Date_page $mol_page
 			title \$mol_date
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Dates $mol_list
 					rows /
@@ -105,8 +100,7 @@ $bog_kit_fields $mol_book2_catalog
 								value_moment? <=> day_empty? null
 		form <= Form_page $mol_page
 			title \$mol_form
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Form $mol_form
 					form_fields /

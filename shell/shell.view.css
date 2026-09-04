@@ -1,12 +1,11 @@
 /*
-	The Kit theme.
+	The Kit theme — canvas.
 
 	Shells stacked on shells: a case, the panel of a page, and the raised parts
-	you touch. Nothing is outlined — a surface is told apart from the one under
-	it by tone, by its corner, and by how far it sits above. Corners are generous
-	and the things you press are shaped like keys.
+	you touch. Nothing is outlined and nothing casts a shadow — a surface is told
+	apart from the one under it by tone, by its corner, and by the space around
+	it. Corners are generous and the things you press are shaped like keys.
 
-	Three tones are live while the palette is being chosen: ?tone=a | b | c.
 	Values only; the names live in kit.ts.
 */
 
@@ -19,52 +18,6 @@
 	--bog_kit_font_text: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
 	--bog_kit_font_code: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
-	font-family: var(--bog_kit_font_text);
-	font-size: 0.9375rem;
-	line-height: 1.5rem;
-
-	--mol_gap_page: 2rem;
-	--mol_gap_block: 0.75rem;
-	--mol_gap_text: 0.5rem 0.875rem;
-	--mol_gap_round: 12px;
-	--mol_gap_space: 0.375rem;
-	--mol_gap_blur: 0rem;
-}
-
-/*
-	Tone A — paper.
-
-	Nearly neutral with a trace of warmth. The first attempt made the case a
-	saturated beige and the panel almost the same value, so the whole screen read
-	as one dingy field with white pills floating on it. Two fixes: pull the chroma
-	most of the way out, and open the gap between the case, the panel and the
-	raised parts so the stack is actually legible.
-*/
-[bog_kit_shell][bog_kit_tone="a"] {
-	--bog_kit_case: #dedcd8;
-	--bog_kit_panel: #f0efec;
-	--bog_kit_raise: #ffffff;
-	--bog_kit_ink: #1a1917;
-	--bog_kit_ink_soft: #6e6b66;
-	--bog_kit_key: #3d38cc;
-	--bog_kit_key_ink: #ffffff;
-
-	--bog_kit_round_panel: 20px;
-	--bog_kit_round_field: 14px;
-	--bog_kit_round_pill: 999px;
-
-	--bog_kit_lift: 0 1px 1px #5c584f1f, 0 6px 16px -8px #5c584f3d;
-	--bog_kit_lift_high: 0 2px 3px #5c584f26, 0 14px 28px -12px #5c584f52;
-	--bog_kit_sink: inset 0 1px 2px #5c584f1f;
-	--bog_kit_seam: #d4d2ce;
-}
-
-/*
-	Tone B — canvas.
-	Cool and crisp, no shadow anywhere: the stack is told by tone alone, and the
-	type runs one step larger to carry the hierarchy the depth is not carrying.
-*/
-[bog_kit_shell][bog_kit_tone="b"] {
 	--bog_kit_case: #dfe3e9;
 	--bog_kit_panel: #eef1f5;
 	--bog_kit_raise: #ffffff;
@@ -82,56 +35,24 @@
 	--bog_kit_sink: none;
 	--bog_kit_seam: #d2d8e1;
 
+	font-family: var(--bog_kit_font_text);
 	font-size: 1rem;
 	line-height: 1.6rem;
+
+	--mol_gap_page: 2rem;
+	--mol_gap_block: 0.75rem;
+	--mol_gap_text: 0.5rem 0.875rem;
+	--mol_gap_round: 12px;
+	--mol_gap_space: 0.375rem;
+	--mol_gap_blur: 0rem;
 }
 
 /*
-	Tone C — linen.
-	The one that keeps a visible warmth, but pale enough not to go muddy, with a
-	warm key so the accent stops fighting the ground. Corners a size smaller.
-*/
-[bog_kit_shell][bog_kit_tone="c"] {
-	--bog_kit_case: #e4ded4;
-	--bog_kit_panel: #f6f3ed;
-	--bog_kit_raise: #ffffff;
-	--bog_kit_ink: #1d1a16;
-	--bog_kit_ink_soft: #726b61;
-	--bog_kit_key: #8a2f4f;
-	--bog_kit_key_ink: #ffffff;
-
-	--bog_kit_round_panel: 14px;
-	--bog_kit_round_field: 10px;
-	--bog_kit_round_pill: 999px;
-
-	--bog_kit_lift: 0 1px 1px #6b5f4c1a, 0 4px 10px -6px #6b5f4c38;
-	--bog_kit_lift_high: 0 2px 2px #6b5f4c26, 0 10px 20px -10px #6b5f4c4d;
-	--bog_kit_sink: inset 0 1px 2px #6b5f4c1a;
-	--bog_kit_seam: #dad3c6;
-}
-
-/*
-	Night: the same three, moulded out of a dark shell.
-
-	The ink is deliberately short of white — a full-strength white on a dark
-	panel glares and smears at small sizes. These sit around 80% lightness,
+	Night. The ink is deliberately short of white — a full-strength white on a
+	dark panel glares and smears at small sizes. It sits around 80% lightness,
 	which still clears 9:1 against the panel.
 */
-[bog_kit_shell][mol_theme="$mol_theme_dark"][bog_kit_tone="a"] {
-	--bog_kit_case: #17140f;
-	--bog_kit_panel: #201c16;
-	--bog_kit_raise: #2b2620;
-	--bog_kit_ink: #cfc9c0;
-	--bog_kit_ink_soft: #8c8378;
-	--bog_kit_key: #9a90ff;
-	--bog_kit_key_ink: #17140f;
-	--bog_kit_lift: 0 1px 1px #0000004d, 0 8px 20px -10px #00000080;
-	--bog_kit_lift_high: 0 2px 3px #00000059, 0 16px 32px -14px #00000099;
-	--bog_kit_sink: inset 0 1px 2px #00000040;
-	--bog_kit_seam: #100e0a;
-}
-
-[bog_kit_shell][mol_theme="$mol_theme_dark"][bog_kit_tone="b"] {
+[bog_kit_shell][mol_theme="$mol_theme_dark"] {
 	--bog_kit_case: #12161c;
 	--bog_kit_panel: #1a1f27;
 	--bog_kit_raise: #232932;
@@ -139,24 +60,7 @@
 	--bog_kit_ink_soft: #7f8794;
 	--bog_kit_key: #7ba4ff;
 	--bog_kit_key_ink: #12161c;
-	--bog_kit_lift: none;
-	--bog_kit_lift_high: none;
-	--bog_kit_sink: none;
 	--bog_kit_seam: #0d1116;
-}
-
-[bog_kit_shell][mol_theme="$mol_theme_dark"][bog_kit_tone="c"] {
-	--bog_kit_case: #16130f;
-	--bog_kit_panel: #1e1a15;
-	--bog_kit_raise: #27221c;
-	--bog_kit_ink: #ccc4b8;
-	--bog_kit_ink_soft: #8a8175;
-	--bog_kit_key: #e58aa8;
-	--bog_kit_key_ink: #16130f;
-	--bog_kit_lift: 0 1px 1px #0000004d, 0 6px 14px -8px #00000073;
-	--bog_kit_lift_high: 0 2px 2px #00000059, 0 12px 24px -12px #00000099;
-	--bog_kit_sink: inset 0 1px 2px #00000040;
-	--bog_kit_seam: #0f0d09;
 }
 
 /*
@@ -165,13 +69,13 @@
 	outweighs the theme.css rule sitting on the very same node.
 */
 [bog_kit_shell][mol_theme] {
-	--mol_theme_hue: 265deg;
+	--mol_theme_hue: 230deg;
 	--mol_theme_hue_spread: 120deg;
 
 	--mol_theme_back: var(--bog_kit_case);
 	--mol_theme_card: var(--bog_kit_raise);
 	--mol_theme_field: var(--bog_kit_raise);
-	--mol_theme_hover: #8a807422;
+	--mol_theme_hover: #7f879424;
 	--mol_theme_text: var(--bog_kit_ink);
 	--mol_theme_shade: var(--bog_kit_ink_soft);
 	--mol_theme_line: var(--bog_kit_seam);
@@ -194,8 +98,8 @@
 
 /*
 	Depth is a variable, so it has to be applied where a variable can stand for a
-	whole shadow. Which raised part gets which lift is a decision of the system,
-	not of the tone.
+	whole shadow. This tone carries none, but the hooks stay: which raised part
+	gets which lift is a decision of the system, not of the palette.
 */
 [bog_kit_shell] [bog_kit_card],
 [bog_kit_shell] [bog_kit_button],
@@ -225,13 +129,6 @@
 [bog_kit_shell] [bog_kit_input]:focus,
 [bog_kit_shell] [bog_kit_select_trigger]:focus-visible {
 	box-shadow: 0 0 0 2px var(--bog_kit_key);
-}
-
-[bog_kit_shell] [bog_kit_button]:hover,
-[bog_kit_shell] [bog_kit_button_copy]:hover,
-[bog_kit_shell] [bog_kit_check_icon]:hover,
-[bog_kit_shell] [bog_kit_select_trigger]:hover {
-	box-shadow: var(--bog_kit_lift_high);
 }
 
 /*
@@ -275,7 +172,7 @@
 [bog_kit_shell] [mol_pop_bubble] {
 	background: var(--bog_kit_raise);
 	border-radius: var(--bog_kit_round_panel);
-	box-shadow: var(--bog_kit_lift_high);
+	box-shadow: 0 0 0 1px var(--bog_kit_seam);
 	padding: 0.375rem;
 }
 
@@ -312,9 +209,8 @@
 /*
 	=== The frame ===
 
-	Everything below is about behaving like an installed app rather than like a
-	page: platform metrics, the safe areas of a phone, and the two ways the same
-	catalogue can be navigated.
+	Behaving like an installed app rather than like a page: platform metrics, the
+	safe areas of a phone, and one screen per column.
 */
 
 /* Platform metrics. The system face at the system size is half the tell. */
@@ -322,22 +218,20 @@
 	--bog_kit_font_text: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
 	font-size: 17px;
 	line-height: 22px;
-	--bog_kit_round_field: 10px;
-	--bog_kit_round_panel: 16px;
+	--bog_kit_round_field: 12px;
+	--bog_kit_round_panel: 18px;
 	--bog_kit_nav_height: 44px;
 	--bog_kit_ease: cubic-bezier(0.32, 0.72, 0, 1);
-	--bog_kit_push: 0.35s;
 }
 
 [bog_kit_shell][bog_kit_platform="md"] {
 	--bog_kit_font_text: Roboto, 'Noto Sans', system-ui, sans-serif;
 	font-size: 16px;
 	line-height: 24px;
-	--bog_kit_round_field: 12px;
-	--bog_kit_round_panel: 16px;
+	--bog_kit_round_field: 16px;
+	--bog_kit_round_panel: 20px;
 	--bog_kit_nav_height: 56px;
 	--bog_kit_ease: cubic-bezier(0.2, 0, 0, 1);
-	--bog_kit_push: 0.3s;
 }
 
 /*
@@ -380,87 +274,22 @@
 }
 
 /*
-	=== book ===
-
-	The pages stay columns of one scroller. On a phone each is exactly one
-	screen wide, so the browser's own momentum and snapping do the paging — the
-	gesture is the platform's, not ours.
+	One screen per column. The browser's own momentum and snapping do the paging,
+	so the gesture belongs to the platform rather than to us.
 */
 @media (max-width: 45rem) {
 
-	[bog_kit_shell][bog_kit_nav="book"] {
+	[bog_kit_shell][mol_book2],
+	[bog_kit_shell] [mol_book2] {
 		scroll-snap-type: x mandatory;
 	}
 
-	[bog_kit_shell][bog_kit_nav="book"] > article[mol_page] {
+	[bog_kit_shell][mol_book2] > article[mol_page],
+	[bog_kit_shell] [mol_book2] > article[mol_page] {
 		flex: 0 0 100%;
 		min-width: 100%;
 		scroll-snap-align: start;
 		scroll-snap-stop: always;
-	}
-
-}
-
-/*
-	=== stack ===
-
-	Only the top page is on screen. Opening one pushes it in from the right; the
-	page underneath hangs back a quarter of the width and dims, which is the
-	parallax every iOS push has. @starting-style is what gives a freshly mounted
-	page somewhere to come from.
-*/
-[bog_kit_shell][bog_kit_nav="stack"] {
-	position: relative;
-	overflow: hidden;
-	display: block;
-}
-
-/* A stack has no spare column to fill. */
-[bog_kit_shell][bog_kit_nav="stack"] > [mol_book2_placeholder] {
-	display: none;
-}
-
-[bog_kit_shell][bog_kit_nav="stack"] > article[mol_page] {
-	position: absolute;
-	inset: 0;
-	width: 100%;
-	max-width: 100%;
-	max-height: 100%;
-	transform: translateX(-25%);
-	filter: brightness(0.92);
-	transition:
-		transform var(--bog_kit_push) var(--bog_kit_ease),
-		filter var(--bog_kit_push) var(--bog_kit_ease);
-	will-change: transform;
-}
-
-[bog_kit_shell][bog_kit_nav="stack"] > article[mol_page]:last-of-type {
-	transform: translateX(0);
-	filter: none;
-	z-index: 2;
-}
-
-@starting-style {
-	[bog_kit_shell][bog_kit_nav="stack"] > article[mol_page]:last-of-type {
-		transform: translateX(100%);
-	}
-}
-
-/* Wide enough for two, and a stack of one column is just a waste of a screen. */
-@media (min-width: 45rem) {
-
-	[bog_kit_shell][bog_kit_nav="stack"] {
-		display: flex;
-		overflow: auto;
-	}
-
-	[bog_kit_shell][bog_kit_nav="stack"] > article[mol_page] {
-		position: relative;
-		inset: auto;
-		width: auto;
-		transform: none;
-		filter: none;
-		transition: none;
 	}
 
 }

@@ -8,10 +8,9 @@ namespace $.$$ {
 	 * never said how far in you are or how much is left, and they read as an
 	 * artefact rather than as a control.
 	 *
-	 * The track is as long as the catalogue is deep and fills from the left, so
-	 * the bar answers both questions at once and never changes length under the
-	 * reader. Three pixels under the status bar; it does not compete with the
-	 * header.
+	 * One segment per open screen, the mark on the one in front of the reader —
+	 * so it moves with a swipe, not only with a tap. Three pixels under the
+	 * status bar; it does not compete with the header.
 	 *
 	 * Lives in the DOM as `[bog_kit_pager]`, hung on the book through
 	 * `$bog_kit_stack.placeholders()`.
@@ -21,16 +20,16 @@ namespace $.$$ {
 		@ $mol_mem
 		override segments(): readonly $mol_view[] {
 			const count = this.count()
-			// A depth of one is not a depth.
+			// A sequence of one is not a sequence.
 			if( count < 2 ) return []
 			const list = [] as $mol_view[]
 			for( let index = 0; index < count; ++index ) list.push( this.Segment( index ) )
 			return list
 		}
 
-		/** Everything up to where you are, so the bar fills rather than moves. */
+		/** One mark, on the screen in front of the reader. */
 		override segment_on( index: number ) {
-			return index <= this.current()
+			return index === this.current()
 		}
 
 	}

@@ -1,9 +1,0 @@
-$bog_kit_app3 $bog_kit_app2
-	nav \stack
-	Intro_text $mol_text
-		text \
-			\# The same catalogue as a navigation stack
-			\
-			\Every page, route and component here is shared with the other two entry points. The only thing that changed is how the pages are laid out: one screen at a time, pushed in from the right, with the one underneath hanging back the way a native push does.
-			\
-			\Open the book build side by side and decide which of the two moves the way an app should.

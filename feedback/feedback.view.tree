@@ -4,8 +4,7 @@ $bog_kit_feedback $mol_book2_catalog
 	spreads *
 		status <= Status_page $mol_page
 			title \$mol_status
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Statuses $mol_list
 					rows /
@@ -19,8 +18,7 @@ $bog_kit_feedback $mol_book2_catalog
 								title \
 		speck <= Speck_page $mol_page
 			title \$mol_speck
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Specks $mol_list
 					rows /
@@ -39,8 +37,7 @@ $bog_kit_feedback $mol_book2_catalog
 										error \99+
 		pop <= Pop_page $mol_page
 			title \$mol_pop
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Pops $mol_list
 					rows /

@@ -4,8 +4,7 @@ $bog_kit_layout $mol_book2_catalog
 	spreads *
 		row <= Row_page $mol_page
 			title \$mol_row
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Rows $mol_list
 					rows /
@@ -30,8 +29,7 @@ $bog_kit_layout $mol_book2_catalog
 										title \Go
 		list <= List_page $mol_page
 			title \$mol_list
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= List $mol_list
 					rows /
@@ -49,8 +47,7 @@ $bog_kit_layout $mol_book2_catalog
 								\That is why a million rows still scroll smoothly.
 		deck <= Deck_page $mol_page
 			title \$mol_deck
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Deck $mol_deck
 					items /
@@ -68,8 +65,7 @@ $bog_kit_layout $mol_book2_catalog
 								\42
 		expander <= Expander_page $mol_page
 			title \$mol_expander
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Expanders $mol_list
 					rows /
@@ -90,8 +86,7 @@ $bog_kit_layout $mol_book2_catalog
 												\Expanders nest as deep as you need.
 		section <= Section_page $mol_page
 			title \$mol_section
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Section $mol_section
 					title \Section with tools
@@ -112,8 +107,7 @@ $bog_kit_layout $mol_book2_catalog
 										\Level is passed by hand, the tag too.
 		scroll <= Scroll_page $mol_page
 			title \$mol_scroll
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Scroll $mol_scroll
 					sub /

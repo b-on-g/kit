@@ -4,8 +4,7 @@ $bog_kit_data $mol_book2_catalog
 	spreads *
 		card <= Card_page $mol_page
 			title \$mol_card
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Cards $mol_list
 					rows /
@@ -28,8 +27,7 @@ $bog_kit_data $mol_book2_catalog
 										title \Decline
 		labeler <= Labeler_page $mol_page
 			title \$mol_labeler
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Labelers $mol_list
 					rows /
@@ -44,8 +42,7 @@ $bog_kit_data $mol_book2_catalog
 								value? <=> user_name? \
 		grid <= Grid_page $mol_page
 			title \$mol_grid
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Grid $mol_grid
 					records *
@@ -63,8 +60,7 @@ $bog_kit_data $mol_book2_catalog
 							score +95
 		text <= Text_page $mol_page
 			title \$mol_text
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Text $mol_text
 					text \
@@ -84,8 +80,7 @@ $bog_kit_data $mol_book2_catalog
 						\```
 		avatar <= Avatar_page $mol_page
 			title \$mol_avatar
-			tools /
-				<= Spread_close
+			Logo <= Spread_close
 			body /
 				<= Avatars $mol_list
 					rows /
