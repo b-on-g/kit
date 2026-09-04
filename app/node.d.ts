@@ -3544,53 +3544,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-
-	type $mol_view__attr_bog_kit_pager_1 = $mol_type_enforce<
-		({ 
-			'bog_kit_pager_on': ReturnType< $bog_kit_pager['segment_on'] >,
-		})  & ReturnType< $mol_view['attr'] >
-		,
-		ReturnType< $mol_view['attr'] >
-	>
-	export class $bog_kit_pager extends $mol_view {
-		segments( ): readonly($mol_view)[]
-		segment_on( id: any): boolean
-		count( ): number
-		current( ): number
-		sub( ): ReturnType< $bog_kit_pager['segments'] >
-		Segment( id: any): $mol_view
-	}
-	
-}
-
-//# sourceMappingURL=pager.view.tree.d.ts.map
-declare namespace $.$$ {
-    /**
-     * How deep you are in a catalogue.
-     *
-     * Replaces the dashes $mol_book2 draws between its columns. Those said "the
-     * page continues", which is why they were worth having on a phone — but they
-     * never said how far in you are or how much is left, and they read as an
-     * artefact rather than as a control.
-     *
-     * One segment per open screen, the mark on the one in front of the reader —
-     * so it moves with a swipe, not only with a tap. Three pixels under the
-     * status bar; it does not compete with the header.
-     *
-     * Lives in the DOM as `[bog_kit_pager]`, hung on the book through
-     * `$bog_kit_stack.placeholders()`.
-     */
-    class $bog_kit_pager extends $.$bog_kit_pager {
-        segments(): readonly $mol_view[];
-        /** One mark, on the screen in front of the reader. */
-        segment_on(index: number): boolean;
-    }
-}
-
-declare namespace $.$$ {
-}
-
-declare namespace $ {
     /**
      * Which platform's language to speak: `ios` or `md`.
      *
@@ -3670,6 +3623,20 @@ declare namespace $ {
         };
         event_scroll(next?: Event): void;
         auto(): any[];
+        /**
+         * How wide each column is, in order.
+         *
+         * The bar is drawn from these, so a segment ends where its column ends.
+         * On a phone the columns are all one screen wide and the segments come
+         * out equal; on a desktop they differ and the bar becomes a rule over
+         * the layout instead of a block of its own.
+         */
+        page_spans(): readonly number[];
+        /**
+         * How far the bar runs: to the end of the last column, or to the edge of
+         * the screen when the columns overrun it.
+         */
+        page_span_total(): number;
         Pager(): $$.$bog_kit_pager;
         /**
          * Back, not close.
@@ -9702,6 +9669,79 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=page.view.tree.d.ts.map
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+
+	type $mol_view__style_bog_kit_pager_1 = $mol_type_enforce<
+		({ 
+			'flexGrow': ReturnType< $bog_kit_pager['segment_weight'] >,
+		})  & ReturnType< $mol_view['style'] >
+		,
+		ReturnType< $mol_view['style'] >
+	>
+	type $mol_view__attr_bog_kit_pager_2 = $mol_type_enforce<
+		({ 
+			'bog_kit_pager_on': ReturnType< $bog_kit_pager['segment_on'] >,
+		})  & ReturnType< $mol_view['attr'] >
+		,
+		ReturnType< $mol_view['attr'] >
+	>
+	export class $bog_kit_pager extends $mol_view {
+		width_style( ): string
+		segments( ): readonly($mol_view)[]
+		segment_weight( id: any): number
+		segment_on( id: any): boolean
+		spans( ): readonly(number)[]
+		span_total( ): number
+		current( ): number
+		style( ): ({ 
+			'width': ReturnType< $bog_kit_pager['width_style'] >,
+		})  & ReturnType< $mol_view['style'] >
+		sub( ): ReturnType< $bog_kit_pager['segments'] >
+		Segment( id: any): $mol_view
+	}
+	
+}
+
+//# sourceMappingURL=pager.view.tree.d.ts.map
+declare namespace $.$$ {
+    /**
+     * Where you are in a catalogue.
+     *
+     * Replaces the dashes $mol_book2 draws between its columns. Those said "the
+     * page continues", which is why they were worth having on a phone — but they
+     * never said how far in you are or how much is left, and they read as an
+     * artefact rather than as a control.
+     *
+     * A segment per screen, sized like the screen it stands for and laid over it,
+     * with the mark on the one in front of the reader. On a phone every column is
+     * one screen wide, so the segments come out equal and the bar spans the
+     * display; on a desktop the columns differ and so do the segments, and the
+     * bar ends where the last column ends instead of running on over the empty
+     * plate. Either way it is a rule drawn on the layout, not a block of its own.
+     *
+     * Lives in the DOM as `[bog_kit_pager]`, hung on the book through
+     * `$bog_kit_book.placeholders()`.
+     */
+    class $bog_kit_pager extends $.$bog_kit_pager {
+        segments(): readonly $mol_view[];
+        /**
+         * Full width until the columns have been measured.
+         *
+         * `auto` would be wrong here: the bar is fixed and pinned on the left
+         * only, so shrink-to-fit collapses it to nothing. Falling back to the
+         * whole screen with equal segments is the behaviour it had before the
+         * columns were measured at all.
+         */
+        width_style(): string;
+        segment_weight(index: number): number;
+        /** One mark, on the screen in front of the reader. */
+        segment_on(index: number): boolean;
+    }
+}
+
 declare namespace $.$$ {
 }
 
