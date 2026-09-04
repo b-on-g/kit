@@ -32,22 +32,63 @@ namespace $ {
 		/**
 		 * How deep the reader is, for the pager.
 		 *
-		 * Taken from the route, not from the scroll offset. `$mol_scroll` keeps
-		 * `scroll_left()` in a cell fed by the `scroll` event, and on the book
-		 * that event never arrives — the cell froze at whatever the smooth
-		 * scroll happened to pass through, so the indicator always marked the
-		 * first level however deep you went. The address is the honest source:
-		 * the deepest open page is where you are.
+		 * Counted down the chain of open spreads rather than from the scroll
+		 * offset or the column count. `$mol_scroll` keeps `scroll_left()` in a
+		 * cell fed by the `scroll` event, and on the book that event never
+		 * arrives — the cell froze at whatever the smooth scroll happened to
+		 * pass through, so the indicator always marked the first level however
+		 * deep you went. Columns are no better: the default spread is a column
+		 * of its own, so the root and the first level would both count two.
+		 * The address is the honest source.
 		 */
 		@ $mol_mem
-		page_current() {
-			return this.pages_deep().length - 1
+		page_current(): number {
+
+			let depth = 0
+			let view: $mol_view = this
+
+			while( view instanceof $mol_book2_catalog ) {
+				const id = view.spread()
+				if( !id ) break
+				depth += 1
+				view = view.spreads()[ id ]
+			}
+
+			return depth
+		}
+
+		/**
+		 * How deep the catalogue can go, counted once by walking the spreads.
+		 *
+		 * This is what fixes the pager's track. With one segment per open page
+		 * the bar grew as you went, and the marked segment was always the last
+		 * one — so the mark said nothing that the number of segments had not
+		 * already said. A track of constant length that fills up instead reads
+		 * as a depth: one of three, two of three, all three.
+		 */
+		@ $mol_mem
+		depth_max(): number {
+
+			const deepest = ( view: $mol_view ): number => {
+
+				if( !( view instanceof $mol_book2_catalog ) ) return 1
+
+				let below = 0
+				const spreads = view.spreads()
+				for( const id of Object.keys( spreads ) ) {
+					below = Math.max( below, deepest( spreads[ id ] ) )
+				}
+
+				return 1 + below
+			}
+
+			return deepest( this )
 		}
 
 		@ $mol_mem
 		Pager() {
 			const obj = new this.$.$bog_kit_pager()
-			obj.count = () => this.pages_deep().length
+			obj.count = () => this.depth_max()
 			obj.current = () => this.page_current()
 			return obj
 		}
