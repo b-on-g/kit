@@ -1,8 +1,16 @@
 $bog_kit_pager $mol_view
 	count 1
+	spans /number
+	span_total 0
 	current 0
+	style *
+		^
+		width <= width_style \100%
 	sub <= segments /$mol_view
 	Segment* $mol_view
+		style *
+			^
+			flexGrow <= segment_weight* 1
 		attr *
 			^
 			bog_kit_pager_on <= segment_on* false
