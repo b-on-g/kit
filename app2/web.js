@@ -8651,19 +8651,52 @@ var $;
         /**
          * How deep the reader is, for the pager.
          *
-         * Taken from the route, not from the scroll offset. `$mol_scroll` keeps
-         * `scroll_left()` in a cell fed by the `scroll` event, and on the book
-         * that event never arrives — the cell froze at whatever the smooth
-         * scroll happened to pass through, so the indicator always marked the
-         * first level however deep you went. The address is the honest source:
-         * the deepest open page is where you are.
+         * Counted down the chain of open spreads rather than from the scroll
+         * offset or the column count. `$mol_scroll` keeps `scroll_left()` in a
+         * cell fed by the `scroll` event, and on the book that event never
+         * arrives — the cell froze at whatever the smooth scroll happened to
+         * pass through, so the indicator always marked the first level however
+         * deep you went. Columns are no better: the default spread is a column
+         * of its own, so the root and the first level would both count two.
+         * The address is the honest source.
          */
         page_current() {
-            return this.pages_deep().length - 1;
+            let depth = 0;
+            let view = this;
+            while (view instanceof $mol_book2_catalog) {
+                const id = view.spread();
+                if (!id)
+                    break;
+                depth += 1;
+                view = view.spreads()[id];
+            }
+            return depth;
+        }
+        /**
+         * How deep the catalogue can go, counted once by walking the spreads.
+         *
+         * This is what fixes the pager's track. With one segment per open page
+         * the bar grew as you went, and the marked segment was always the last
+         * one — so the mark said nothing that the number of segments had not
+         * already said. A track of constant length that fills up instead reads
+         * as a depth: one of three, two of three, all three.
+         */
+        depth_max() {
+            const deepest = (view) => {
+                if (!(view instanceof $mol_book2_catalog))
+                    return 1;
+                let below = 0;
+                const spreads = view.spreads();
+                for (const id of Object.keys(spreads)) {
+                    below = Math.max(below, deepest(spreads[id]));
+                }
+                return 1 + below;
+            };
+            return deepest(this);
         }
         Pager() {
             const obj = new this.$.$bog_kit_pager();
-            obj.count = () => this.pages_deep().length;
+            obj.count = () => this.depth_max();
             obj.current = () => this.page_current();
             return obj;
         }
@@ -8688,6 +8721,9 @@ var $;
     __decorate([
         $mol_mem
     ], $bog_kit_stack.prototype, "page_current", null);
+    __decorate([
+        $mol_mem
+    ], $bog_kit_stack.prototype, "depth_max", null);
     __decorate([
         $mol_mem
     ], $bog_kit_stack.prototype, "Pager", null);
@@ -16987,8 +17023,12 @@ var $;
          * Replaces the dashes $mol_book2 draws between its columns. Those said "the
          * page continues", which is why they were worth having on a phone — but they
          * never said how far in you are or how much is left, and they read as an
-         * artefact rather than as a control. A bar split into one segment per open
-         * level says both, in three pixels, and does not compete with the header.
+         * artefact rather than as a control.
+         *
+         * The track is as long as the catalogue is deep and fills from the left, so
+         * the bar answers both questions at once and never changes length under the
+         * reader. Three pixels under the status bar; it does not compete with the
+         * header.
          *
          * Lives in the DOM as `[bog_kit_pager]`, hung on the book through
          * `$bog_kit_stack.placeholders()`.
@@ -16996,7 +17036,7 @@ var $;
         class $bog_kit_pager extends $.$bog_kit_pager {
             segments() {
                 const count = this.count();
-                // A sequence of one is not a sequence.
+                // A depth of one is not a depth.
                 if (count < 2)
                     return [];
                 const list = [];
@@ -17004,8 +17044,9 @@ var $;
                     list.push(this.Segment(index));
                 return list;
             }
+            /** Everything up to where you are, so the bar fills rather than moves. */
             segment_on(index) {
-                return index === this.current();
+                return index <= this.current();
             }
         }
         __decorate([
