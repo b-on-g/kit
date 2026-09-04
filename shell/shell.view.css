@@ -220,8 +220,6 @@
 	line-height: 22px;
 	--bog_kit_round_field: 12px;
 	--bog_kit_round_panel: 18px;
-	--bog_kit_nav_height: 44px;
-	--bog_kit_ease: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 [bog_kit_shell][bog_kit_platform="md"] {
@@ -230,8 +228,6 @@
 	line-height: 24px;
 	--bog_kit_round_field: 16px;
 	--bog_kit_round_panel: 20px;
-	--bog_kit_nav_height: 56px;
-	--bog_kit_ease: cubic-bezier(0.2, 0, 0, 1);
 }
 
 /*
