@@ -2,29 +2,54 @@ $bog_kit_controls $mol_book2_catalog
 	param \control
 	menu_title \Controls
 	spreads *
-		button <= Button_page $mol_page
-			title \$mol_button
-			Logo <= Spread_close
-			body /
-				<= Buttons $mol_list
-					rows /
-						<= Button_minor $mol_button_minor
-							title \Minor
-						<= Button_major $mol_button_major
-							title \Major
-						<= Button_disabled $mol_button_minor
-							title \Disabled
-							enabled false
-						<= Button_hinted $mol_button_minor
-							title \With hint
-							hint \Shown on hover
-						<= Button_specked $mol_button_minor
-							title \With speck
-							error \7
-						<= Button_iconed $mol_button_minor
-							sub /
-								<= Button_iconed_icon $mol_icon_star
-								\ Iconed
+		button <= Button_book $mol_book2_catalog
+			param \kind
+			menu_title \$mol_button
+			Menu_logo <= Spread_close
+			Spread_close => Button_close
+			spreads *
+				minor <= Button_minor_page $mol_page
+					title \Minor
+					Logo <= Button_close
+					body /
+						<= Buttons_minor $mol_list
+							rows /
+								<= Button_minor $mol_button_minor
+									title \Minor
+								<= Button_hinted $mol_button_minor
+									title \With hint
+									hint \Shown on hover
+								<= Button_disabled $mol_button_minor
+									title \Disabled
+									enabled false
+				major <= Button_major_page $mol_page
+					title \Major
+					Logo <= Button_close
+					body /
+						<= Buttons_major $mol_list
+							rows /
+								<= Button_major $mol_button_major
+									title \Major
+								<= Button_major_disabled $mol_button_major
+									title \Disabled
+									enabled false
+				marks <= Button_marks_page $mol_page
+					title \With marks
+					Logo <= Button_close
+					body /
+						<= Buttons_marks $mol_list
+							rows /
+								<= Button_specked $mol_button_minor
+									title \With speck
+									error \7
+								<= Button_iconed $mol_button_minor
+									sub /
+										<= Button_iconed_icon $mol_icon_star
+										\ Iconed
+				copy <= Button_copy_page $mol_page
+					title \Copy
+					Logo <= Button_close
+					body /
 						<= Button_copy $mol_button_copy
 							title \Copy to clipboard
 							text \Hello from $mol Kit
