@@ -18270,7 +18270,7 @@ var $;
 			return [];
 		}
 		segment_weight(id){
-			return 1;
+			return "1";
 		}
 		segment_on(id){
 			return false;
@@ -18360,8 +18360,17 @@ var $;
                 const total = this.span_total();
                 return total ? total + 'px' : '100%';
             }
+            /**
+             * A string, not a number, and that is the whole point.
+             *
+             * `$mol_dom_render_styles` appends `px` to any numeric inline value, so a
+             * weight of 227 became `flex-grow: 227px`, which is invalid and dropped.
+             * With no growth and `flex-basis: 0` every segment measured zero wide:
+             * the colours were right, the bar was the right length, and nothing was
+             * visible in it.
+             */
             segment_weight(index) {
-                return this.spans()[index] || 1;
+                return String(this.spans()[index] || 1);
             }
             /** One mark, on the screen in front of the reader. */
             segment_on(index) {
@@ -22290,17 +22299,23 @@ var $;
             pager.current = () => 2;
             $mol_assert_equal(pager.segments().length, 3);
             $mol_assert_equal(pager.segment_on(2), true);
-            $mol_assert_equal(pager.segment_weight(0), 1);
+            $mol_assert_equal(pager.segment_weight(0), '1');
             $mol_assert_equal(pager.width_style(), '100%');
         },
+        /*
+            Weights go out as strings. $mol_dom_render_styles appends `px` to any
+            numeric inline value, so a numeric weight lands as `flex-grow: 450px`,
+            is dropped as invalid, and every segment ends up zero wide — right
+            colours, right bar length, nothing to see.
+        */
         'measured columns set the segment widths'($) {
             const pager = new $.$bog_kit_pager;
             pager.$ = $;
             pager.count = () => 3;
             pager.spans = () => [450, 355, 585];
             pager.span_total = () => 1394;
-            $mol_assert_equal(pager.segment_weight(0), 450);
-            $mol_assert_equal(pager.segment_weight(2), 585);
+            $mol_assert_equal(pager.segment_weight(0), '450');
+            $mol_assert_equal(pager.segment_weight(2), '585');
             $mol_assert_equal(pager.width_style(), '1394px');
         },
         'one screen is not a sequence'($) {

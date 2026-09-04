@@ -3533,17 +3533,23 @@ var $;
             pager.current = () => 2;
             $mol_assert_equal(pager.segments().length, 3);
             $mol_assert_equal(pager.segment_on(2), true);
-            $mol_assert_equal(pager.segment_weight(0), 1);
+            $mol_assert_equal(pager.segment_weight(0), '1');
             $mol_assert_equal(pager.width_style(), '100%');
         },
+        /*
+            Weights go out as strings. $mol_dom_render_styles appends `px` to any
+            numeric inline value, so a numeric weight lands as `flex-grow: 450px`,
+            is dropped as invalid, and every segment ends up zero wide — right
+            colours, right bar length, nothing to see.
+        */
         'measured columns set the segment widths'($) {
             const pager = new $.$bog_kit_pager;
             pager.$ = $;
             pager.count = () => 3;
             pager.spans = () => [450, 355, 585];
             pager.span_total = () => 1394;
-            $mol_assert_equal(pager.segment_weight(0), 450);
-            $mol_assert_equal(pager.segment_weight(2), 585);
+            $mol_assert_equal(pager.segment_weight(0), '450');
+            $mol_assert_equal(pager.segment_weight(2), '585');
             $mol_assert_equal(pager.width_style(), '1394px');
         },
         'one screen is not a sequence'($) {

@@ -9808,7 +9808,7 @@ declare namespace $ {
 	export class $bog_kit_pager extends $mol_view {
 		width_style( ): string
 		segments( ): readonly($mol_view)[]
-		segment_weight( id: any): number
+		segment_weight( id: any): string
 		segment_on( id: any): boolean
 		count( ): number
 		spans( ): readonly(number)[]
@@ -9860,7 +9860,16 @@ declare namespace $.$$ {
          * columns were measured at all.
          */
         width_style(): string;
-        segment_weight(index: number): number;
+        /**
+         * A string, not a number, and that is the whole point.
+         *
+         * `$mol_dom_render_styles` appends `px` to any numeric inline value, so a
+         * weight of 227 became `flex-grow: 227px`, which is invalid and dropped.
+         * With no growth and `flex-basis: 0` every segment measured zero wide:
+         * the colours were right, the bar was the right length, and nothing was
+         * visible in it.
+         */
+        segment_weight(index: number): string;
         /** One mark, on the screen in front of the reader. */
         segment_on(index: number): boolean;
     }

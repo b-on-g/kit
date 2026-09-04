@@ -1922,7 +1922,7 @@ $bog_kit_pager $mol_view
 	Segment* $mol_view
 		style *
 			^
-			flexGrow <= segment_weight* 1
+			flexGrow <= segment_weight* \1
 		attr *
 			^
 			bog_kit_pager_on <= segment_on* false
