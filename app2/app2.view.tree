@@ -1,5 +1,6 @@
 $bog_kit_app2 $bog_kit_app
 	menu_title \Kit
+	pager_enabled true
 	Theme $bog_kit_shell
 	menu_tools /
 		<= Lights_pick $bog_kit_lights_pick

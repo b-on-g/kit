@@ -288,3 +288,166 @@
 	background: var(--bog_kit_key);
 	color: var(--bog_kit_key_ink);
 }
+
+/*
+	=== The frame ===
+
+	Everything below is about behaving like an installed app rather than like a
+	page: platform metrics, the safe areas of a phone, and the two ways the same
+	catalogue can be navigated.
+*/
+
+/* Platform metrics. The system face at the system size is half the tell. */
+[bog_kit_shell][bog_kit_platform="ios"] {
+	--bog_kit_font_text: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+	font-size: 17px;
+	line-height: 22px;
+	--bog_kit_round_field: 10px;
+	--bog_kit_round_panel: 16px;
+	--bog_kit_nav_height: 44px;
+	--bog_kit_ease: cubic-bezier(0.32, 0.72, 0, 1);
+	--bog_kit_push: 0.35s;
+}
+
+[bog_kit_shell][bog_kit_platform="md"] {
+	--bog_kit_font_text: Roboto, 'Noto Sans', system-ui, sans-serif;
+	font-size: 16px;
+	line-height: 24px;
+	--bog_kit_round_field: 12px;
+	--bog_kit_round_panel: 16px;
+	--bog_kit_nav_height: 56px;
+	--bog_kit_ease: cubic-bezier(0.2, 0, 0, 1);
+	--bog_kit_push: 0.3s;
+}
+
+/*
+	Touch behaviour. A page that highlights on tap, shows a callout on long
+	press or lets you select the chrome reads as a web page instantly.
+*/
+[bog_kit_shell] {
+	-webkit-tap-highlight-color: transparent;
+	-webkit-touch-callout: none;
+	overscroll-behavior: none;
+}
+
+[bog_kit_shell] [mol_view] {
+	user-select: none;
+	-webkit-user-select: none;
+}
+
+[bog_kit_shell] [mol_text],
+[bog_kit_shell] [mol_string],
+[bog_kit_shell] [mol_textarea] {
+	user-select: text;
+	-webkit-user-select: text;
+}
+
+/* The notch and the home indicator belong to the chrome, not to the content. */
+[bog_kit_shell] [bog_kit_page_head] {
+	padding-top: calc(0.75rem + env(safe-area-inset-top));
+	padding-left: calc(1rem + env(safe-area-inset-left));
+	padding-right: calc(0.75rem + env(safe-area-inset-right));
+}
+
+[bog_kit_shell] [bog_kit_page_body_content] {
+	padding-bottom: calc(2.5rem + env(safe-area-inset-bottom));
+	padding-left: calc(1.25rem + env(safe-area-inset-left));
+	padding-right: calc(1.25rem + env(safe-area-inset-right));
+}
+
+[bog_kit_shell] [bog_kit_pager] {
+	top: env(safe-area-inset-top);
+}
+
+/*
+	=== book ===
+
+	The pages stay columns of one scroller. On a phone each is exactly one
+	screen wide, so the browser's own momentum and snapping do the paging — the
+	gesture is the platform's, not ours.
+*/
+@media (max-width: 45rem) {
+
+	[bog_kit_shell][bog_kit_nav="book"] {
+		scroll-snap-type: x mandatory;
+	}
+
+	[bog_kit_shell][bog_kit_nav="book"] > article[mol_page] {
+		flex: 0 0 100%;
+		min-width: 100%;
+		scroll-snap-align: start;
+		scroll-snap-stop: always;
+	}
+
+}
+
+/*
+	=== stack ===
+
+	Only the top page is on screen. Opening one pushes it in from the right; the
+	page underneath hangs back a quarter of the width and dims, which is the
+	parallax every iOS push has. @starting-style is what gives a freshly mounted
+	page somewhere to come from.
+*/
+[bog_kit_shell][bog_kit_nav="stack"] {
+	position: relative;
+	overflow: hidden;
+	display: block;
+}
+
+/* A stack has no spare column to fill. */
+[bog_kit_shell][bog_kit_nav="stack"] > [mol_book2_placeholder] {
+	display: none;
+}
+
+[bog_kit_shell][bog_kit_nav="stack"] > article[mol_page] {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	max-width: 100%;
+	max-height: 100%;
+	transform: translateX(-25%);
+	filter: brightness(0.92);
+	transition:
+		transform var(--bog_kit_push) var(--bog_kit_ease),
+		filter var(--bog_kit_push) var(--bog_kit_ease);
+	will-change: transform;
+}
+
+[bog_kit_shell][bog_kit_nav="stack"] > article[mol_page]:last-of-type {
+	transform: translateX(0);
+	filter: none;
+	z-index: 2;
+}
+
+@starting-style {
+	[bog_kit_shell][bog_kit_nav="stack"] > article[mol_page]:last-of-type {
+		transform: translateX(100%);
+	}
+}
+
+/* Wide enough for two, and a stack of one column is just a waste of a screen. */
+@media (min-width: 45rem) {
+
+	[bog_kit_shell][bog_kit_nav="stack"] {
+		display: flex;
+		overflow: auto;
+	}
+
+	[bog_kit_shell][bog_kit_nav="stack"] > article[mol_page] {
+		position: relative;
+		inset: auto;
+		width: auto;
+		transform: none;
+		filter: none;
+		transition: none;
+	}
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+	[bog_kit_shell] * {
+		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms !important;
+	}
+}

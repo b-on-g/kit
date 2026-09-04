@@ -1,4 +1,4 @@
-$bog_kit_app $mol_book2_catalog
+$bog_kit_app $bog_kit_stack
 	param \section
 	menu_title \$mol Kit
 	plugins /

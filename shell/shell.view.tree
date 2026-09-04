@@ -2,3 +2,4 @@ $bog_kit_shell $mol_theme_auto
 	attr *
 		^
 		bog_kit_tone <= tone \a
+		bog_kit_platform <= platform \ios
