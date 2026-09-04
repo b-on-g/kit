@@ -43,6 +43,21 @@ namespace $.$$ {
 
 		},
 
+		/*
+			Only where one screen is one column.
+
+			Above the breakpoint the book lays every column out at once, and the
+			bar has nothing to say: it spans the window in equal parts that line
+			up with none of the columns, and the marked part lands over the empty
+			plate to the right of the last one. It reads as a stray block, which
+			is exactly what it is there.
+		*/
+		'@media': {
+			'(min-width: 45rem)': {
+				display: 'none',
+			},
+		},
+
 	} )
 
 }
