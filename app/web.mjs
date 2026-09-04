@@ -12170,14 +12170,18 @@ var $;
 
 ;
 	($.$bog_kit_controls) = class $bog_kit_controls extends ($.$mol_book2_catalog) {
+		Button_close(){
+			return (this.Button_book().Spread_close());
+		}
 		Button_minor(){
 			const obj = new this.$.$mol_button_minor();
 			(obj.title) = () => ("Minor");
 			return obj;
 		}
-		Button_major(){
-			const obj = new this.$.$mol_button_major();
-			(obj.title) = () => ("Major");
+		Button_hinted(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.title) = () => ("With hint");
+			(obj.hint) = () => ("Shown on hover");
 			return obj;
 		}
 		Button_disabled(){
@@ -12186,10 +12190,43 @@ var $;
 			(obj.enabled) = () => (false);
 			return obj;
 		}
-		Button_hinted(){
-			const obj = new this.$.$mol_button_minor();
-			(obj.title) = () => ("With hint");
-			(obj.hint) = () => ("Shown on hover");
+		Buttons_minor(){
+			const obj = new this.$.$mol_list();
+			(obj.rows) = () => ([
+				(this.Button_minor()), 
+				(this.Button_hinted()), 
+				(this.Button_disabled())
+			]);
+			return obj;
+		}
+		Button_minor_page(){
+			const obj = new this.$.$mol_page();
+			(obj.title) = () => ("Minor");
+			(obj.Logo) = () => ((this.Button_close()));
+			(obj.body) = () => ([(this.Buttons_minor())]);
+			return obj;
+		}
+		Button_major(){
+			const obj = new this.$.$mol_button_major();
+			(obj.title) = () => ("Major");
+			return obj;
+		}
+		Button_major_disabled(){
+			const obj = new this.$.$mol_button_major();
+			(obj.title) = () => ("Disabled");
+			(obj.enabled) = () => (false);
+			return obj;
+		}
+		Buttons_major(){
+			const obj = new this.$.$mol_list();
+			(obj.rows) = () => ([(this.Button_major()), (this.Button_major_disabled())]);
+			return obj;
+		}
+		Button_major_page(){
+			const obj = new this.$.$mol_page();
+			(obj.title) = () => ("Major");
+			(obj.Logo) = () => ((this.Button_close()));
+			(obj.body) = () => ([(this.Buttons_major())]);
 			return obj;
 		}
 		Button_specked(){
@@ -12207,30 +12244,42 @@ var $;
 			(obj.sub) = () => ([(this.Button_iconed_icon()), " Iconed"]);
 			return obj;
 		}
+		Buttons_marks(){
+			const obj = new this.$.$mol_list();
+			(obj.rows) = () => ([(this.Button_specked()), (this.Button_iconed())]);
+			return obj;
+		}
+		Button_marks_page(){
+			const obj = new this.$.$mol_page();
+			(obj.title) = () => ("With marks");
+			(obj.Logo) = () => ((this.Button_close()));
+			(obj.body) = () => ([(this.Buttons_marks())]);
+			return obj;
+		}
 		Button_copy(){
 			const obj = new this.$.$mol_button_copy();
 			(obj.title) = () => ("Copy to clipboard");
 			(obj.text) = () => ("Hello from $mol Kit");
 			return obj;
 		}
-		Buttons(){
-			const obj = new this.$.$mol_list();
-			(obj.rows) = () => ([
-				(this.Button_minor()), 
-				(this.Button_major()), 
-				(this.Button_disabled()), 
-				(this.Button_hinted()), 
-				(this.Button_specked()), 
-				(this.Button_iconed()), 
-				(this.Button_copy())
-			]);
+		Button_copy_page(){
+			const obj = new this.$.$mol_page();
+			(obj.title) = () => ("Copy");
+			(obj.Logo) = () => ((this.Button_close()));
+			(obj.body) = () => ([(this.Button_copy())]);
 			return obj;
 		}
-		Button_page(){
-			const obj = new this.$.$mol_page();
-			(obj.title) = () => ("$mol_button");
-			(obj.Logo) = () => ((this.Spread_close()));
-			(obj.body) = () => ([(this.Buttons())]);
+		Button_book(){
+			const obj = new this.$.$mol_book2_catalog();
+			(obj.param) = () => ("kind");
+			(obj.menu_title) = () => ("$mol_button");
+			(obj.Menu_logo) = () => ((this.Spread_close()));
+			(obj.spreads) = () => ({
+				"minor": (this.Button_minor_page()), 
+				"major": (this.Button_major_page()), 
+				"marks": (this.Button_marks_page()), 
+				"copy": (this.Button_copy_page())
+			});
 			return obj;
 		}
 		check_base(next){
@@ -12410,7 +12459,7 @@ var $;
 		}
 		spreads(){
 			return {
-				"button": (this.Button_page()), 
+				"button": (this.Button_book()), 
 				"check": (this.Check_page()), 
 				"switch": (this.Switch_page()), 
 				"link": (this.Link_page())
@@ -12418,15 +12467,22 @@ var $;
 		}
 	};
 	($mol_mem(($.$bog_kit_controls.prototype), "Button_minor"));
-	($mol_mem(($.$bog_kit_controls.prototype), "Button_major"));
-	($mol_mem(($.$bog_kit_controls.prototype), "Button_disabled"));
 	($mol_mem(($.$bog_kit_controls.prototype), "Button_hinted"));
+	($mol_mem(($.$bog_kit_controls.prototype), "Button_disabled"));
+	($mol_mem(($.$bog_kit_controls.prototype), "Buttons_minor"));
+	($mol_mem(($.$bog_kit_controls.prototype), "Button_minor_page"));
+	($mol_mem(($.$bog_kit_controls.prototype), "Button_major"));
+	($mol_mem(($.$bog_kit_controls.prototype), "Button_major_disabled"));
+	($mol_mem(($.$bog_kit_controls.prototype), "Buttons_major"));
+	($mol_mem(($.$bog_kit_controls.prototype), "Button_major_page"));
 	($mol_mem(($.$bog_kit_controls.prototype), "Button_specked"));
 	($mol_mem(($.$bog_kit_controls.prototype), "Button_iconed_icon"));
 	($mol_mem(($.$bog_kit_controls.prototype), "Button_iconed"));
+	($mol_mem(($.$bog_kit_controls.prototype), "Buttons_marks"));
+	($mol_mem(($.$bog_kit_controls.prototype), "Button_marks_page"));
 	($mol_mem(($.$bog_kit_controls.prototype), "Button_copy"));
-	($mol_mem(($.$bog_kit_controls.prototype), "Buttons"));
-	($mol_mem(($.$bog_kit_controls.prototype), "Button_page"));
+	($mol_mem(($.$bog_kit_controls.prototype), "Button_copy_page"));
+	($mol_mem(($.$bog_kit_controls.prototype), "Button_book"));
 	($mol_mem(($.$bog_kit_controls.prototype), "check_base"));
 	($mol_mem(($.$bog_kit_controls.prototype), "Check_base"));
 	($mol_mem(($.$bog_kit_controls.prototype), "check_checked"));
@@ -15349,6 +15405,9 @@ var $;
 
 ;
 	($.$bog_kit_fields) = class $bog_kit_fields extends ($.$mol_book2_catalog) {
+		String_close(){
+			return (this.String_book().Spread_close());
+		}
 		text(next){
 			if(next !== undefined) return next;
 			return "";
@@ -15363,6 +15422,30 @@ var $;
 			const obj = new this.$.$mol_labeler();
 			(obj.title) = () => ("Text");
 			(obj.Content) = () => ((this.String()));
+			return obj;
+		}
+		String_disabled(){
+			const obj = new this.$.$mol_string();
+			(obj.value) = () => ("Read only");
+			(obj.enabled) = () => (false);
+			return obj;
+		}
+		String_disabled_label(){
+			const obj = new this.$.$mol_labeler();
+			(obj.title) = () => ("Disabled");
+			(obj.Content) = () => ((this.String_disabled()));
+			return obj;
+		}
+		Texts(){
+			const obj = new this.$.$mol_list();
+			(obj.rows) = () => ([(this.String_label()), (this.String_disabled_label())]);
+			return obj;
+		}
+		String_text_page(){
+			const obj = new this.$.$mol_page();
+			(obj.title) = () => ("Text");
+			(obj.Logo) = () => ((this.String_close()));
+			(obj.body) = () => ([(this.Texts())]);
 			return obj;
 		}
 		email(next){
@@ -15380,6 +15463,13 @@ var $;
 			(obj.Content) = () => ((this.Email()));
 			return obj;
 		}
+		String_email_page(){
+			const obj = new this.$.$mol_page();
+			(obj.title) = () => ("E-mail");
+			(obj.Logo) = () => ((this.String_close()));
+			(obj.body) = () => ([(this.Email_label())]);
+			return obj;
+		}
 		password(next){
 			if(next !== undefined) return next;
 			return "";
@@ -15394,6 +15484,13 @@ var $;
 			const obj = new this.$.$mol_labeler();
 			(obj.title) = () => ("Password");
 			(obj.Content) = () => ((this.Password()));
+			return obj;
+		}
+		String_password_page(){
+			const obj = new this.$.$mol_page();
+			(obj.title) = () => ("Password");
+			(obj.Logo) = () => ((this.String_close()));
+			(obj.body) = () => ([(this.Password_label())]);
 			return obj;
 		}
 		query(next){
@@ -15416,34 +15513,24 @@ var $;
 			(obj.Content) = () => ((this.Search()));
 			return obj;
 		}
-		String_disabled(){
-			const obj = new this.$.$mol_string();
-			(obj.value) = () => ("Read only");
-			(obj.enabled) = () => (false);
-			return obj;
-		}
-		String_disabled_label(){
-			const obj = new this.$.$mol_labeler();
-			(obj.title) = () => ("Disabled");
-			(obj.Content) = () => ((this.String_disabled()));
-			return obj;
-		}
-		Strings(){
-			const obj = new this.$.$mol_list();
-			(obj.rows) = () => ([
-				(this.String_label()), 
-				(this.Email_label()), 
-				(this.Password_label()), 
-				(this.Search_label()), 
-				(this.String_disabled_label())
-			]);
-			return obj;
-		}
-		String_page(){
+		String_search_page(){
 			const obj = new this.$.$mol_page();
-			(obj.title) = () => ("$mol_string");
-			(obj.Logo) = () => ((this.Spread_close()));
-			(obj.body) = () => ([(this.Strings())]);
+			(obj.title) = () => ("Search");
+			(obj.Logo) = () => ((this.String_close()));
+			(obj.body) = () => ([(this.Search_label())]);
+			return obj;
+		}
+		String_book(){
+			const obj = new this.$.$mol_book2_catalog();
+			(obj.param) = () => ("variant");
+			(obj.menu_title) = () => ("$mol_string");
+			(obj.Menu_logo) = () => ((this.Spread_close()));
+			(obj.spreads) = () => ({
+				"text": (this.String_text_page()), 
+				"email": (this.String_email_page()), 
+				"password": (this.String_password_page()), 
+				"search": (this.String_search_page())
+			});
 			return obj;
 		}
 		amount(next){
@@ -15668,7 +15755,7 @@ var $;
 		}
 		spreads(){
 			return {
-				"string": (this.String_page()), 
+				"string": (this.String_book()), 
 				"number": (this.Number_page()), 
 				"textarea": (this.Textarea_page()), 
 				"select": (this.Select_page()), 
@@ -15680,19 +15767,23 @@ var $;
 	($mol_mem(($.$bog_kit_fields.prototype), "text"));
 	($mol_mem(($.$bog_kit_fields.prototype), "String"));
 	($mol_mem(($.$bog_kit_fields.prototype), "String_label"));
+	($mol_mem(($.$bog_kit_fields.prototype), "String_disabled"));
+	($mol_mem(($.$bog_kit_fields.prototype), "String_disabled_label"));
+	($mol_mem(($.$bog_kit_fields.prototype), "Texts"));
+	($mol_mem(($.$bog_kit_fields.prototype), "String_text_page"));
 	($mol_mem(($.$bog_kit_fields.prototype), "email"));
 	($mol_mem(($.$bog_kit_fields.prototype), "Email"));
 	($mol_mem(($.$bog_kit_fields.prototype), "Email_label"));
+	($mol_mem(($.$bog_kit_fields.prototype), "String_email_page"));
 	($mol_mem(($.$bog_kit_fields.prototype), "password"));
 	($mol_mem(($.$bog_kit_fields.prototype), "Password"));
 	($mol_mem(($.$bog_kit_fields.prototype), "Password_label"));
+	($mol_mem(($.$bog_kit_fields.prototype), "String_password_page"));
 	($mol_mem(($.$bog_kit_fields.prototype), "query"));
 	($mol_mem(($.$bog_kit_fields.prototype), "Search"));
 	($mol_mem(($.$bog_kit_fields.prototype), "Search_label"));
-	($mol_mem(($.$bog_kit_fields.prototype), "String_disabled"));
-	($mol_mem(($.$bog_kit_fields.prototype), "String_disabled_label"));
-	($mol_mem(($.$bog_kit_fields.prototype), "Strings"));
-	($mol_mem(($.$bog_kit_fields.prototype), "String_page"));
+	($mol_mem(($.$bog_kit_fields.prototype), "String_search_page"));
+	($mol_mem(($.$bog_kit_fields.prototype), "String_book"));
 	($mol_mem(($.$bog_kit_fields.prototype), "amount"));
 	($mol_mem(($.$bog_kit_fields.prototype), "Number"));
 	($mol_mem(($.$bog_kit_fields.prototype), "Number_label"));

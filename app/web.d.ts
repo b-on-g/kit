@@ -5414,167 +5414,257 @@ declare namespace $ {
 		,
 		ReturnType< $mol_button_minor['title'] >
 	>
-	type $mol_button_major__title_bog_kit_controls_2 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_button_major['title'] >
-	>
-	type $mol_button_minor__title_bog_kit_controls_3 = $mol_type_enforce<
+	type $mol_button_minor__title_bog_kit_controls_2 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_minor['title'] >
 	>
-	type $mol_button_minor__enabled_bog_kit_controls_4 = $mol_type_enforce<
-		boolean
-		,
-		ReturnType< $mol_button_minor['enabled'] >
-	>
-	type $mol_button_minor__title_bog_kit_controls_5 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_button_minor['title'] >
-	>
-	type $mol_button_minor__hint_bog_kit_controls_6 = $mol_type_enforce<
+	type $mol_button_minor__hint_bog_kit_controls_3 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_minor['hint'] >
 	>
-	type $mol_button_minor__title_bog_kit_controls_7 = $mol_type_enforce<
+	type $mol_button_minor__title_bog_kit_controls_4 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_minor['title'] >
 	>
-	type $mol_button_minor__error_bog_kit_controls_8 = $mol_type_enforce<
+	type $mol_button_minor__enabled_bog_kit_controls_5 = $mol_type_enforce<
+		boolean
+		,
+		ReturnType< $mol_button_minor['enabled'] >
+	>
+	type $mol_list__rows_bog_kit_controls_6 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_list['rows'] >
+	>
+	type $mol_page__title_bog_kit_controls_7 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_page['title'] >
+	>
+	type $mol_page__Logo_bog_kit_controls_8 = $mol_type_enforce<
+		ReturnType< $bog_kit_controls['Button_close'] >
+		,
+		ReturnType< $mol_page['Logo'] >
+	>
+	type $mol_page__body_bog_kit_controls_9 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_page['body'] >
+	>
+	type $mol_button_major__title_bog_kit_controls_10 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_button_major['title'] >
+	>
+	type $mol_button_major__title_bog_kit_controls_11 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_button_major['title'] >
+	>
+	type $mol_button_major__enabled_bog_kit_controls_12 = $mol_type_enforce<
+		boolean
+		,
+		ReturnType< $mol_button_major['enabled'] >
+	>
+	type $mol_list__rows_bog_kit_controls_13 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_list['rows'] >
+	>
+	type $mol_page__title_bog_kit_controls_14 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_page['title'] >
+	>
+	type $mol_page__Logo_bog_kit_controls_15 = $mol_type_enforce<
+		ReturnType< $bog_kit_controls['Button_close'] >
+		,
+		ReturnType< $mol_page['Logo'] >
+	>
+	type $mol_page__body_bog_kit_controls_16 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_page['body'] >
+	>
+	type $mol_button_minor__title_bog_kit_controls_17 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_button_minor['title'] >
+	>
+	type $mol_button_minor__error_bog_kit_controls_18 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_minor['error'] >
 	>
-	type $mol_button_minor__sub_bog_kit_controls_9 = $mol_type_enforce<
+	type $mol_button_minor__sub_bog_kit_controls_19 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
-	type $mol_button_copy__title_bog_kit_controls_10 = $mol_type_enforce<
+	type $mol_list__rows_bog_kit_controls_20 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_list['rows'] >
+	>
+	type $mol_page__title_bog_kit_controls_21 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_page['title'] >
+	>
+	type $mol_page__Logo_bog_kit_controls_22 = $mol_type_enforce<
+		ReturnType< $bog_kit_controls['Button_close'] >
+		,
+		ReturnType< $mol_page['Logo'] >
+	>
+	type $mol_page__body_bog_kit_controls_23 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_page['body'] >
+	>
+	type $mol_button_copy__title_bog_kit_controls_24 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_copy['title'] >
 	>
-	type $mol_button_copy__text_bog_kit_controls_11 = $mol_type_enforce<
+	type $mol_button_copy__text_bog_kit_controls_25 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_copy['text'] >
 	>
-	type $mol_list__rows_bog_kit_controls_12 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_list['rows'] >
-	>
-	type $mol_page__title_bog_kit_controls_13 = $mol_type_enforce<
+	type $mol_page__title_bog_kit_controls_26 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__Logo_bog_kit_controls_14 = $mol_type_enforce<
-		ReturnType< $bog_kit_controls['Spread_close'] >
+	type $mol_page__Logo_bog_kit_controls_27 = $mol_type_enforce<
+		ReturnType< $bog_kit_controls['Button_close'] >
 		,
 		ReturnType< $mol_page['Logo'] >
 	>
-	type $mol_page__body_bog_kit_controls_15 = $mol_type_enforce<
+	type $mol_page__body_bog_kit_controls_28 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['body'] >
 	>
-	type $mol_check_box__title_bog_kit_controls_16 = $mol_type_enforce<
+	type $mol_book2_catalog__param_bog_kit_controls_29 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_book2_catalog['param'] >
+	>
+	type $mol_book2_catalog__menu_title_bog_kit_controls_30 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_book2_catalog['menu_title'] >
+	>
+	type $mol_book2_catalog__Menu_logo_bog_kit_controls_31 = $mol_type_enforce<
+		ReturnType< $bog_kit_controls['Spread_close'] >
+		,
+		ReturnType< $mol_book2_catalog['Menu_logo'] >
+	>
+	type $mol_book2_catalog__spreads_bog_kit_controls_32 = $mol_type_enforce<
+		({ 
+			'minor': ReturnType< $bog_kit_controls['Button_minor_page'] >,
+			'major': ReturnType< $bog_kit_controls['Button_major_page'] >,
+			'marks': ReturnType< $bog_kit_controls['Button_marks_page'] >,
+			'copy': ReturnType< $bog_kit_controls['Button_copy_page'] >,
+		}) 
+		,
+		ReturnType< $mol_book2_catalog['spreads'] >
+	>
+	type $mol_check_box__title_bog_kit_controls_33 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_check_box['title'] >
 	>
-	type $mol_check_box__checked_bog_kit_controls_17 = $mol_type_enforce<
+	type $mol_check_box__checked_bog_kit_controls_34 = $mol_type_enforce<
 		ReturnType< $bog_kit_controls['check_base'] >
 		,
 		ReturnType< $mol_check_box['checked'] >
 	>
-	type $mol_check_box__title_bog_kit_controls_18 = $mol_type_enforce<
+	type $mol_check_box__title_bog_kit_controls_35 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_check_box['title'] >
 	>
-	type $mol_check_box__checked_bog_kit_controls_19 = $mol_type_enforce<
+	type $mol_check_box__checked_bog_kit_controls_36 = $mol_type_enforce<
 		ReturnType< $bog_kit_controls['check_checked'] >
 		,
 		ReturnType< $mol_check_box['checked'] >
 	>
-	type $mol_check_box__title_bog_kit_controls_20 = $mol_type_enforce<
+	type $mol_check_box__title_bog_kit_controls_37 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_check_box['title'] >
 	>
-	type $mol_check_box__checked_bog_kit_controls_21 = $mol_type_enforce<
+	type $mol_check_box__checked_bog_kit_controls_38 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $mol_check_box['checked'] >
 	>
-	type $mol_check_box__enabled_bog_kit_controls_22 = $mol_type_enforce<
+	type $mol_check_box__enabled_bog_kit_controls_39 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $mol_check_box['enabled'] >
 	>
-	type $mol_check_icon__hint_bog_kit_controls_23 = $mol_type_enforce<
+	type $mol_check_icon__hint_bog_kit_controls_40 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_check_icon['hint'] >
 	>
-	type $mol_check_icon__checked_bog_kit_controls_24 = $mol_type_enforce<
+	type $mol_check_icon__checked_bog_kit_controls_41 = $mol_type_enforce<
 		ReturnType< $bog_kit_controls['check_star'] >
 		,
 		ReturnType< $mol_check_icon['checked'] >
 	>
-	type $mol_check_icon__Icon_bog_kit_controls_25 = $mol_type_enforce<
+	type $mol_check_icon__Icon_bog_kit_controls_42 = $mol_type_enforce<
 		ReturnType< $bog_kit_controls['Check_icon_star'] >
 		,
 		ReturnType< $mol_check_icon['Icon'] >
 	>
-	type $mol_check_expand__title_bog_kit_controls_26 = $mol_type_enforce<
+	type $mol_check_expand__title_bog_kit_controls_43 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_check_expand['title'] >
 	>
-	type $mol_check_expand__expandable_bog_kit_controls_27 = $mol_type_enforce<
+	type $mol_check_expand__expandable_bog_kit_controls_44 = $mol_type_enforce<
 		boolean
 		,
 		ReturnType< $mol_check_expand['expandable'] >
 	>
-	type $mol_check_expand__expanded_bog_kit_controls_28 = $mol_type_enforce<
+	type $mol_check_expand__expanded_bog_kit_controls_45 = $mol_type_enforce<
 		ReturnType< $bog_kit_controls['check_expanded'] >
 		,
 		ReturnType< $mol_check_expand['expanded'] >
 	>
-	type $mol_list__rows_bog_kit_controls_29 = $mol_type_enforce<
+	type $mol_list__rows_bog_kit_controls_46 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_list['rows'] >
 	>
-	type $mol_page__title_bog_kit_controls_30 = $mol_type_enforce<
+	type $mol_page__title_bog_kit_controls_47 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__Logo_bog_kit_controls_31 = $mol_type_enforce<
+	type $mol_page__Logo_bog_kit_controls_48 = $mol_type_enforce<
 		ReturnType< $bog_kit_controls['Spread_close'] >
 		,
 		ReturnType< $mol_page['Logo'] >
 	>
-	type $mol_page__body_bog_kit_controls_32 = $mol_type_enforce<
+	type $mol_page__body_bog_kit_controls_49 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['body'] >
 	>
-	type $mol_switch__value_bog_kit_controls_33 = $mol_type_enforce<
+	type $mol_switch__value_bog_kit_controls_50 = $mol_type_enforce<
 		ReturnType< $bog_kit_controls['tone'] >
 		,
 		ReturnType< $mol_switch['value'] >
 	>
-	type $mol_switch__options_bog_kit_controls_34 = $mol_type_enforce<
+	type $mol_switch__options_bog_kit_controls_51 = $mol_type_enforce<
 		({ 
 			'calm': string,
 			'accent': string,
@@ -5583,22 +5673,22 @@ declare namespace $ {
 		,
 		ReturnType< $mol_switch['options'] >
 	>
-	type $mol_labeler__title_bog_kit_controls_35 = $mol_type_enforce<
+	type $mol_labeler__title_bog_kit_controls_52 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_labeler['title'] >
 	>
-	type $mol_labeler__Content_bog_kit_controls_36 = $mol_type_enforce<
+	type $mol_labeler__Content_bog_kit_controls_53 = $mol_type_enforce<
 		ReturnType< $bog_kit_controls['Tone'] >
 		,
 		ReturnType< $mol_labeler['Content'] >
 	>
-	type $mol_check_list__option_checked_bog_kit_controls_37 = $mol_type_enforce<
+	type $mol_check_list__option_checked_bog_kit_controls_54 = $mol_type_enforce<
 		ReturnType< $bog_kit_controls['right'] >
 		,
 		ReturnType< $mol_check_list['option_checked'] >
 	>
-	type $mol_check_list__options_bog_kit_controls_38 = $mol_type_enforce<
+	type $mol_check_list__options_bog_kit_controls_55 = $mol_type_enforce<
 		({ 
 			'read': string,
 			'write': string,
@@ -5607,114 +5697,122 @@ declare namespace $ {
 		,
 		ReturnType< $mol_check_list['options'] >
 	>
-	type $mol_labeler__title_bog_kit_controls_39 = $mol_type_enforce<
+	type $mol_labeler__title_bog_kit_controls_56 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_labeler['title'] >
 	>
-	type $mol_labeler__Content_bog_kit_controls_40 = $mol_type_enforce<
+	type $mol_labeler__Content_bog_kit_controls_57 = $mol_type_enforce<
 		ReturnType< $bog_kit_controls['Rights'] >
 		,
 		ReturnType< $mol_labeler['Content'] >
 	>
-	type $mol_list__rows_bog_kit_controls_41 = $mol_type_enforce<
+	type $mol_list__rows_bog_kit_controls_58 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_list['rows'] >
 	>
-	type $mol_page__title_bog_kit_controls_42 = $mol_type_enforce<
+	type $mol_page__title_bog_kit_controls_59 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__Logo_bog_kit_controls_43 = $mol_type_enforce<
+	type $mol_page__Logo_bog_kit_controls_60 = $mol_type_enforce<
 		ReturnType< $bog_kit_controls['Spread_close'] >
 		,
 		ReturnType< $mol_page['Logo'] >
 	>
-	type $mol_page__body_bog_kit_controls_44 = $mol_type_enforce<
+	type $mol_page__body_bog_kit_controls_61 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['body'] >
 	>
-	type $mol_link__title_bog_kit_controls_45 = $mol_type_enforce<
+	type $mol_link__title_bog_kit_controls_62 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link['title'] >
 	>
-	type $mol_link__arg_bog_kit_controls_46 = $mol_type_enforce<
+	type $mol_link__arg_bog_kit_controls_63 = $mol_type_enforce<
 		({ 
 			'demo': string,
 		}) 
 		,
 		ReturnType< $mol_link['arg'] >
 	>
-	type $mol_link__title_bog_kit_controls_47 = $mol_type_enforce<
+	type $mol_link__title_bog_kit_controls_64 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link['title'] >
 	>
-	type $mol_link__uri_bog_kit_controls_48 = $mol_type_enforce<
+	type $mol_link__uri_bog_kit_controls_65 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link['uri'] >
 	>
-	type $mol_link__target_bog_kit_controls_49 = $mol_type_enforce<
+	type $mol_link__target_bog_kit_controls_66 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link['target'] >
 	>
-	type $mol_link__uri_bog_kit_controls_50 = $mol_type_enforce<
+	type $mol_link__uri_bog_kit_controls_67 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link['uri'] >
 	>
-	type $mol_link__target_bog_kit_controls_51 = $mol_type_enforce<
+	type $mol_link__target_bog_kit_controls_68 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link['target'] >
 	>
-	type $mol_link__sub_bog_kit_controls_52 = $mol_type_enforce<
+	type $mol_link__sub_bog_kit_controls_69 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_link['sub'] >
 	>
-	type $mol_link__title_bog_kit_controls_53 = $mol_type_enforce<
+	type $mol_link__title_bog_kit_controls_70 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link['title'] >
 	>
-	type $mol_list__rows_bog_kit_controls_54 = $mol_type_enforce<
+	type $mol_list__rows_bog_kit_controls_71 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_list['rows'] >
 	>
-	type $mol_page__title_bog_kit_controls_55 = $mol_type_enforce<
+	type $mol_page__title_bog_kit_controls_72 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__Logo_bog_kit_controls_56 = $mol_type_enforce<
+	type $mol_page__Logo_bog_kit_controls_73 = $mol_type_enforce<
 		ReturnType< $bog_kit_controls['Spread_close'] >
 		,
 		ReturnType< $mol_page['Logo'] >
 	>
-	type $mol_page__body_bog_kit_controls_57 = $mol_type_enforce<
+	type $mol_page__body_bog_kit_controls_74 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['body'] >
 	>
 	export class $bog_kit_controls extends $mol_book2_catalog {
+		Button_close( ): ReturnType< ReturnType< $bog_kit_controls['Button_book'] >['Spread_close'] >
 		Button_minor( ): $mol_button_minor
-		Button_major( ): $mol_button_major
-		Button_disabled( ): $mol_button_minor
 		Button_hinted( ): $mol_button_minor
+		Button_disabled( ): $mol_button_minor
+		Buttons_minor( ): $mol_list
+		Button_minor_page( ): $mol_page
+		Button_major( ): $mol_button_major
+		Button_major_disabled( ): $mol_button_major
+		Buttons_major( ): $mol_list
+		Button_major_page( ): $mol_page
 		Button_specked( ): $mol_button_minor
 		Button_iconed_icon( ): $mol_icon_star
 		Button_iconed( ): $mol_button_minor
+		Buttons_marks( ): $mol_list
+		Button_marks_page( ): $mol_page
 		Button_copy( ): $mol_button_copy
-		Buttons( ): $mol_list
-		Button_page( ): $mol_page
+		Button_copy_page( ): $mol_page
+		Button_book( ): $mol_book2_catalog
 		check_base( next?: boolean ): boolean
 		Check_base( ): $mol_check_box
 		check_checked( next?: boolean ): boolean
@@ -5745,7 +5843,7 @@ declare namespace $ {
 		param( ): string
 		menu_title( ): string
 		spreads( ): ({ 
-			'button': ReturnType< $bog_kit_controls['Button_page'] >,
+			'button': ReturnType< $bog_kit_controls['Button_book'] >,
 			'check': ReturnType< $bog_kit_controls['Check_page'] >,
 			'switch': ReturnType< $bog_kit_controls['Switch_page'] >,
 			'link': ReturnType< $bog_kit_controls['Link_page'] >,
@@ -7181,50 +7279,50 @@ declare namespace $ {
 		,
 		ReturnType< $mol_labeler['Content'] >
 	>
-	type $mol_email__value_bog_kit_fields_5 = $mol_type_enforce<
+	type $mol_string__value_bog_kit_fields_5 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_string['value'] >
+	>
+	type $mol_string__enabled_bog_kit_fields_6 = $mol_type_enforce<
+		boolean
+		,
+		ReturnType< $mol_string['enabled'] >
+	>
+	type $mol_labeler__title_bog_kit_fields_7 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_labeler['title'] >
+	>
+	type $mol_labeler__Content_bog_kit_fields_8 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['String_disabled'] >
+		,
+		ReturnType< $mol_labeler['Content'] >
+	>
+	type $mol_list__rows_bog_kit_fields_9 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_list['rows'] >
+	>
+	type $mol_page__title_bog_kit_fields_10 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_page['title'] >
+	>
+	type $mol_page__Logo_bog_kit_fields_11 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['String_close'] >
+		,
+		ReturnType< $mol_page['Logo'] >
+	>
+	type $mol_page__body_bog_kit_fields_12 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_page['body'] >
+	>
+	type $mol_email__value_bog_kit_fields_13 = $mol_type_enforce<
 		ReturnType< $bog_kit_fields['email'] >
 		,
 		ReturnType< $mol_email['value'] >
-	>
-	type $mol_labeler__title_bog_kit_fields_6 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_labeler['title'] >
-	>
-	type $mol_labeler__Content_bog_kit_fields_7 = $mol_type_enforce<
-		ReturnType< $bog_kit_fields['Email'] >
-		,
-		ReturnType< $mol_labeler['Content'] >
-	>
-	type $mol_password__hint_bog_kit_fields_8 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_password['hint'] >
-	>
-	type $mol_password__value_bog_kit_fields_9 = $mol_type_enforce<
-		ReturnType< $bog_kit_fields['password'] >
-		,
-		ReturnType< $mol_password['value'] >
-	>
-	type $mol_labeler__title_bog_kit_fields_10 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_labeler['title'] >
-	>
-	type $mol_labeler__Content_bog_kit_fields_11 = $mol_type_enforce<
-		ReturnType< $bog_kit_fields['Password'] >
-		,
-		ReturnType< $mol_labeler['Content'] >
-	>
-	type $mol_search__query_bog_kit_fields_12 = $mol_type_enforce<
-		ReturnType< $bog_kit_fields['query'] >
-		,
-		ReturnType< $mol_search['query'] >
-	>
-	type $mol_search__suggests_bog_kit_fields_13 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_search['suggests'] >
 	>
 	type $mol_labeler__title_bog_kit_fields_14 = $mol_type_enforce<
 		string
@@ -7232,154 +7330,154 @@ declare namespace $ {
 		ReturnType< $mol_labeler['title'] >
 	>
 	type $mol_labeler__Content_bog_kit_fields_15 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['Email'] >
+		,
+		ReturnType< $mol_labeler['Content'] >
+	>
+	type $mol_page__title_bog_kit_fields_16 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_page['title'] >
+	>
+	type $mol_page__Logo_bog_kit_fields_17 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['String_close'] >
+		,
+		ReturnType< $mol_page['Logo'] >
+	>
+	type $mol_page__body_bog_kit_fields_18 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_page['body'] >
+	>
+	type $mol_password__hint_bog_kit_fields_19 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_password['hint'] >
+	>
+	type $mol_password__value_bog_kit_fields_20 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['password'] >
+		,
+		ReturnType< $mol_password['value'] >
+	>
+	type $mol_labeler__title_bog_kit_fields_21 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_labeler['title'] >
+	>
+	type $mol_labeler__Content_bog_kit_fields_22 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['Password'] >
+		,
+		ReturnType< $mol_labeler['Content'] >
+	>
+	type $mol_page__title_bog_kit_fields_23 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_page['title'] >
+	>
+	type $mol_page__Logo_bog_kit_fields_24 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['String_close'] >
+		,
+		ReturnType< $mol_page['Logo'] >
+	>
+	type $mol_page__body_bog_kit_fields_25 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_page['body'] >
+	>
+	type $mol_search__query_bog_kit_fields_26 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['query'] >
+		,
+		ReturnType< $mol_search['query'] >
+	>
+	type $mol_search__suggests_bog_kit_fields_27 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_search['suggests'] >
+	>
+	type $mol_labeler__title_bog_kit_fields_28 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_labeler['title'] >
+	>
+	type $mol_labeler__Content_bog_kit_fields_29 = $mol_type_enforce<
 		ReturnType< $bog_kit_fields['Search'] >
 		,
 		ReturnType< $mol_labeler['Content'] >
 	>
-	type $mol_string__value_bog_kit_fields_16 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_string['value'] >
-	>
-	type $mol_string__enabled_bog_kit_fields_17 = $mol_type_enforce<
-		boolean
-		,
-		ReturnType< $mol_string['enabled'] >
-	>
-	type $mol_labeler__title_bog_kit_fields_18 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_labeler['title'] >
-	>
-	type $mol_labeler__Content_bog_kit_fields_19 = $mol_type_enforce<
-		ReturnType< $bog_kit_fields['String_disabled'] >
-		,
-		ReturnType< $mol_labeler['Content'] >
-	>
-	type $mol_list__rows_bog_kit_fields_20 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_list['rows'] >
-	>
-	type $mol_page__title_bog_kit_fields_21 = $mol_type_enforce<
+	type $mol_page__title_bog_kit_fields_30 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__Logo_bog_kit_fields_22 = $mol_type_enforce<
-		ReturnType< $bog_kit_fields['Spread_close'] >
+	type $mol_page__Logo_bog_kit_fields_31 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['String_close'] >
 		,
 		ReturnType< $mol_page['Logo'] >
 	>
-	type $mol_page__body_bog_kit_fields_23 = $mol_type_enforce<
+	type $mol_page__body_bog_kit_fields_32 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['body'] >
 	>
-	type $mol_number__value_bog_kit_fields_24 = $mol_type_enforce<
+	type $mol_book2_catalog__param_bog_kit_fields_33 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_book2_catalog['param'] >
+	>
+	type $mol_book2_catalog__menu_title_bog_kit_fields_34 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_book2_catalog['menu_title'] >
+	>
+	type $mol_book2_catalog__Menu_logo_bog_kit_fields_35 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['Spread_close'] >
+		,
+		ReturnType< $mol_book2_catalog['Menu_logo'] >
+	>
+	type $mol_book2_catalog__spreads_bog_kit_fields_36 = $mol_type_enforce<
+		({ 
+			'text': ReturnType< $bog_kit_fields['String_text_page'] >,
+			'email': ReturnType< $bog_kit_fields['String_email_page'] >,
+			'password': ReturnType< $bog_kit_fields['String_password_page'] >,
+			'search': ReturnType< $bog_kit_fields['String_search_page'] >,
+		}) 
+		,
+		ReturnType< $mol_book2_catalog['spreads'] >
+	>
+	type $mol_number__value_bog_kit_fields_37 = $mol_type_enforce<
 		ReturnType< $bog_kit_fields['amount'] >
 		,
 		ReturnType< $mol_number['value'] >
 	>
-	type $mol_number__value_min_bog_kit_fields_25 = $mol_type_enforce<
+	type $mol_number__value_min_bog_kit_fields_38 = $mol_type_enforce<
 		number
 		,
 		ReturnType< $mol_number['value_min'] >
 	>
-	type $mol_number__value_max_bog_kit_fields_26 = $mol_type_enforce<
+	type $mol_number__value_max_bog_kit_fields_39 = $mol_type_enforce<
 		number
 		,
 		ReturnType< $mol_number['value_max'] >
 	>
-	type $mol_labeler__title_bog_kit_fields_27 = $mol_type_enforce<
+	type $mol_labeler__title_bog_kit_fields_40 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_labeler['title'] >
 	>
-	type $mol_labeler__Content_bog_kit_fields_28 = $mol_type_enforce<
+	type $mol_labeler__Content_bog_kit_fields_41 = $mol_type_enforce<
 		ReturnType< $bog_kit_fields['Number'] >
 		,
 		ReturnType< $mol_labeler['Content'] >
 	>
-	type $mol_number__value_bog_kit_fields_29 = $mol_type_enforce<
+	type $mol_number__value_bog_kit_fields_42 = $mol_type_enforce<
 		ReturnType< $bog_kit_fields['count'] >
 		,
 		ReturnType< $mol_number['value'] >
 	>
-	type $mol_number__boost_bog_kit_fields_30 = $mol_type_enforce<
+	type $mol_number__boost_bog_kit_fields_43 = $mol_type_enforce<
 		number
 		,
 		ReturnType< $mol_number['boost'] >
-	>
-	type $mol_labeler__title_bog_kit_fields_31 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_labeler['title'] >
-	>
-	type $mol_labeler__Content_bog_kit_fields_32 = $mol_type_enforce<
-		ReturnType< $bog_kit_fields['Number_boost'] >
-		,
-		ReturnType< $mol_labeler['Content'] >
-	>
-	type $mol_list__rows_bog_kit_fields_33 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_list['rows'] >
-	>
-	type $mol_page__title_bog_kit_fields_34 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_page['title'] >
-	>
-	type $mol_page__Logo_bog_kit_fields_35 = $mol_type_enforce<
-		ReturnType< $bog_kit_fields['Spread_close'] >
-		,
-		ReturnType< $mol_page['Logo'] >
-	>
-	type $mol_page__body_bog_kit_fields_36 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_page['body'] >
-	>
-	type $mol_textarea__hint_bog_kit_fields_37 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_textarea['hint'] >
-	>
-	type $mol_textarea__value_bog_kit_fields_38 = $mol_type_enforce<
-		ReturnType< $bog_kit_fields['code'] >
-		,
-		ReturnType< $mol_textarea['value'] >
-	>
-	type $mol_page__title_bog_kit_fields_39 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_page['title'] >
-	>
-	type $mol_page__Logo_bog_kit_fields_40 = $mol_type_enforce<
-		ReturnType< $bog_kit_fields['Spread_close'] >
-		,
-		ReturnType< $mol_page['Logo'] >
-	>
-	type $mol_page__body_bog_kit_fields_41 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_page['body'] >
-	>
-	type $mol_select__value_bog_kit_fields_42 = $mol_type_enforce<
-		ReturnType< $bog_kit_fields['lang'] >
-		,
-		ReturnType< $mol_select['value'] >
-	>
-	type $mol_select__dictionary_bog_kit_fields_43 = $mol_type_enforce<
-		({ 
-			'ru': string,
-			'en': string,
-			'de': string,
-			'fr': string,
-		}) 
-		,
-		ReturnType< $mol_select['dictionary'] >
 	>
 	type $mol_labeler__title_bog_kit_fields_44 = $mol_type_enforce<
 		string
@@ -7387,41 +7485,39 @@ declare namespace $ {
 		ReturnType< $mol_labeler['title'] >
 	>
 	type $mol_labeler__Content_bog_kit_fields_45 = $mol_type_enforce<
-		ReturnType< $bog_kit_fields['Select'] >
+		ReturnType< $bog_kit_fields['Number_boost'] >
 		,
 		ReturnType< $mol_labeler['Content'] >
 	>
-	type $mol_select__enabled_bog_kit_fields_46 = $mol_type_enforce<
-		boolean
-		,
-		ReturnType< $mol_select['enabled'] >
-	>
-	type $mol_select__value_bog_kit_fields_47 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_select['value'] >
-	>
-	type $mol_select__dictionary_bog_kit_fields_48 = $mol_type_enforce<
-		({ 
-			'en': string,
-		}) 
-		,
-		ReturnType< $mol_select['dictionary'] >
-	>
-	type $mol_labeler__title_bog_kit_fields_49 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_labeler['title'] >
-	>
-	type $mol_labeler__Content_bog_kit_fields_50 = $mol_type_enforce<
-		ReturnType< $bog_kit_fields['Select_disabled'] >
-		,
-		ReturnType< $mol_labeler['Content'] >
-	>
-	type $mol_list__rows_bog_kit_fields_51 = $mol_type_enforce<
+	type $mol_list__rows_bog_kit_fields_46 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_list['rows'] >
+	>
+	type $mol_page__title_bog_kit_fields_47 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_page['title'] >
+	>
+	type $mol_page__Logo_bog_kit_fields_48 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['Spread_close'] >
+		,
+		ReturnType< $mol_page['Logo'] >
+	>
+	type $mol_page__body_bog_kit_fields_49 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_page['body'] >
+	>
+	type $mol_textarea__hint_bog_kit_fields_50 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_textarea['hint'] >
+	>
+	type $mol_textarea__value_bog_kit_fields_51 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['code'] >
+		,
+		ReturnType< $mol_textarea['value'] >
 	>
 	type $mol_page__title_bog_kit_fields_52 = $mol_type_enforce<
 		string
@@ -7438,153 +7534,230 @@ declare namespace $ {
 		,
 		ReturnType< $mol_page['body'] >
 	>
-	type $mol_date__value_moment_bog_kit_fields_55 = $mol_type_enforce<
-		ReturnType< $bog_kit_fields['day'] >
+	type $mol_select__value_bog_kit_fields_55 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['lang'] >
 		,
-		ReturnType< $mol_date['value_moment'] >
+		ReturnType< $mol_select['value'] >
 	>
-	type $mol_labeler__title_bog_kit_fields_56 = $mol_type_enforce<
+	type $mol_select__dictionary_bog_kit_fields_56 = $mol_type_enforce<
+		({ 
+			'ru': string,
+			'en': string,
+			'de': string,
+			'fr': string,
+		}) 
+		,
+		ReturnType< $mol_select['dictionary'] >
+	>
+	type $mol_labeler__title_bog_kit_fields_57 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_labeler['title'] >
 	>
-	type $mol_labeler__Content_bog_kit_fields_57 = $mol_type_enforce<
-		ReturnType< $bog_kit_fields['Date'] >
+	type $mol_labeler__Content_bog_kit_fields_58 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['Select'] >
 		,
 		ReturnType< $mol_labeler['Content'] >
 	>
-	type $mol_date__value_moment_bog_kit_fields_58 = $mol_type_enforce<
-		ReturnType< $bog_kit_fields['day_empty'] >
+	type $mol_select__enabled_bog_kit_fields_59 = $mol_type_enforce<
+		boolean
 		,
-		ReturnType< $mol_date['value_moment'] >
+		ReturnType< $mol_select['enabled'] >
 	>
-	type $mol_labeler__title_bog_kit_fields_59 = $mol_type_enforce<
+	type $mol_select__value_bog_kit_fields_60 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_select['value'] >
+	>
+	type $mol_select__dictionary_bog_kit_fields_61 = $mol_type_enforce<
+		({ 
+			'en': string,
+		}) 
+		,
+		ReturnType< $mol_select['dictionary'] >
+	>
+	type $mol_labeler__title_bog_kit_fields_62 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_labeler['title'] >
 	>
-	type $mol_labeler__Content_bog_kit_fields_60 = $mol_type_enforce<
-		ReturnType< $bog_kit_fields['Date_empty'] >
+	type $mol_labeler__Content_bog_kit_fields_63 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['Select_disabled'] >
 		,
 		ReturnType< $mol_labeler['Content'] >
 	>
-	type $mol_list__rows_bog_kit_fields_61 = $mol_type_enforce<
+	type $mol_list__rows_bog_kit_fields_64 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_list['rows'] >
 	>
-	type $mol_page__title_bog_kit_fields_62 = $mol_type_enforce<
+	type $mol_page__title_bog_kit_fields_65 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__Logo_bog_kit_fields_63 = $mol_type_enforce<
+	type $mol_page__Logo_bog_kit_fields_66 = $mol_type_enforce<
 		ReturnType< $bog_kit_fields['Spread_close'] >
 		,
 		ReturnType< $mol_page['Logo'] >
 	>
-	type $mol_page__body_bog_kit_fields_64 = $mol_type_enforce<
+	type $mol_page__body_bog_kit_fields_67 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['body'] >
 	>
-	type $mol_string__hint_bog_kit_fields_65 = $mol_type_enforce<
+	type $mol_date__value_moment_bog_kit_fields_68 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['day'] >
+		,
+		ReturnType< $mol_date['value_moment'] >
+	>
+	type $mol_labeler__title_bog_kit_fields_69 = $mol_type_enforce<
 		string
 		,
-		ReturnType< $mol_string['hint'] >
+		ReturnType< $mol_labeler['title'] >
 	>
-	type $mol_string__value_bog_kit_fields_66 = $mol_type_enforce<
-		ReturnType< $bog_kit_fields['name'] >
+	type $mol_labeler__Content_bog_kit_fields_70 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['Date'] >
 		,
-		ReturnType< $mol_string['value'] >
+		ReturnType< $mol_labeler['Content'] >
 	>
-	type $mol_form_field__name_bog_kit_fields_67 = $mol_type_enforce<
+	type $mol_date__value_moment_bog_kit_fields_71 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['day_empty'] >
+		,
+		ReturnType< $mol_date['value_moment'] >
+	>
+	type $mol_labeler__title_bog_kit_fields_72 = $mol_type_enforce<
 		string
 		,
-		ReturnType< $mol_form_field['name'] >
+		ReturnType< $mol_labeler['title'] >
 	>
-	type $mol_form_field__control_bog_kit_fields_68 = $mol_type_enforce<
-		ReturnType< $bog_kit_fields['Field_name_control'] >
+	type $mol_labeler__Content_bog_kit_fields_73 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['Date_empty'] >
 		,
-		ReturnType< $mol_form_field['control'] >
+		ReturnType< $mol_labeler['Content'] >
 	>
-	type $mol_email__value_bog_kit_fields_69 = $mol_type_enforce<
-		ReturnType< $bog_kit_fields['form_email'] >
-		,
-		ReturnType< $mol_email['value'] >
-	>
-	type $mol_form_field__name_bog_kit_fields_70 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_form_field['name'] >
-	>
-	type $mol_form_field__bid_bog_kit_fields_71 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_form_field['bid'] >
-	>
-	type $mol_form_field__control_bog_kit_fields_72 = $mol_type_enforce<
-		ReturnType< $bog_kit_fields['Field_mail_control'] >
-		,
-		ReturnType< $mol_form_field['control'] >
-	>
-	type $mol_string__hint_bog_kit_fields_73 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_string['hint'] >
-	>
-	type $mol_string__value_bog_kit_fields_74 = $mol_type_enforce<
-		ReturnType< $bog_kit_fields['about'] >
-		,
-		ReturnType< $mol_string['value'] >
-	>
-	type $mol_form_field__name_bog_kit_fields_75 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_form_field['name'] >
-	>
-	type $mol_form_field__control_bog_kit_fields_76 = $mol_type_enforce<
-		ReturnType< $bog_kit_fields['Field_about_control'] >
-		,
-		ReturnType< $mol_form_field['control'] >
-	>
-	type $mol_form__form_fields_bog_kit_fields_77 = $mol_type_enforce<
+	type $mol_list__rows_bog_kit_fields_74 = $mol_type_enforce<
 		readonly(any)[]
 		,
-		ReturnType< $mol_form['form_fields'] >
+		ReturnType< $mol_list['rows'] >
 	>
-	type $mol_page__title_bog_kit_fields_78 = $mol_type_enforce<
+	type $mol_page__title_bog_kit_fields_75 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__Logo_bog_kit_fields_79 = $mol_type_enforce<
+	type $mol_page__Logo_bog_kit_fields_76 = $mol_type_enforce<
 		ReturnType< $bog_kit_fields['Spread_close'] >
 		,
 		ReturnType< $mol_page['Logo'] >
 	>
-	type $mol_page__body_bog_kit_fields_80 = $mol_type_enforce<
+	type $mol_page__body_bog_kit_fields_77 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_page['body'] >
+	>
+	type $mol_string__hint_bog_kit_fields_78 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_string['hint'] >
+	>
+	type $mol_string__value_bog_kit_fields_79 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['name'] >
+		,
+		ReturnType< $mol_string['value'] >
+	>
+	type $mol_form_field__name_bog_kit_fields_80 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_form_field['name'] >
+	>
+	type $mol_form_field__control_bog_kit_fields_81 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['Field_name_control'] >
+		,
+		ReturnType< $mol_form_field['control'] >
+	>
+	type $mol_email__value_bog_kit_fields_82 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['form_email'] >
+		,
+		ReturnType< $mol_email['value'] >
+	>
+	type $mol_form_field__name_bog_kit_fields_83 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_form_field['name'] >
+	>
+	type $mol_form_field__bid_bog_kit_fields_84 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_form_field['bid'] >
+	>
+	type $mol_form_field__control_bog_kit_fields_85 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['Field_mail_control'] >
+		,
+		ReturnType< $mol_form_field['control'] >
+	>
+	type $mol_string__hint_bog_kit_fields_86 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_string['hint'] >
+	>
+	type $mol_string__value_bog_kit_fields_87 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['about'] >
+		,
+		ReturnType< $mol_string['value'] >
+	>
+	type $mol_form_field__name_bog_kit_fields_88 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_form_field['name'] >
+	>
+	type $mol_form_field__control_bog_kit_fields_89 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['Field_about_control'] >
+		,
+		ReturnType< $mol_form_field['control'] >
+	>
+	type $mol_form__form_fields_bog_kit_fields_90 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_form['form_fields'] >
+	>
+	type $mol_page__title_bog_kit_fields_91 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_page['title'] >
+	>
+	type $mol_page__Logo_bog_kit_fields_92 = $mol_type_enforce<
+		ReturnType< $bog_kit_fields['Spread_close'] >
+		,
+		ReturnType< $mol_page['Logo'] >
+	>
+	type $mol_page__body_bog_kit_fields_93 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['body'] >
 	>
 	export class $bog_kit_fields extends $mol_book2_catalog {
+		String_close( ): ReturnType< ReturnType< $bog_kit_fields['String_book'] >['Spread_close'] >
 		text( next?: string ): string
 		String( ): $mol_string
 		String_label( ): $mol_labeler
+		String_disabled( ): $mol_string
+		String_disabled_label( ): $mol_labeler
+		Texts( ): $mol_list
+		String_text_page( ): $mol_page
 		email( next?: string ): string
 		Email( ): $mol_email
 		Email_label( ): $mol_labeler
+		String_email_page( ): $mol_page
 		password( next?: string ): string
 		Password( ): $mol_password
 		Password_label( ): $mol_labeler
+		String_password_page( ): $mol_page
 		query( next?: string ): string
 		Search( ): $mol_search
 		Search_label( ): $mol_labeler
-		String_disabled( ): $mol_string
-		String_disabled_label( ): $mol_labeler
-		Strings( ): $mol_list
-		String_page( ): $mol_page
+		String_search_page( ): $mol_page
+		String_book( ): $mol_book2_catalog
 		amount( next?: number ): number
 		Number( ): $mol_number
 		Number_label( ): $mol_labeler
@@ -7625,7 +7798,7 @@ declare namespace $ {
 		param( ): string
 		menu_title( ): string
 		spreads( ): ({ 
-			'string': ReturnType< $bog_kit_fields['String_page'] >,
+			'string': ReturnType< $bog_kit_fields['String_book'] >,
 			'number': ReturnType< $bog_kit_fields['Number_page'] >,
 			'textarea': ReturnType< $bog_kit_fields['Textarea_page'] >,
 			'select': ReturnType< $bog_kit_fields['Select_page'] >,

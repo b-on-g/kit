@@ -794,29 +794,54 @@ $bog_kit_controls $mol_book2_catalog
 	param \control
 	menu_title \Controls
 	spreads *
-		button <= Button_page $mol_page
-			title \$mol_button
-			Logo <= Spread_close
-			body /
-				<= Buttons $mol_list
-					rows /
-						<= Button_minor $mol_button_minor
-							title \Minor
-						<= Button_major $mol_button_major
-							title \Major
-						<= Button_disabled $mol_button_minor
-							title \Disabled
-							enabled false
-						<= Button_hinted $mol_button_minor
-							title \With hint
-							hint \Shown on hover
-						<= Button_specked $mol_button_minor
-							title \With speck
-							error \7
-						<= Button_iconed $mol_button_minor
-							sub /
-								<= Button_iconed_icon $mol_icon_star
-								\ Iconed
+		button <= Button_book $mol_book2_catalog
+			param \kind
+			menu_title \$mol_button
+			Menu_logo <= Spread_close
+			Spread_close => Button_close
+			spreads *
+				minor <= Button_minor_page $mol_page
+					title \Minor
+					Logo <= Button_close
+					body /
+						<= Buttons_minor $mol_list
+							rows /
+								<= Button_minor $mol_button_minor
+									title \Minor
+								<= Button_hinted $mol_button_minor
+									title \With hint
+									hint \Shown on hover
+								<= Button_disabled $mol_button_minor
+									title \Disabled
+									enabled false
+				major <= Button_major_page $mol_page
+					title \Major
+					Logo <= Button_close
+					body /
+						<= Buttons_major $mol_list
+							rows /
+								<= Button_major $mol_button_major
+									title \Major
+								<= Button_major_disabled $mol_button_major
+									title \Disabled
+									enabled false
+				marks <= Button_marks_page $mol_page
+					title \With marks
+					Logo <= Button_close
+					body /
+						<= Buttons_marks $mol_list
+							rows /
+								<= Button_specked $mol_button_minor
+									title \With speck
+									error \7
+								<= Button_iconed $mol_button_minor
+									sub /
+										<= Button_iconed_icon $mol_icon_star
+										\ Iconed
+				copy <= Button_copy_page $mol_page
+					title \Copy
+					Logo <= Button_close
+					body /
 						<= Button_copy $mol_button_copy
 							title \Copy to clipboard
 							text \Hello from $mol Kit
@@ -1249,26 +1274,49 @@ $bog_kit_fields $mol_book2_catalog
 	param \field
 	menu_title \Fields
 	spreads *
-		string <= String_page $mol_page
-			title \$mol_string
-			Logo <= Spread_close
-			body /
-				<= Strings $mol_list
-					rows /
-						<= String_label $mol_labeler
-							title \Text
-							Content <= String $mol_string
-								hint \Type here
-								value? <=> text? \
+		string <= String_book $mol_book2_catalog
+			param \variant
+			menu_title \$mol_string
+			Menu_logo <= Spread_close
+			Spread_close => String_close
+			spreads *
+				text <= String_text_page $mol_page
+					title \Text
+					Logo <= String_close
+					body /
+						<= Texts $mol_list
+							rows /
+								<= String_label $mol_labeler
+									title \Text
+									Content <= String $mol_string
+										hint \Type here
+										value? <=> text? \
+								<= String_disabled_label $mol_labeler
+									title \Disabled
+									Content <= String_disabled $mol_string
+										value \Read only
+										enabled false
+				email <= String_email_page $mol_page
+					title \E-mail
+					Logo <= String_close
+					body /
 						<= Email_label $mol_labeler
 							title \E-mail
 							Content <= Email $mol_email
 								value? <=> email? \
+				password <= String_password_page $mol_page
+					title \Password
+					Logo <= String_close
+					body /
 						<= Password_label $mol_labeler
 							title \Password
 							Content <= Password $mol_password
 								hint \Secret
 								value? <=> password? \
+				search <= String_search_page $mol_page
+					title \Search
+					Logo <= String_close
+					body /
 						<= Search_label $mol_labeler
 							title \Search with suggests
 							Content <= Search $mol_search
@@ -1277,11 +1325,6 @@ $bog_kit_fields $mol_book2_catalog
 									\Alpha
 									\Beta
 									\Gamma
-						<= String_disabled_label $mol_labeler
-							title \Disabled
-							Content <= String_disabled $mol_string
-								value \Read only
-								enabled false
 		number <= Number_page $mol_page
 			title \$mol_number
 			Logo <= Spread_close
