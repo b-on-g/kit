@@ -1918,6 +1918,12 @@ $bog_kit_lights_pick $bog_kit_switch
 
 $bog_kit_input $mol_string
 
+$bog_kit_link $mol_link
+
+$bog_kit_check_box $mol_check_box
+
+$bog_kit_check_expand $mol_check_expand
+
 $bog_kit_page $mol_page
 
 $bog_kit_pager $mol_view

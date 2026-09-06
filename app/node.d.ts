@@ -1770,7 +1770,7 @@ declare namespace $ {
      * not: `bog/kit/tokens` sorted after the sheets that used it and every sheet
      * threw ReferenceError while the audit stayed green.
      */
-    const $bog_kit: Record<"key" | "case" | "panel" | "raise" | "ink" | "ink_soft" | "key_ink" | "round_panel" | "round_field" | "round_pill" | "font_text" | "font_code", $mol_style_func<"var", unknown>>;
+    const $bog_kit: Record<"key" | "case" | "panel" | "raise" | "ink" | "ink_soft" | "key_ink" | "seam" | "round_panel" | "round_field" | "round_pill" | "font_text" | "font_code", $mol_style_func<"var", unknown>>;
 }
 
 declare namespace $ {
@@ -9903,6 +9903,42 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=input.view.tree.d.ts.map
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+
+	export class $bog_kit_link extends $mol_link {
+	}
+	
+}
+
+//# sourceMappingURL=link.view.tree.d.ts.map
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	export class $bog_kit_check_box extends $mol_check_box {
+	}
+	
+}
+
+//# sourceMappingURL=box.view.tree.d.ts.map
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+
+	export class $bog_kit_check_expand extends $mol_check_expand {
+	}
+	
+}
+
+//# sourceMappingURL=expand.view.tree.d.ts.map
 declare namespace $.$$ {
 }
 
