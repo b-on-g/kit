@@ -1978,6 +1978,12 @@ $bog_kit_button_major $mol_button_major
 
 $bog_kit_input $mol_string
 
+$bog_kit_link $mol_link
+
+$bog_kit_check_box $mol_check_box
+
+$bog_kit_check_expand $mol_check_expand
+
 $bog_kit_page $mol_page
 
 $bog_kit_app2 $bog_kit_app
@@ -1998,13 +2004,7 @@ $bog_kit_list $mol_list
 
 $bog_kit_text $mol_text
 
-$bog_kit_check_box $mol_check_box
-
-$bog_kit_check_expand $mol_check_expand
-
 $bog_kit_label $mol_labeler
-
-$bog_kit_link $mol_link
 
 $bog_kit_chip $mol_chip
 

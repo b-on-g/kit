@@ -3602,6 +3602,12 @@ var $;
         'key',
         /** Text on top of the key colour. */
         'key_ink',
+        /**
+         * The quiet tone: the line between two pages, the track a knob runs
+         * in, the fill of a chip. Deeper than the case in every theme, which
+         * is what makes it the one tone that shows on a white ground.
+         */
+        'seam',
         /** Corner of a panel or a card. */
         'round_panel',
         /** Corner of a field or a small surface. */
@@ -17465,7 +17471,7 @@ var $;
                 flex: { shrink: 1, basis: 0 },
                 height: per(100),
                 border: { radius: '2px' },
-                background: { color: $bog_kit.case },
+                background: { color: $bog_kit.seam },
                 transition: 'background-color .2s ease-out',
                 '@': {
                     bog_kit_pager_on: {
@@ -17580,7 +17586,7 @@ var $;
                 right: rem(.1875),
             },
             border: { radius: $bog_kit.round_pill },
-            background: { color: $bog_kit.case },
+            background: { color: $bog_kit.seam },
             Option: {
                 minHeight: rem(2),
                 padding: {
@@ -17591,7 +17597,13 @@ var $;
                 },
                 border: { radius: $bog_kit.round_pill },
                 color: $bog_kit.ink,
-                background: { color: $bog_kit.raise },
+                /*
+                    The panel tone, not the raised one. A knob has to read against
+                    the track it runs in, and the track is the seam — on a white
+                    sheet the raised tint sits barely a step above it, which left
+                    the chosen option indistinguishable from the two beside it.
+                */
+                background: { color: $bog_kit.panel },
                 font: { weight: 500 },
                 transition: 'background-color .16s ease-out, color .16s ease-out',
                 ':not([mol_check_checked])': {
@@ -18132,7 +18144,7 @@ var $;
 })($ || ($ = {}));
 
 ;
-	($.$bog_kit_page) = class $bog_kit_page extends ($.$mol_page) {};
+	($.$bog_kit_link) = class $bog_kit_link extends ($.$mol_link) {};
 
 
 ;
@@ -18145,226 +18157,52 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        const { rem, per } = $mol_style_unit;
+        const { rem } = $mol_style_unit;
         /*
-            A page is a panel of the case. Stock $mol floats the header and footer on
-            a pair of soft shadows; here they are simply part of the same moulding,
-            and the header earns its place by size and weight instead.
+            Where the key colour earns its keep. A link is a quiet line of the menu
+            until it is the page you are on, and then it is a filled key — the same
+            shape and the same colour as the primary action, because "the thing that
+            is happening" is one idea, not two.
         */
-        $mol_style_define($bog_kit_page, {
-            background: { color: $bog_kit.panel },
+        $mol_style_define($bog_kit_link, {
+            minHeight: rem(2.25),
+            minWidth: 0,
+            gap: rem(.4375),
+            padding: {
+                top: rem(.375),
+                bottom: rem(.375),
+                left: rem(.875),
+                right: rem(.875),
+            },
+            border: { radius: $bog_kit.round_pill },
             color: $bog_kit.ink,
-            Head: {
-                minHeight: rem(3.75),
-                padding: {
-                    top: rem(.75),
-                    bottom: rem(.5),
-                    left: rem(1),
-                    right: rem(.75),
-                },
-                gap: rem(.5),
-                border: { radius: 0 },
-                background: { color: $bog_kit.panel },
-                box: { shadow: 'none' },
-            },
-            Title: {
-                padding: {
-                    top: rem(.25),
-                    bottom: rem(.25),
-                    left: rem(.25),
-                    right: rem(.25),
-                },
+            background: { color: 'transparent' },
+            textDecoration: 'none',
+            transition: 'background-color .16s ease-out, color .16s ease-out',
+            ':hover': {
                 color: $bog_kit.ink,
-                letterSpacing: '-0.015em',
-                lineHeight: '1.75rem',
-                font: {
-                    size: rem(1.3125),
-                    weight: 600,
-                },
+                background: { color: $bog_kit.seam },
             },
-            Body_content: {
-                padding: {
-                    top: rem(.75),
-                    bottom: rem(2.5),
-                    left: rem(1.25),
-                    right: rem(1.25),
-                },
-                gap: rem(1.75),
-                maxWidth: rem(44),
-                width: per(100),
+            ':focus-visible': {
+                outline: 'none',
+                background: { color: $bog_kit.seam },
             },
-            Foot: {
-                padding: {
-                    top: rem(.625),
-                    bottom: rem(.625),
-                    left: rem(1.25),
-                    right: rem(1.25),
-                },
-                border: { radius: 0 },
-                background: { color: $bog_kit.panel },
-                box: { shadow: 'none' },
+            ':active': {
+                color: $bog_kit.key,
             },
-        });
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-
-;
-"use strict";
-
-
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        /**
-         * The Kit theme. Hang it on a view as a plugin and the whole subtree is
-         * moulded out of the Kit shells, in the language of the platform it is
-         * running on.
-         */
-        class $bog_kit_shell extends $.$bog_kit_shell {
-            platform() {
-                return this.$.$bog_kit_platform();
-            }
-        }
-        $$.$bog_kit_shell = $bog_kit_shell;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("bog/kit/shell/shell.view.css", "/*\n\tThe Kit theme — canvas.\n\n\tShells stacked on shells: a case, the panel of a page, and the raised parts\n\tyou touch. Nothing is outlined and nothing casts a shadow — a surface is told\n\tapart from the one under it by tone, by its corner, and by the space around\n\tit. Corners are generous and the things you press are shaped like keys.\n\n\tValues only; the names live in kit.ts.\n*/\n\n:root {\n\t--bog_kit_font_text: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;\n\t--bog_kit_font_code: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;\n}\n\n[bog_kit_shell] {\n\t--bog_kit_font_text: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;\n\t--bog_kit_font_code: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;\n\n\t--bog_kit_case: #dfe3e9;\n\t--bog_kit_panel: #eef1f5;\n\t--bog_kit_raise: #ffffff;\n\t--bog_kit_ink: #13161b;\n\t--bog_kit_ink_soft: #656d7a;\n\t--bog_kit_key: #1b53d0;\n\t--bog_kit_key_ink: #ffffff;\n\n\t--bog_kit_round_panel: 22px;\n\t--bog_kit_round_field: 16px;\n\t--bog_kit_round_pill: 999px;\n\n\t--bog_kit_lift: none;\n\t--bog_kit_lift_high: none;\n\t--bog_kit_sink: none;\n\t--bog_kit_seam: #d2d8e1;\n\n\tfont-family: var(--bog_kit_font_text);\n\tfont-size: 1rem;\n\tline-height: 1.6rem;\n\n\t--mol_gap_page: 2rem;\n\t--mol_gap_block: 0.75rem;\n\t--mol_gap_text: 0.5rem 0.875rem;\n\t--mol_gap_round: 12px;\n\t--mol_gap_space: 0.375rem;\n\t--mol_gap_blur: 0rem;\n}\n\n/*\n\tNight. The ink is deliberately short of white — a full-strength white on a\n\tdark panel glares and smears at small sizes. It sits around 80% lightness,\n\twhich still clears 9:1 against the panel.\n*/\n[bog_kit_shell][mol_theme=\"$mol_theme_dark\"] {\n\t--bog_kit_case: #12161c;\n\t--bog_kit_panel: #1a1f27;\n\t--bog_kit_raise: #232932;\n\t--bog_kit_ink: #c6ccd5;\n\t--bog_kit_ink_soft: #7f8794;\n\t--bog_kit_key: #7ba4ff;\n\t--bog_kit_key_ink: #12161c;\n\t--bog_kit_seam: #0d1116;\n}\n\n/*\n\tStock components we did not subclass read --mol_theme_*, so the palette is\n\tmapped onto it and they follow along. Two attributes, so this always\n\toutweighs the theme.css rule sitting on the very same node.\n*/\n[bog_kit_shell][mol_theme] {\n\t--mol_theme_hue: 230deg;\n\t--mol_theme_hue_spread: 120deg;\n\n\t--mol_theme_back: var(--bog_kit_case);\n\t--mol_theme_card: var(--bog_kit_raise);\n\t--mol_theme_field: var(--bog_kit_raise);\n\t--mol_theme_hover: #7f879424;\n\t--mol_theme_text: var(--bog_kit_ink);\n\t--mol_theme_shade: var(--bog_kit_ink_soft);\n\t--mol_theme_line: var(--bog_kit_seam);\n\t--mol_theme_focus: var(--bog_kit_key);\n\t--mol_theme_control: var(--bog_kit_key);\n\t--mol_theme_current: var(--bog_kit_key);\n\t--mol_theme_special: var(--bog_kit_key);\n\t--mol_theme_spirit: var(--bog_kit_raise);\n}\n\n[bog_kit_shell][mol_theme=\"$mol_theme_light\"] {\n\t--mol_theme_luma: 1;\n\t--mol_theme_image: none;\n}\n\n[bog_kit_shell][mol_theme=\"$mol_theme_dark\"] {\n\t--mol_theme_luma: -1;\n\t--mol_theme_image: invert(1) hue-rotate(180deg);\n}\n\n/*\n\tDepth is a variable, so it has to be applied where a variable can stand for a\n\twhole shadow. This tone carries none, but the hooks stay: which raised part\n\tgets which lift is a decision of the system, not of the palette.\n*/\n[bog_kit_shell] [bog_kit_card],\n[bog_kit_shell] [bog_kit_button],\n[bog_kit_shell] [bog_kit_button_copy],\n[bog_kit_shell] [bog_kit_check_icon],\n[bog_kit_shell] [bog_kit_select_trigger],\n[bog_kit_shell] [bog_kit_check_list_option]:not([mol_check_checked]) {\n\tbox-shadow: var(--bog_kit_lift);\n}\n\n[bog_kit_shell] [bog_kit_button_major],\n[bog_kit_shell] [bog_kit_check_list_option][mol_check_checked] {\n\tbox-shadow: var(--bog_kit_lift_high);\n}\n\n[bog_kit_shell] [bog_kit_switch_option][mol_check_checked],\n[bog_kit_shell] [bog_kit_lights_pick_option][mol_check_checked] {\n\tbox-shadow: var(--bog_kit_lift);\n}\n\n[bog_kit_shell] [bog_kit_input],\n[bog_kit_shell] [bog_kit_switch],\n[bog_kit_shell] [bog_kit_lights_pick] {\n\tbox-shadow: var(--bog_kit_sink);\n}\n\n[bog_kit_shell] [bog_kit_input]:focus,\n[bog_kit_shell] [bog_kit_select_trigger]:focus-visible {\n\tbox-shadow: 0 0 0 2px var(--bog_kit_key);\n}\n\n/*\n\tThe plate everything is laid out on. $mol_book2 frames each page with a pale\n\tinset and marks the seams between them with dashes; here the pages are panels\n\twith the case showing through between them.\n*/\n[bog_kit_shell][mol_book2],\n[bog_kit_shell] [mol_book2] {\n\tgap: 2px;\n\tbackground: var(--bog_kit_case);\n\t/*\n\t\t$mol_scroll asks for `contain: content`, which is layout + paint + style —\n\t\tand anything with layout or paint containment becomes the containing block\n\t\tfor its `position: fixed` children. The level indicator was then pinned to\n\t\tthe scrolled content rather than to the screen, so it slid away with the\n\t\tfirst column and only ever showed up on the first level. Style containment\n\t\tis all this needs.\n\t*/\n\tcontain: style;\n}\n\n[bog_kit_shell][mol_book2] > [mol_page],\n[bog_kit_shell] [mol_book2] > [mol_page] {\n\tbox-shadow: none;\n}\n\n[bog_kit_shell][mol_book2] > [mol_view]::before,\n[bog_kit_shell][mol_book2] > [mol_view]::after,\n[bog_kit_shell] [mol_book2] > [mol_view]::before,\n[bog_kit_shell] [mol_book2] > [mol_view]::after {\n\tdisplay: none;\n\tcontent: none;\n}\n\n/* Icons come with a drop shadow of their own. The shells carry the depth. */\n[bog_kit_shell] [mol_icon] {\n\tfilter: none;\n}\n\n[bog_kit_shell] [mol_pop_bubble] {\n\tbackground: var(--bog_kit_raise);\n\tborder-radius: var(--bog_kit_round_panel);\n\tbox-shadow: 0 0 0 1px var(--bog_kit_seam);\n\tpadding: 0.375rem;\n}\n\n/*\n\tA minor button inside a bubble is a row of a menu, not a key — the choice is\n\tthe list, and raising every line would make it unreadable.\n*/\n[bog_kit_shell] [mol_pop_bubble] [bog_kit_button] {\n\tbox-shadow: none;\n\tbackground: transparent;\n\tcolor: var(--bog_kit_ink);\n\tborder-radius: var(--bog_kit_round_field);\n}\n\n[bog_kit_shell] [mol_pop_bubble] [bog_kit_button]:hover {\n\tbox-shadow: none;\n\tbackground: var(--bog_kit_panel);\n\tcolor: var(--bog_kit_ink);\n}\n\n/* A heading in $mol_text is an anchor; it should read as a heading. */\n[bog_kit_shell] [mol_text_header_link] {\n\tcolor: inherit;\n\tbackground: transparent;\n\tpadding-left: 0;\n\tmin-height: 0;\n}\n\n[bog_kit_shell] [mol_view]::selection {\n\tbackground: var(--bog_kit_key);\n\tcolor: var(--bog_kit_key_ink);\n}\n\n/*\n\t=== The frame ===\n\n\tBehaving like an installed app rather than like a page: platform metrics, the\n\tsafe areas of a phone, and one screen per column.\n*/\n\n/* Platform metrics. The system face at the system size is half the tell. */\n[bog_kit_shell][bog_kit_platform=\"ios\"] {\n\t--bog_kit_font_text: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;\n\tfont-size: 17px;\n\tline-height: 22px;\n\t--bog_kit_round_field: 12px;\n\t--bog_kit_round_panel: 18px;\n}\n\n[bog_kit_shell][bog_kit_platform=\"md\"] {\n\t--bog_kit_font_text: Roboto, 'Noto Sans', system-ui, sans-serif;\n\tfont-size: 16px;\n\tline-height: 24px;\n\t--bog_kit_round_field: 16px;\n\t--bog_kit_round_panel: 20px;\n}\n\n/*\n\tTouch behaviour. A page that highlights on tap, shows a callout on long\n\tpress or lets you select the chrome reads as a web page instantly.\n*/\n[bog_kit_shell] {\n\t-webkit-tap-highlight-color: transparent;\n\t-webkit-touch-callout: none;\n\toverscroll-behavior: none;\n}\n\n[bog_kit_shell] [mol_view] {\n\tuser-select: none;\n\t-webkit-user-select: none;\n}\n\n[bog_kit_shell] [mol_text],\n[bog_kit_shell] [mol_string],\n[bog_kit_shell] [mol_textarea] {\n\tuser-select: text;\n\t-webkit-user-select: text;\n}\n\n/* The notch and the home indicator belong to the chrome, not to the content. */\n[bog_kit_shell] [bog_kit_page_head] {\n\tpadding-top: calc(0.75rem + env(safe-area-inset-top));\n\tpadding-left: calc(1rem + env(safe-area-inset-left));\n\tpadding-right: calc(0.75rem + env(safe-area-inset-right));\n}\n\n[bog_kit_shell] [bog_kit_page_body_content] {\n\tpadding-bottom: calc(2.5rem + env(safe-area-inset-bottom));\n\tpadding-left: calc(1.25rem + env(safe-area-inset-left));\n\tpadding-right: calc(1.25rem + env(safe-area-inset-right));\n}\n\n[bog_kit_shell] [bog_kit_pager] {\n\ttop: env(safe-area-inset-top);\n}\n\n/*\n\tOne screen per column. The browser's own momentum and snapping do the paging,\n\tso the gesture belongs to the platform rather than to us.\n*/\n@media (max-width: 45rem) {\n\n\t[bog_kit_shell][mol_book2],\n\t[bog_kit_shell] [mol_book2] {\n\t\tscroll-snap-type: x mandatory;\n\t}\n\n\t[bog_kit_shell][mol_book2] > article[mol_page],\n\t[bog_kit_shell] [mol_book2] > article[mol_page] {\n\t\tflex: 0 0 100%;\n\t\tmin-width: 100%;\n\t\tscroll-snap-align: start;\n\t\tscroll-snap-stop: always;\n\t}\n\n}\n\n@media (prefers-reduced-motion: reduce) {\n\t[bog_kit_shell] * {\n\t\ttransition-duration: 0.01ms !important;\n\t\tanimation-duration: 0.01ms !important;\n\t}\n}\n");
-})($ || ($ = {}));
-
-;
-	($.$bog_kit_app2) = class $bog_kit_app2 extends ($.$bog_kit_app) {
-		Lights_pick(){
-			const obj = new this.$.$bog_kit_lights_pick();
-			return obj;
-		}
-		menu_title(){
-			return "Kit";
-		}
-		kit_chrome(){
-			return true;
-		}
-		Theme(){
-			const obj = new this.$.$bog_kit_shell();
-			return obj;
-		}
-		menu_tools(){
-			return [(this.Lights_pick())];
-		}
-		Intro_text(){
-			const obj = new this.$.$mol_text();
-			(obj.text) = () => ("# The same catalogue, drawn by the Kit\n\nNothing in the pages changed. This entry point inherits the whole catalogue from the stock one and hands it a context where the $mol components have been swapped for their Kit subclasses, so every button, field and card on every page is re-drawn without a page being touched.\n\nOpen the stock build in another tab to compare.");
-			return obj;
-		}
-	};
-	($mol_mem(($.$bog_kit_app2.prototype), "Lights_pick"));
-	($mol_mem(($.$bog_kit_app2.prototype), "Theme"));
-	($mol_mem(($.$bog_kit_app2.prototype), "Intro_text"));
-
-
-;
-	($.$bog_kit_list) = class $bog_kit_list extends ($.$mol_list) {};
-
-
-;
-"use strict";
-
-
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        const { rem } = $mol_style_unit;
-        /*
-            Vertical rhythm. Stock $mol_list stacks its rows edge to edge and leaves
-            the spacing to whoever fills it, which is fine until the rows are raised
-            shells and start reading as one stuck-together block.
-    
-            Note this does cost a little accuracy in the virtual window: $mol_list
-            sizes the unrendered part from row heights and does not know about the
-            gaps, so the scrollbar of a very long list is off by a gap per row. Rows
-            that are actually on screen are measured, so nothing jumps.
-        */
-        $mol_style_define($bog_kit_list, {
-            gap: rem(.625),
-        });
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-
-;
-	($.$bog_kit_text) = class $bog_kit_text extends ($.$mol_text) {};
-
-
-;
-"use strict";
-
-
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        const { rem } = $mol_style_unit;
-        /*
-            Prose. Stock $mol pads every paragraph on all four sides, which indents
-            running text away from everything above it; here the padding is vertical
-            only, so a paragraph starts on the same line as a label or a card.
-        */
-        $mol_style_define($bog_kit_text, {
-            lineHeight: '1.6em',
-            Paragraph: {
-                padding: {
-                    top: rem(.25),
-                    bottom: rem(.25),
-                    left: 0,
-                    right: 0,
+            '@': {
+                mol_link_current: {
+                    'true': {
+                        color: $bog_kit.key_ink,
+                        background: { color: $bog_kit.key },
+                        textShadow: 'none',
+                        font: { weight: 500 },
+                        ':hover': {
+                            color: $bog_kit.key_ink,
+                            background: { color: $bog_kit.key },
+                        },
+                    },
                 },
-                maxWidth: rem(36),
-            },
-            Header: {
-                padding: {
-                    top: rem(.75),
-                    bottom: rem(.125),
-                    left: 0,
-                    right: 0,
-                },
-                color: $bog_kit.ink,
-                letterSpacing: '-0.015em',
-                font: { weight: 600 },
-            },
-            Quote: {
-                margin: 0,
-                padding: {
-                    top: rem(.625),
-                    bottom: rem(.625),
-                    left: rem(1),
-                    right: rem(1),
-                },
-                border: { radius: $bog_kit.round_field },
-                background: { color: $bog_kit.case },
-                color: $bog_kit.ink_soft,
-                box: { shadow: 'none' },
-            },
-            Pre: {
-                padding: {
-                    top: rem(.625),
-                    bottom: rem(.625),
-                    left: rem(.875),
-                    right: rem(.875),
-                },
-                border: { radius: $bog_kit.round_field },
-                background: { color: $bog_kit.case },
-                box: { shadow: 'none' },
             },
         });
     })($$ = $.$$ || ($.$$ = {}));
@@ -18493,6 +18331,245 @@ var $;
 })($ || ($ = {}));
 
 ;
+	($.$bog_kit_page) = class $bog_kit_page extends ($.$mol_page) {};
+
+
+;
+"use strict";
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        const { rem, per } = $mol_style_unit;
+        /*
+            A page is a panel of the case. Stock $mol floats the header and footer on
+            a pair of soft shadows; here they are simply part of the same moulding,
+            and the header earns its place by size and weight instead.
+        */
+        $mol_style_define($bog_kit_page, {
+            background: { color: $bog_kit.panel },
+            color: $bog_kit.ink,
+            Head: {
+                minHeight: rem(3.75),
+                padding: {
+                    top: rem(.75),
+                    bottom: rem(.5),
+                    left: rem(1),
+                    right: rem(.75),
+                },
+                gap: rem(.5),
+                border: { radius: 0 },
+                background: { color: $bog_kit.panel },
+                box: { shadow: 'none' },
+            },
+            Title: {
+                padding: {
+                    top: rem(.25),
+                    bottom: rem(.25),
+                    left: rem(.25),
+                    right: rem(.25),
+                },
+                color: $bog_kit.ink,
+                letterSpacing: '-0.015em',
+                lineHeight: '1.75rem',
+                font: {
+                    size: rem(1.3125),
+                    weight: 600,
+                },
+            },
+            Body_content: {
+                padding: {
+                    top: rem(.75),
+                    bottom: rem(2.5),
+                    left: rem(1.25),
+                    right: rem(1.25),
+                },
+                gap: rem(1.75),
+                maxWidth: rem(44),
+                width: per(100),
+            },
+            Foot: {
+                padding: {
+                    top: rem(.625),
+                    bottom: rem(.625),
+                    left: rem(1.25),
+                    right: rem(1.25),
+                },
+                border: { radius: 0 },
+                background: { color: $bog_kit.panel },
+                box: { shadow: 'none' },
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        /**
+         * The Kit theme. Hang it on a view as a plugin and the whole subtree is
+         * moulded out of the Kit shells, in the language of the platform it is
+         * running on.
+         */
+        class $bog_kit_shell extends $.$bog_kit_shell {
+            platform() {
+                return this.$.$bog_kit_platform();
+            }
+        }
+        $$.$bog_kit_shell = $bog_kit_shell;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("bog/kit/shell/shell.view.css", "/*\n\tThe Kit theme — canvas.\n\n\tPaper by day, shells by night. In the light the ground and the page are the\n\tsame white sheet, and the things you press are cut into it as a soft tint;\n\tin the dark the ground is the deepest tone and every surface above it is\n\tlighter. Both directions read the same way, because a thing is told apart\n\tfrom what it sits on by tone, by its corner, and by the space around it.\n\tNothing is outlined and nothing casts a shadow.\n\n\tThe one tone that never matches the ground is the seam. It draws the line\n\tbetween two pages and fills the track a knob runs in, which on a white sheet\n\tis the only thing keeping those from disappearing.\n\n\tValues only; the names live in kit.ts.\n*/\n\n:root {\n\t--bog_kit_font_text: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;\n\t--bog_kit_font_code: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;\n}\n\n[bog_kit_shell] {\n\t--bog_kit_font_text: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;\n\t--bog_kit_font_code: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;\n\n\t--bog_kit_case: #ffffff;\n\t--bog_kit_panel: #ffffff;\n\t--bog_kit_raise: #f1f2f5;\n\t--bog_kit_ink: #16181d;\n\t--bog_kit_ink_soft: #5f6672;\n\t--bog_kit_key: #1b1f26;\n\t--bog_kit_key_ink: #ffffff;\n\n\t--bog_kit_round_panel: 22px;\n\t--bog_kit_round_field: 16px;\n\t--bog_kit_round_pill: 999px;\n\n\t--bog_kit_lift: none;\n\t--bog_kit_lift_high: none;\n\t--bog_kit_sink: none;\n\t--bog_kit_seam: #e4e7ec;\n\n\tfont-family: var(--bog_kit_font_text);\n\tfont-size: 1rem;\n\tline-height: 1.6rem;\n\n\t--mol_gap_page: 2rem;\n\t--mol_gap_block: 0.75rem;\n\t--mol_gap_text: 0.5rem 0.875rem;\n\t--mol_gap_round: 12px;\n\t--mol_gap_space: 0.375rem;\n\t--mol_gap_blur: 0rem;\n}\n\n/*\n\tNight. The ink is deliberately short of white — a full-strength white on a\n\tdark panel glares and smears at small sizes. It sits around 80% lightness,\n\twhich still clears 9:1 against the panel.\n\n\tThe key inverts with everything else. It is the ink colour by day and the\n\tpaper colour by night, so a filled key reads as the strongest thing on the\n\tscreen in both.\n*/\n[bog_kit_shell][mol_theme=\"$mol_theme_dark\"] {\n\t--bog_kit_case: #12161c;\n\t--bog_kit_panel: #1a1f27;\n\t--bog_kit_raise: #232932;\n\t--bog_kit_ink: #c6ccd5;\n\t--bog_kit_ink_soft: #7f8794;\n\t--bog_kit_key: #e8ebf0;\n\t--bog_kit_key_ink: #12161c;\n\t--bog_kit_seam: #0d1116;\n}\n\n/*\n\tStock components we did not subclass read --mol_theme_*, so the palette is\n\tmapped onto it and they follow along. Two attributes, so this always\n\toutweighs the theme.css rule sitting on the very same node.\n*/\n[bog_kit_shell][mol_theme] {\n\t--mol_theme_hue: 230deg;\n\t--mol_theme_hue_spread: 120deg;\n\n\t--mol_theme_back: var(--bog_kit_case);\n\t--mol_theme_card: var(--bog_kit_raise);\n\t--mol_theme_field: var(--bog_kit_raise);\n\t--mol_theme_hover: #7f879424;\n\t--mol_theme_text: var(--bog_kit_ink);\n\t--mol_theme_shade: var(--bog_kit_ink_soft);\n\t--mol_theme_line: var(--bog_kit_seam);\n\t--mol_theme_focus: var(--bog_kit_key);\n\t--mol_theme_control: var(--bog_kit_key);\n\t--mol_theme_current: var(--bog_kit_key);\n\t--mol_theme_special: var(--bog_kit_key);\n\t--mol_theme_spirit: var(--bog_kit_raise);\n}\n\n[bog_kit_shell][mol_theme=\"$mol_theme_light\"] {\n\t--mol_theme_luma: 1;\n\t--mol_theme_image: none;\n}\n\n[bog_kit_shell][mol_theme=\"$mol_theme_dark\"] {\n\t--mol_theme_luma: -1;\n\t--mol_theme_image: invert(1) hue-rotate(180deg);\n}\n\n/*\n\tDepth is a variable, so it has to be applied where a variable can stand for a\n\twhole shadow. This tone carries none, but the hooks stay: which raised part\n\tgets which lift is a decision of the system, not of the palette.\n*/\n[bog_kit_shell] [bog_kit_card],\n[bog_kit_shell] [bog_kit_button],\n[bog_kit_shell] [bog_kit_button_copy],\n[bog_kit_shell] [bog_kit_check_icon],\n[bog_kit_shell] [bog_kit_select_trigger],\n[bog_kit_shell] [bog_kit_check_list_option]:not([mol_check_checked]) {\n\tbox-shadow: var(--bog_kit_lift);\n}\n\n[bog_kit_shell] [bog_kit_button_major],\n[bog_kit_shell] [bog_kit_check_list_option][mol_check_checked] {\n\tbox-shadow: var(--bog_kit_lift_high);\n}\n\n[bog_kit_shell] [bog_kit_switch_option][mol_check_checked],\n[bog_kit_shell] [bog_kit_lights_pick_option][mol_check_checked] {\n\tbox-shadow: var(--bog_kit_lift);\n}\n\n[bog_kit_shell] [bog_kit_input],\n[bog_kit_shell] [bog_kit_switch],\n[bog_kit_shell] [bog_kit_lights_pick] {\n\tbox-shadow: var(--bog_kit_sink);\n}\n\n/*\n\tFocus.\n\n\tEvery Kit component clears the browser's own outline in its sheet, which\n\tleft the keys with nothing at all: tabbing through the app moved a cursor\n\tnobody could see. So the ring is the theme's job, and it is one ring for\n\teverything rather than a shadow here and an outline there.\n\n\tAn outline rather than a box-shadow, because `outline-offset` leaves a real\n\tgap without having to paint a band of some assumed background colour — the\n\tring reads the same on a white page, on a tinted key and on a filled one.\n\tIt is drawn in the key colour, which is the ink by day and the paper by\n\tnight, so it always has the ground to itself.\n*/\n[bog_kit_shell] [bog_kit_button]:focus-visible,\n[bog_kit_shell] [bog_kit_button_major]:focus-visible,\n[bog_kit_shell] [bog_kit_button_copy]:focus-visible,\n[bog_kit_shell] [bog_kit_link]:focus-visible,\n[bog_kit_shell] [bog_kit_check_box]:focus-visible,\n[bog_kit_shell] [bog_kit_check_icon]:focus-visible,\n[bog_kit_shell] [bog_kit_check_expand]:focus-visible,\n[bog_kit_shell] [bog_kit_check_list_option]:focus-visible,\n[bog_kit_shell] [bog_kit_switch_option]:focus-visible,\n[bog_kit_shell] [bog_kit_lights_pick_option]:focus-visible,\n[bog_kit_shell] [bog_kit_select_trigger]:focus-visible,\n[bog_kit_shell] [bog_kit_input]:focus {\n\toutline: 2px solid var(--bog_kit_key);\n\toutline-offset: 2px;\n}\n\n/*\n\tThe plate everything is laid out on. $mol_book2 frames each page with a pale\n\tinset and marks the seams between them with dashes; here the pages butt up\n\tagainst each other and the gap between them is the seam itself.\n\n\tThe gap is painted by the book's own background, which also shows in the\n\tempty space to the right of the last page — so the placeholder that fills\n\tthat space is painted back to the case below. Otherwise the plate would be\n\tone broad band of seam instead of a line.\n*/\n[bog_kit_shell][mol_book2],\n[bog_kit_shell] [mol_book2] {\n\tgap: 2px;\n\tbackground: var(--bog_kit_seam);\n\t/*\n\t\t$mol_scroll asks for `contain: content`, which is layout + paint + style —\n\t\tand anything with layout or paint containment becomes the containing block\n\t\tfor its `position: fixed` children. The level indicator was then pinned to\n\t\tthe scrolled content rather than to the screen, so it slid away with the\n\t\tfirst column and only ever showed up on the first level. Style containment\n\t\tis all this needs.\n\t*/\n\tcontain: style;\n}\n\n[bog_kit_shell][mol_book2] > [mol_page],\n[bog_kit_shell] [mol_book2] > [mol_page] {\n\tbox-shadow: none;\n}\n\n[bog_kit_shell] [mol_book2_placeholder],\n[bog_kit_shell] [mol_book2_gap] {\n\tbackground: var(--bog_kit_case);\n}\n\n[bog_kit_shell][mol_book2] > [mol_view]::before,\n[bog_kit_shell][mol_book2] > [mol_view]::after,\n[bog_kit_shell] [mol_book2] > [mol_view]::before,\n[bog_kit_shell] [mol_book2] > [mol_view]::after {\n\tdisplay: none;\n\tcontent: none;\n}\n\n/* Icons come with a drop shadow of their own. The shells carry the depth. */\n[bog_kit_shell] [mol_icon] {\n\tfilter: none;\n}\n\n[bog_kit_shell] [mol_pop_bubble] {\n\tbackground: var(--bog_kit_raise);\n\tborder-radius: var(--bog_kit_round_panel);\n\tbox-shadow: 0 0 0 1px var(--bog_kit_seam);\n\tpadding: 0.375rem;\n}\n\n/*\n\tA minor button inside a bubble is a row of a menu, not a key — the choice is\n\tthe list, and raising every line would make it unreadable.\n*/\n[bog_kit_shell] [mol_pop_bubble] [bog_kit_button] {\n\tbox-shadow: none;\n\tbackground: transparent;\n\tcolor: var(--bog_kit_ink);\n\tborder-radius: var(--bog_kit_round_field);\n}\n\n[bog_kit_shell] [mol_pop_bubble] [bog_kit_button]:hover {\n\tbox-shadow: none;\n\tbackground: var(--bog_kit_panel);\n\tcolor: var(--bog_kit_ink);\n}\n\n/* A heading in $mol_text is an anchor; it should read as a heading. */\n[bog_kit_shell] [mol_text_header_link] {\n\tcolor: inherit;\n\tbackground: transparent;\n\tpadding-left: 0;\n\tmin-height: 0;\n}\n\n[bog_kit_shell] [mol_view]::selection {\n\tbackground: var(--bog_kit_key);\n\tcolor: var(--bog_kit_key_ink);\n}\n\n/*\n\t=== The frame ===\n\n\tBehaving like an installed app rather than like a page: platform metrics, the\n\tsafe areas of a phone, and one screen per column.\n*/\n\n/* Platform metrics. The system face at the system size is half the tell. */\n[bog_kit_shell][bog_kit_platform=\"ios\"] {\n\t--bog_kit_font_text: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;\n\tfont-size: 17px;\n\tline-height: 22px;\n\t--bog_kit_round_field: 12px;\n\t--bog_kit_round_panel: 18px;\n}\n\n[bog_kit_shell][bog_kit_platform=\"md\"] {\n\t--bog_kit_font_text: Roboto, 'Noto Sans', system-ui, sans-serif;\n\tfont-size: 16px;\n\tline-height: 24px;\n\t--bog_kit_round_field: 16px;\n\t--bog_kit_round_panel: 20px;\n}\n\n/*\n\tTouch behaviour. A page that highlights on tap, shows a callout on long\n\tpress or lets you select the chrome reads as a web page instantly.\n*/\n[bog_kit_shell] {\n\t-webkit-tap-highlight-color: transparent;\n\t-webkit-touch-callout: none;\n\toverscroll-behavior: none;\n}\n\n[bog_kit_shell] [mol_view] {\n\tuser-select: none;\n\t-webkit-user-select: none;\n}\n\n[bog_kit_shell] [mol_text],\n[bog_kit_shell] [mol_string],\n[bog_kit_shell] [mol_textarea] {\n\tuser-select: text;\n\t-webkit-user-select: text;\n}\n\n/* The notch and the home indicator belong to the chrome, not to the content. */\n[bog_kit_shell] [bog_kit_page_head] {\n\tpadding-top: calc(0.75rem + env(safe-area-inset-top));\n\tpadding-left: calc(1rem + env(safe-area-inset-left));\n\tpadding-right: calc(0.75rem + env(safe-area-inset-right));\n}\n\n[bog_kit_shell] [bog_kit_page_body_content] {\n\tpadding-bottom: calc(2.5rem + env(safe-area-inset-bottom));\n\tpadding-left: calc(1.25rem + env(safe-area-inset-left));\n\tpadding-right: calc(1.25rem + env(safe-area-inset-right));\n}\n\n[bog_kit_shell] [bog_kit_pager] {\n\ttop: env(safe-area-inset-top);\n}\n\n/*\n\tOne screen per column. The browser's own momentum and snapping do the paging,\n\tso the gesture belongs to the platform rather than to us.\n*/\n@media (max-width: 45rem) {\n\n\t[bog_kit_shell][mol_book2],\n\t[bog_kit_shell] [mol_book2] {\n\t\tscroll-snap-type: x mandatory;\n\t}\n\n\t[bog_kit_shell][mol_book2] > article[mol_page],\n\t[bog_kit_shell] [mol_book2] > article[mol_page] {\n\t\tflex: 0 0 100%;\n\t\tmin-width: 100%;\n\t\tscroll-snap-align: start;\n\t\tscroll-snap-stop: always;\n\t}\n\n}\n\n@media (prefers-reduced-motion: reduce) {\n\t[bog_kit_shell] * {\n\t\ttransition-duration: 0.01ms !important;\n\t\tanimation-duration: 0.01ms !important;\n\t}\n}\n");
+})($ || ($ = {}));
+
+;
+	($.$bog_kit_app2) = class $bog_kit_app2 extends ($.$bog_kit_app) {
+		Lights_pick(){
+			const obj = new this.$.$bog_kit_lights_pick();
+			return obj;
+		}
+		menu_title(){
+			return "Kit";
+		}
+		kit_chrome(){
+			return true;
+		}
+		Theme(){
+			const obj = new this.$.$bog_kit_shell();
+			return obj;
+		}
+		menu_tools(){
+			return [(this.Lights_pick())];
+		}
+		Intro_text(){
+			const obj = new this.$.$mol_text();
+			(obj.text) = () => ("# The same catalogue, drawn by the Kit\n\nNothing in the pages changed. This entry point inherits the whole catalogue from the stock one and hands it a context where the $mol components have been swapped for their Kit subclasses, so every button, field and card on every page is re-drawn without a page being touched.\n\nOpen the stock build in another tab to compare.");
+			return obj;
+		}
+	};
+	($mol_mem(($.$bog_kit_app2.prototype), "Lights_pick"));
+	($mol_mem(($.$bog_kit_app2.prototype), "Theme"));
+	($mol_mem(($.$bog_kit_app2.prototype), "Intro_text"));
+
+
+;
+	($.$bog_kit_list) = class $bog_kit_list extends ($.$mol_list) {};
+
+
+;
+"use strict";
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        const { rem } = $mol_style_unit;
+        /*
+            Vertical rhythm. Stock $mol_list stacks its rows edge to edge and leaves
+            the spacing to whoever fills it, which is fine until the rows are raised
+            shells and start reading as one stuck-together block.
+    
+            Note this does cost a little accuracy in the virtual window: $mol_list
+            sizes the unrendered part from row heights and does not know about the
+            gaps, so the scrollbar of a very long list is off by a gap per row. Rows
+            that are actually on screen are measured, so nothing jumps.
+        */
+        $mol_style_define($bog_kit_list, {
+            gap: rem(.625),
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+	($.$bog_kit_text) = class $bog_kit_text extends ($.$mol_text) {};
+
+
+;
+"use strict";
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        const { rem } = $mol_style_unit;
+        /*
+            Prose. Stock $mol pads every paragraph on all four sides, which indents
+            running text away from everything above it; here the padding is vertical
+            only, so a paragraph starts on the same line as a label or a card.
+        */
+        $mol_style_define($bog_kit_text, {
+            lineHeight: '1.6em',
+            Paragraph: {
+                padding: {
+                    top: rem(.25),
+                    bottom: rem(.25),
+                    left: 0,
+                    right: 0,
+                },
+                maxWidth: rem(36),
+            },
+            Header: {
+                padding: {
+                    top: rem(.75),
+                    bottom: rem(.125),
+                    left: 0,
+                    right: 0,
+                },
+                color: $bog_kit.ink,
+                letterSpacing: '-0.015em',
+                font: { weight: 600 },
+            },
+            Quote: {
+                margin: 0,
+                padding: {
+                    top: rem(.625),
+                    bottom: rem(.625),
+                    left: rem(1),
+                    right: rem(1),
+                },
+                border: { radius: $bog_kit.round_field },
+                background: { color: $bog_kit.seam },
+                color: $bog_kit.ink_soft,
+                box: { shadow: 'none' },
+            },
+            Pre: {
+                padding: {
+                    top: rem(.625),
+                    bottom: rem(.625),
+                    left: rem(.875),
+                    right: rem(.875),
+                },
+                border: { radius: $bog_kit.round_field },
+                background: { color: $bog_kit.seam },
+                box: { shadow: 'none' },
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
 	($.$bog_kit_label) = class $bog_kit_label extends ($.$mol_labeler) {};
 
 
@@ -18543,71 +18620,6 @@ var $;
 })($ || ($ = {}));
 
 ;
-	($.$bog_kit_link) = class $bog_kit_link extends ($.$mol_link) {};
-
-
-;
-"use strict";
-
-
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        const { rem } = $mol_style_unit;
-        /*
-            Where the key colour earns its keep. A link is a quiet line of the menu
-            until it is the page you are on, and then it is a filled key — the same
-            shape and the same colour as the primary action, because "the thing that
-            is happening" is one idea, not two.
-        */
-        $mol_style_define($bog_kit_link, {
-            minHeight: rem(2.25),
-            minWidth: 0,
-            gap: rem(.4375),
-            padding: {
-                top: rem(.375),
-                bottom: rem(.375),
-                left: rem(.875),
-                right: rem(.875),
-            },
-            border: { radius: $bog_kit.round_pill },
-            color: $bog_kit.ink,
-            background: { color: 'transparent' },
-            textDecoration: 'none',
-            transition: 'background-color .16s ease-out, color .16s ease-out',
-            ':hover': {
-                color: $bog_kit.ink,
-                background: { color: $bog_kit.case },
-            },
-            ':focus-visible': {
-                outline: 'none',
-                background: { color: $bog_kit.case },
-            },
-            ':active': {
-                color: $bog_kit.key,
-            },
-            '@': {
-                mol_link_current: {
-                    'true': {
-                        color: $bog_kit.key_ink,
-                        background: { color: $bog_kit.key },
-                        textShadow: 'none',
-                        font: { weight: 500 },
-                        ':hover': {
-                            color: $bog_kit.key_ink,
-                            background: { color: $bog_kit.key },
-                        },
-                    },
-                },
-            },
-        });
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-
-;
 	($.$bog_kit_chip) = class $bog_kit_chip extends ($.$mol_chip) {};
 
 
@@ -18638,7 +18650,7 @@ var $;
             },
             gap: rem(.375),
             border: { radius: $bog_kit.round_pill },
-            background: { color: $bog_kit.case },
+            background: { color: $bog_kit.seam },
             color: $bog_kit.ink_soft,
             lineHeight: '1.5rem',
             font: {
@@ -18782,7 +18794,7 @@ var $;
                     left: rem(.875),
                     right: rem(.875),
                 },
-                box: { shadow: [['inset', 0, '1px', 0, 0, $bog_kit.case]] },
+                box: { shadow: [['inset', 0, '1px', 0, 0, $bog_kit.seam]] },
             },
             Cell_number: {
                 padding: {
@@ -18795,7 +18807,7 @@ var $;
                 font: {
                     family: $bog_kit.font_code,
                 },
-                box: { shadow: [['inset', 0, '1px', 0, 0, $bog_kit.case]] },
+                box: { shadow: [['inset', 0, '1px', 0, 0, $bog_kit.seam]] },
             },
         });
     })($$ = $.$$ || ($.$$ = {}));
