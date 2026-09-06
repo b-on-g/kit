@@ -37,7 +37,7 @@ namespace $.$$ {
 				left: rem( .875 ),
 				right: rem( .875 ),
 			},
-			box: { shadow: [ [ 'inset', 0, '1px', 0, 0, $bog_kit.case ] ] },
+			box: { shadow: [ [ 'inset', 0, '1px', 0, 0, $bog_kit.seam ] ] },
 		},
 
 		Cell_number: {
@@ -51,7 +51,7 @@ namespace $.$$ {
 			font: {
 				family: $bog_kit.font_code,
 			},
-			box: { shadow: [ [ 'inset', 0, '1px', 0, 0, $bog_kit.case ] ] },
+			box: { shadow: [ [ 'inset', 0, '1px', 0, 0, $bog_kit.seam ] ] },
 		},
 
 	} )

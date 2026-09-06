@@ -34,6 +34,12 @@ namespace $ {
 			'key',
 			/** Text on top of the key colour. */
 			'key_ink',
+			/**
+			 * The quiet tone: the line between two pages, the track a knob runs
+			 * in, the fill of a chip. Deeper than the case in every theme, which
+			 * is what makes it the one tone that shows on a white ground.
+			 */
+			'seam',
 
 			/** Corner of a panel or a card. */
 			'round_panel',

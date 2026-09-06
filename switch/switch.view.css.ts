@@ -22,7 +22,7 @@ namespace $.$$ {
 			right: rem( .1875 ),
 		},
 		border: { radius: $bog_kit.round_pill },
-		background: { color: $bog_kit.case },
+		background: { color: $bog_kit.seam },
 
 		Option: {
 
@@ -35,7 +35,13 @@ namespace $.$$ {
 			},
 			border: { radius: $bog_kit.round_pill },
 			color: $bog_kit.ink,
-			background: { color: $bog_kit.raise },
+			/*
+				The panel tone, not the raised one. A knob has to read against
+				the track it runs in, and the track is the seam — on a white
+				sheet the raised tint sits barely a step above it, which left
+				the chosen option indistinguishable from the two beside it.
+			*/
+			background: { color: $bog_kit.panel },
 			font: { weight: 500 },
 			transition: 'background-color .16s ease-out, color .16s ease-out',
 

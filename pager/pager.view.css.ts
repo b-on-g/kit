@@ -42,7 +42,7 @@ namespace $.$$ {
 			flex: { shrink: 1, basis: 0 },
 			height: per( 100 ),
 			border: { radius: '2px' },
-			background: { color: $bog_kit.case },
+			background: { color: $bog_kit.seam },
 			transition: 'background-color .2s ease-out',
 
 			'@': {

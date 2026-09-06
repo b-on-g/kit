@@ -42,7 +42,7 @@ namespace $.$$ {
 				right: rem( 1 ),
 			},
 			border: { radius: $bog_kit.round_field },
-			background: { color: $bog_kit.case },
+			background: { color: $bog_kit.seam },
 			color: $bog_kit.ink_soft,
 			box: { shadow: 'none' },
 		},
@@ -55,7 +55,7 @@ namespace $.$$ {
 				right: rem( .875 ),
 			},
 			border: { radius: $bog_kit.round_field },
-			background: { color: $bog_kit.case },
+			background: { color: $bog_kit.seam },
 			box: { shadow: 'none' },
 		},
 

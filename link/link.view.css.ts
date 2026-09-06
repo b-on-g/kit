@@ -27,12 +27,12 @@ namespace $.$$ {
 
 		':hover': {
 			color: $bog_kit.ink,
-			background: { color: $bog_kit.case },
+			background: { color: $bog_kit.seam },
 		},
 
 		':focus-visible': {
 			outline: 'none',
-			background: { color: $bog_kit.case },
+			background: { color: $bog_kit.seam },
 		},
 
 		':active': {

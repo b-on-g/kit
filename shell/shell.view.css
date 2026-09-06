@@ -1,10 +1,16 @@
 /*
 	The Kit theme — canvas.
 
-	Shells stacked on shells: a case, the panel of a page, and the raised parts
-	you touch. Nothing is outlined and nothing casts a shadow — a surface is told
-	apart from the one under it by tone, by its corner, and by the space around
-	it. Corners are generous and the things you press are shaped like keys.
+	Paper by day, shells by night. In the light the ground and the page are the
+	same white sheet, and the things you press are cut into it as a soft tint;
+	in the dark the ground is the deepest tone and every surface above it is
+	lighter. Both directions read the same way, because a thing is told apart
+	from what it sits on by tone, by its corner, and by the space around it.
+	Nothing is outlined and nothing casts a shadow.
+
+	The one tone that never matches the ground is the seam. It draws the line
+	between two pages and fills the track a knob runs in, which on a white sheet
+	is the only thing keeping those from disappearing.
 
 	Values only; the names live in kit.ts.
 */
@@ -18,12 +24,12 @@
 	--bog_kit_font_text: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
 	--bog_kit_font_code: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
-	--bog_kit_case: #dfe3e9;
-	--bog_kit_panel: #eef1f5;
-	--bog_kit_raise: #ffffff;
-	--bog_kit_ink: #13161b;
-	--bog_kit_ink_soft: #656d7a;
-	--bog_kit_key: #1b53d0;
+	--bog_kit_case: #ffffff;
+	--bog_kit_panel: #ffffff;
+	--bog_kit_raise: #f1f2f5;
+	--bog_kit_ink: #16181d;
+	--bog_kit_ink_soft: #5f6672;
+	--bog_kit_key: #1b1f26;
 	--bog_kit_key_ink: #ffffff;
 
 	--bog_kit_round_panel: 22px;
@@ -33,7 +39,7 @@
 	--bog_kit_lift: none;
 	--bog_kit_lift_high: none;
 	--bog_kit_sink: none;
-	--bog_kit_seam: #d2d8e1;
+	--bog_kit_seam: #e4e7ec;
 
 	font-family: var(--bog_kit_font_text);
 	font-size: 1rem;
@@ -51,6 +57,10 @@
 	Night. The ink is deliberately short of white — a full-strength white on a
 	dark panel glares and smears at small sizes. It sits around 80% lightness,
 	which still clears 9:1 against the panel.
+
+	The key inverts with everything else. It is the ink colour by day and the
+	paper colour by night, so a filled key reads as the strongest thing on the
+	screen in both.
 */
 [bog_kit_shell][mol_theme="$mol_theme_dark"] {
 	--bog_kit_case: #12161c;
@@ -58,7 +68,7 @@
 	--bog_kit_raise: #232932;
 	--bog_kit_ink: #c6ccd5;
 	--bog_kit_ink_soft: #7f8794;
-	--bog_kit_key: #7ba4ff;
+	--bog_kit_key: #e8ebf0;
 	--bog_kit_key_ink: #12161c;
 	--bog_kit_seam: #0d1116;
 }
@@ -126,20 +136,50 @@
 	box-shadow: var(--bog_kit_sink);
 }
 
-[bog_kit_shell] [bog_kit_input]:focus,
-[bog_kit_shell] [bog_kit_select_trigger]:focus-visible {
-	box-shadow: 0 0 0 2px var(--bog_kit_key);
+/*
+	Focus.
+
+	Every Kit component clears the browser's own outline in its sheet, which
+	left the keys with nothing at all: tabbing through the app moved a cursor
+	nobody could see. So the ring is the theme's job, and it is one ring for
+	everything rather than a shadow here and an outline there.
+
+	An outline rather than a box-shadow, because `outline-offset` leaves a real
+	gap without having to paint a band of some assumed background colour — the
+	ring reads the same on a white page, on a tinted key and on a filled one.
+	It is drawn in the key colour, which is the ink by day and the paper by
+	night, so it always has the ground to itself.
+*/
+[bog_kit_shell] [bog_kit_button]:focus-visible,
+[bog_kit_shell] [bog_kit_button_major]:focus-visible,
+[bog_kit_shell] [bog_kit_button_copy]:focus-visible,
+[bog_kit_shell] [bog_kit_link]:focus-visible,
+[bog_kit_shell] [bog_kit_check_box]:focus-visible,
+[bog_kit_shell] [bog_kit_check_icon]:focus-visible,
+[bog_kit_shell] [bog_kit_check_expand]:focus-visible,
+[bog_kit_shell] [bog_kit_check_list_option]:focus-visible,
+[bog_kit_shell] [bog_kit_switch_option]:focus-visible,
+[bog_kit_shell] [bog_kit_lights_pick_option]:focus-visible,
+[bog_kit_shell] [bog_kit_select_trigger]:focus-visible,
+[bog_kit_shell] [bog_kit_input]:focus {
+	outline: 2px solid var(--bog_kit_key);
+	outline-offset: 2px;
 }
 
 /*
 	The plate everything is laid out on. $mol_book2 frames each page with a pale
-	inset and marks the seams between them with dashes; here the pages are panels
-	with the case showing through between them.
+	inset and marks the seams between them with dashes; here the pages butt up
+	against each other and the gap between them is the seam itself.
+
+	The gap is painted by the book's own background, which also shows in the
+	empty space to the right of the last page — so the placeholder that fills
+	that space is painted back to the case below. Otherwise the plate would be
+	one broad band of seam instead of a line.
 */
 [bog_kit_shell][mol_book2],
 [bog_kit_shell] [mol_book2] {
 	gap: 2px;
-	background: var(--bog_kit_case);
+	background: var(--bog_kit_seam);
 	/*
 		$mol_scroll asks for `contain: content`, which is layout + paint + style —
 		and anything with layout or paint containment becomes the containing block
@@ -154,6 +194,11 @@
 [bog_kit_shell][mol_book2] > [mol_page],
 [bog_kit_shell] [mol_book2] > [mol_page] {
 	box-shadow: none;
+}
+
+[bog_kit_shell] [mol_book2_placeholder],
+[bog_kit_shell] [mol_book2_gap] {
+	background: var(--bog_kit_case);
 }
 
 [bog_kit_shell][mol_book2] > [mol_view]::before,

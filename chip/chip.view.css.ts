@@ -19,7 +19,7 @@ namespace $.$$ {
 		},
 		gap: rem( .375 ),
 		border: { radius: $bog_kit.round_pill },
-		background: { color: $bog_kit.case },
+		background: { color: $bog_kit.seam },
 		color: $bog_kit.ink_soft,
 		lineHeight: '1.5rem',
 		font: {
